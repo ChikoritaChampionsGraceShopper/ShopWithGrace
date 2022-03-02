@@ -2077,15 +2077,16 @@ const AllProducts = () => {
   const {
     products,
     isLoading
-  } = (0,_ProductsProvider__WEBPACK_IMPORTED_MODULE_2__.useProducts)();
+  } = (0,_ProductsProvider__WEBPACK_IMPORTED_MODULE_2__.useProducts)(); // console.log(products)
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "products",
     className: "column"
   }, isLoading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "loading"
   }, "Loading Products...") : products.map(product => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "product",
-    key: product.id
+    key: product.id,
+    className: "product"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     to: `/products/${product.id}`
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.image), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.origin), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.category)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", null))));
@@ -2188,7 +2189,7 @@ const HomePage = () => {
     path: "/login"
   }, _AuthForm__WEBPACK_IMPORTED_MODULE_1__.Login), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Route, {
     path: "/signup"
-  }, _AuthForm__WEBPACK_IMPORTED_MODULE_1__.Signup))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "I don't know why it is boujee, but it is cool! But why not Edwin??")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
+  }, _AuthForm__WEBPACK_IMPORTED_MODULE_1__.Signup))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "I don't know why it is boujee, but it is cool! But why not Edwin??")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_AllProducts__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HomePage);
@@ -2254,7 +2255,8 @@ function ProductProvider({
     async function fetchProducts() {
       const {
         data: products
-      } = axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/products');
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/products'); // console.log(products)
+
       dispatch({
         type: SHOW_ALL_PRODUCTS,
         products

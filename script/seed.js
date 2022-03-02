@@ -48,7 +48,7 @@ async function runSeed() {
   } finally {
     console.log('closing db connection')
     //WILL POSSIBLY NEED TO FIX THIS!!!
-    // await db.close()
+    await db.close()
     console.log('db connection closed')
   }
 }
