@@ -68,7 +68,7 @@ const teas = [{
     inventory: 25,
     origin: 'China',
     description: 'This tea is made of Yunnan high mountain tea leaves, rich in jasmine fragrance and can brew for many steeps.'
-}, {
+},{
     name: 'Jasmine Snow Bud (Mo Li Xue Ya) Green Tea',
     image: 'https://www.teasandthes.com/images/product//m/o/mo_li_xue_ya_200.jpg',
     category: 'Green',

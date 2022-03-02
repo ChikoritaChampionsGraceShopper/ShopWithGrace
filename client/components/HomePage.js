@@ -16,7 +16,7 @@ const HomePage = () => {
         <h1>I don't know why it is boujee, but it is cool! But why not Edwin??</h1>
       </div>
       <div>
-          {/* <AllProducts /> */}
+          <AllProducts />
       </div>
     </div>
   );

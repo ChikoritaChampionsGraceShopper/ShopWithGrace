@@ -30,7 +30,8 @@ export default function ProductProvider({children}) {
 
   useEffect(() => {
     async function fetchProducts() {
-      const { data: products } = axios.get('/api/products')
+      const { data: products } = await axios.get('/api/products')
+      // console.log(products)
       dispatch({
         type: SHOW_ALL_PRODUCTS,
         products
