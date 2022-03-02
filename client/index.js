@@ -10,7 +10,9 @@ import HomePage from './components/HomePage';
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <HomePage />
+      <ProductProvider>
+        <HomePage />
+      </ProductProvider>
     </Router>
   </Provider>,
   document.getElementById('app')

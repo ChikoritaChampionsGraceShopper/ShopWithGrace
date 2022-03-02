@@ -12,13 +12,13 @@ const Cart = db.define('cart', {
     type: Sequelize.INTEGER,
   },
   price_per_item: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.BIGINT,
   },
   subtotal: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.BIGINT,
   },
   total_price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.BIGINT,
   },
 });
 
