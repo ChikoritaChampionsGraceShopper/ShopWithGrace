@@ -1,6 +1,6 @@
 'use strict'
-
-const {db, models: {User} } = require('../server/db')
+const teas = require('./ProductSeedData')
+const {db, models: {User, Product, Cart} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -15,10 +15,17 @@ async function seed() {
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '123' }),
   ])
+  // Creating Products
+  const products = await Promise.all([
+    teas.map(product => {
+      return Product.create(product)
+    })
+  ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
   return {
+    products,
     users: {
       cody: users[0],
       murphy: users[1]
@@ -40,7 +47,8 @@ async function runSeed() {
     process.exitCode = 1
   } finally {
     console.log('closing db connection')
-    await db.close()
+    //WILL POSSIBLY NEED TO FIX THIS!!!
+    // await db.close()
     console.log('db connection closed')
   }
 }

@@ -6,6 +6,7 @@ import history from './history';
 import store from './store';
 // import App from './App';
 import HomePage from './components/HomePage';
+import ProductProvider from './components/ProductsProvider'
 
 ReactDOM.render(
   <Provider store={store}>
