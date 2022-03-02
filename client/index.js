@@ -9,7 +9,9 @@ import App from './App'
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <ProductProvider>
+        <App />
+      </ProductProvider>
     </Router>
   </Provider>,
   document.getElementById('app')

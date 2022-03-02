@@ -18,16 +18,16 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.BIGINT,
+    allowNull: false,
     validate: {
       min: 0,
-      notNull: true
     }
   },
   favorite: {
-    type: Sequelize.ENUM('', 1),
+    type: Sequelize.ENUM('', '1'),
     get() {
-      if (this.favorite === 1) return true
+      if (this.favorite === '1') return true
       else {
         return false
       }
@@ -42,10 +42,10 @@ const Product = db.define('product', {
     }
   },
   inventory: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.BIGINT,
+    allowNull: false,
     validate: {
       min: 0,
-      notNull: true
     }
   },
   origin: {
