@@ -14,7 +14,7 @@ const Product = db.define('product', {
     }
   },
   category: {
-    type: Sequelize.ENUM('green', 'black', 'white', 'oolong'),
+    type: Sequelize.ENUM('Green', 'Black', 'White', 'Oolong'),
     allowNull: false
   },
   price: {
@@ -25,7 +25,7 @@ const Product = db.define('product', {
     }
   },
   favorite: {
-    type: Sequelize.ENUM('', '1'),
+    type: Sequelize.ENUM('0', '1'),
     get() {
       if (this.favorite === '1') return true
       else {
