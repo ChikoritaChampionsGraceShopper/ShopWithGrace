@@ -31,9 +31,13 @@ const Routes = () => {
       ) : (
         <Switch>
           <Route exact path='/' />
-          <Route path='/login'>{Login}</Route>
-          <Route path='/signup'>{Signup}</Route>
-          <Route path='/products' component={AllProducts}></Route>
+          <Route exact path='/login'>
+            {Login}
+          </Route>
+          <Route exact path='/signup'>
+            {Signup}
+          </Route>
+          <Route exact path='/products' component={AllProducts}></Route>
         </Switch>
       )}
     </div>
