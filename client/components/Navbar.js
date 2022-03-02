@@ -9,7 +9,7 @@ const Navbar = () =>  {
 
   return (
     <div>
-      <h1>FS-App-Template</h1>
+      <h1>Chao's Bougie Tea's</h1>
       <nav>
         {isLoggedIn ? (
           <div>

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, {useReducer, useContext, createContext, useEffect, useState} from 'react'
 
 const SHOW_ALL_PRODUCTS = 'SHOW_ALL_PRODUCTS'
+const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 
 const ProductsContext = createContext()
 
@@ -17,12 +18,15 @@ const reducer = (state, action) => {
     case SHOW_ALL_PRODUCTS: {
       return { ...state, products: action.products }
     }
+    case SINGLE_PRODUCT: {
+      return {...state, product: action.product}
+    }
     default:
       return state
     }
   }
 
-  const initialState = { products: [], }
+  const initialState = { products: [], product: {} }
 
 export default function ProductProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -41,8 +45,22 @@ export default function ProductProvider({children}) {
     fetchProducts()
   }, [])
 
+  useEffect(() => {
+    async function fetchSingleProduct() {
+      const { data: product } = await axios.get('/api/products/:id')
+      // console.log(products)
+      dispatch({
+        type: SINGLE_PRODUCT,
+        product
+      })
+      setisLoading(false)
+    }
+    fetchSingleProduct()
+  }, [])
+
   const contextValue = {
     products: state.products,
+    product: state.product,
     dispatch,
     isLoading
   }

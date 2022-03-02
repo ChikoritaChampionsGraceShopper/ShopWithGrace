@@ -2216,6 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const SHOW_ALL_PRODUCTS = 'SHOW_ALL_PRODUCTS';
+const SINGLE_PRODUCT = 'SINGLE_PRODUCT';
 const ProductsContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)();
 function useProducts() {
   const {
@@ -2240,13 +2241,21 @@ const reducer = (state, action) => {
         };
       }
 
+    case SINGLE_PRODUCT:
+      {
+        return { ...state,
+          product: action.product
+        };
+      }
+
     default:
       return state;
   }
 };
 
 const initialState = {
-  products: []
+  products: [],
+  product: {}
 };
 function ProductProvider({
   children
@@ -2268,8 +2277,24 @@ function ProductProvider({
 
     fetchProducts();
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    async function fetchSingleProduct() {
+      const {
+        data: product
+      } = await axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/products/:id'); // console.log(products)
+
+      dispatch({
+        type: SINGLE_PRODUCT,
+        product
+      });
+      setisLoading(false);
+    }
+
+    fetchSingleProduct();
+  }, []);
   const contextValue = {
     products: state.products,
+    product: state.product,
     dispatch,
     isLoading
   };
