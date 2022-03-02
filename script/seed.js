@@ -1,9 +1,9 @@
-'use strict';
-const teas = require('./ProductSeedData');
-const {
-  db,
-  models: { User, Product, Cart },
-} = require('../server/db');
+
+'use strict'
+const teas = require('./ProductSeedData')
+const usernames = require('./UserSeedData')
+const {db, models: {User, Product, Cart} } = require('../server/db')
+
 
 /**
  * seed - this function clears the database, updates tables to
@@ -15,9 +15,12 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ]);
+
+    usernames.map(user => {
+      return User.create(user)
+    })
+  ])
+
   // Creating Products
   const products = await Promise.all([
     teas.map((product) => {
@@ -25,15 +28,15 @@ async function seed() {
     }),
   ]);
 
-  console.log(`seeded ${users.length} users`);
-  console.log(`seeded successfully`);
+
+  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${teas.length} teas`)
+  console.log(`seeded successfully`)
   return {
     products,
-    users: {
-      cody: users[0],
-      murphy: users[1],
-    },
-  };
+    users
+  }
+
 }
 
 /*
