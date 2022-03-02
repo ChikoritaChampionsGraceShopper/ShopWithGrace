@@ -5,6 +5,8 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
 import HomePage from './components/HomePage';
+import AllProducts from './components/AllProducts';
+import Navbar from './components/Navbar';
 
 /**
  * COMPONENT
@@ -20,6 +22,7 @@ const Routes = () => {
 
   return (
     <div>
+      <Navbar />
       {isLoggedIn ? (
         <Switch>
           <Route path='/home' component={Home} />
@@ -27,11 +30,14 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
-          <Route path='/' exact>
+          <Route exact path='/' />
+          <Route exact path='/login'>
             {Login}
           </Route>
-          <Route path='/login'>{Login}</Route>
-          <Route path='/signup'>{Signup}</Route>
+          <Route exact path='/signup'>
+            {Signup}
+          </Route>
+          <Route exact path='/products' component={AllProducts}></Route>
         </Switch>
       )}
     </div>
