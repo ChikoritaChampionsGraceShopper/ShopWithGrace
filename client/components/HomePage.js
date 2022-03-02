@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
+import { Login, Signup } from './AuthForm';
 
 const HomePage = () => {
   return (
