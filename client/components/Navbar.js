@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <h1>WE ARE SEEING NAV BAR</h1>
+      <h1>Chao's Teas</h1>
       <nav>
         {isLoggedIn ? (
           <div>
@@ -22,8 +22,8 @@ const Navbar = () => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to='/'>Home Page</Link>
-            <Link to='/products'>AllProducts</Link>
+            <Link to='/'>Home</Link>
+            <Link to='/products'>Shop</Link>
             <Link to='/login'>Login</Link>
             <Link to='/signup'>Sign Up</Link>
           </div>

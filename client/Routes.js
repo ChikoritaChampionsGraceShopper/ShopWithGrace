@@ -37,7 +37,7 @@ const Routes = () => {
           <Route exact path='/signup'>
             {Signup}
           </Route>
-          <Route exact path='/products' component={AllProducts}></Route>
+          <Route exact path='/products' component={AllProducts} />
         </Switch>
       )}
     </div>
