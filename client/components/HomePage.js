@@ -13,7 +13,7 @@ const HomePage = () => {
       </nav>
       <div>
         <h1>
-          s I don't know why it is boujee, but it is cool! But why not Edwin??
+          Bobbys I don't know why it is boujee, but it is cool!
         </h1>
       </div>
     </div>

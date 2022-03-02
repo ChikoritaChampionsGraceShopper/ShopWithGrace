@@ -13,4 +13,18 @@ productRouter.get('/', async (req, res, next) => {
   }
 })
 
+productRouter.get(`/:id`, async(req, res, next) => {
+  try {
+    const product = await Product.findOne({where: {
+      id: req.params.id,
+    }, attributes: {
+      exclude: ['favorite', 'status']
+    }})
+    res.send(product)
+  } catch (error) {
+    next(error)
+  }
+})
+
+
 module.exports = productRouter
