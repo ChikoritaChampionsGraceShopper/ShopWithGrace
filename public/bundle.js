@@ -2089,7 +2089,9 @@ const AllProducts = () => {
     className: "product"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
     to: `/products/${product.id}`
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.image), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.origin), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.category)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", null))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    src: product.image
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.origin), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, product.category)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", null))));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AllProducts);
