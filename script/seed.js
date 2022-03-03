@@ -29,7 +29,7 @@ async function seed() {
   ]);
 
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${usernames.length} users`)
   console.log(`seeded ${teas.length} teas`)
   console.log(`seeded successfully`)
   return {
