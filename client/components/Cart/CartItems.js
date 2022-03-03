@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const items = [{
   id: 1,
@@ -35,25 +35,41 @@ const items = [{
   description: "TeaVivre special selected hand-made Yun Xiang Tie Guan Yin is a roasted oolong tea. Its making method is unique and traditional, which improves the tea’s aroma and mellows its taste. But the skill has high demands for makers."
 }]
 
-const cartItems = cart.map((item) => (
-  <div key={item.id}>
-    {`${item.name}: $${item.price}`}
-    <input type="submit" value="remove" onClick={() => removeFromCart(item)} />
-  </div>
-));
 
-const removeFromCart = (item) => {
-  let hardCopy = [...cart]
-  hardCopy = hardCopy.filter((cartItem) => cartItem.id != item.id)
-  setCart(hardCopy)
-}
 
 const CartItems = (items) => {
   const [cart, setCart] = useState([]);
+  const cartTotal = cart.reduce((total, { price = 0}) => total + price, 0)
+
+  const removeFromCart = (item) => {
+    setCart((currentCart) => {
+      const indexOfItemToRemove = currentCart.findIndex((cartItem) => cartItem.id === item.id);
+
+      if (indexOfItemToRemove === -1) {
+        return currentCart;
+      }
+
+      return [
+        ...currentCart.slice(0, indexOfItemToRemove),
+        ...currentCart.slice(indexOfItemToRemove + 1),
+      ];
+    });
+  };
+  const cartItems = cart.map((item) => (
+    <div key={item.id}>
+      {`${item.name}: $${item.price} - Quantity: ${item.quantity}`}
+      {`Total: ${cartTotal}`}
+      <input type="submit" value="remove" onClick={() => removeFromCart(item)} />
+    </div>
+  ));
+
     return (
 
       <div>
         {cartItems}
+        total: ${cartTotal}
       </div>
     )
 }
+
+export default CartItems;
