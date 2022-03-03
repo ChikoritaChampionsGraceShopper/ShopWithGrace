@@ -58,6 +58,10 @@ export default function ProductProvider({children}) {
     fetchProducts()
   }, [])
 
+  // useEffect(() => {
+  //   setSingleProduct(productId)
+  // }, [product])
+
   const contextValue = {
     products: state.products,
     product: state.product,
