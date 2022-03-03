@@ -6,7 +6,7 @@ const Order = db.define('order', {
     type: Sequelize.STRING,
     defaultValue: 'Unfulfilled',
     validate: {
-      isIn: [['gas', 'diesel', 'electric']]
+      isIn: [['Fullfilled', ]]
     }
   }
 });
