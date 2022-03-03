@@ -2,7 +2,7 @@
 'use strict'
 const teas = require('./ProductSeedData')
 const usernames = require('./UserSeedData')
-const {db, models: {User, Product, Cart} } = require('../server/db')
+const {db, models: {User, Product, Cart, Order} } = require('../server/db')
 
 
 /**
