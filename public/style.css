@@ -19,3 +19,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.navbar-item {
+  padding: 0;
+}
+
+.navbar-menu {
+  align-items: center;
+}
