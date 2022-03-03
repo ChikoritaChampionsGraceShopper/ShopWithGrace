@@ -1,48 +1,18 @@
-import React from 'react';
+import React from "react";
 
 const HomePage = () => {
   return (
     <div>
-      <section class='hero is-large is-info'>
-        <div class='hero-body'>
-          <p class='title'>Large hero</p>
-          <p class='subtitle'>Large subtitle</p>
+      <section class="hero is-white">
+        <div class="hero-body">
+          <p class="title">Welcome to Chao's Teas!</p>
+          <p class="subtitle">I don't know why it's boujee, but it is cool</p>
+          <img
+            src="https://www.aicr.org/wp-content/uploads/2020/06/peppermint-tea-on-teacup-1417945-1200x826.jpg.webp"
+            width="50%"
+          />
         </div>
       </section>
-      <div>
-        <div class='dropdown is-active'>
-          <div class='dropdown-trigger'>
-            <button
-              class='button'
-              aria-haspopup='true'
-              aria-controls='dropdown-menu'
-            >
-              <span>Dropdown button</span>
-              <span class='icon is-small'>
-                <i class='fas fa-angle-down' aria-hidden='true'></i>
-              </span>
-            </button>
-          </div>
-          <div class='dropdown-menu' id='dropdown-menu' role='menu'>
-            <div class='dropdown-content'>
-              <a href='#' class='dropdown-item'>
-                Dropdown item
-              </a>
-              <a class='dropdown-item'>Other dropdown item</a>
-              <a href='#' class='dropdown-item is-active'>
-                Active dropdown item
-              </a>
-              <a href='#' class='dropdown-item'>
-                Other dropdown item
-              </a>
-              <hr class='dropdown-divider' />
-              <a href='#' class='dropdown-item'>
-                With a divider
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

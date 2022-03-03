@@ -29,28 +29,22 @@ const Navbar = () => {
           <Link to="/">
             <a className="navbar-item">Home</a>
           </Link>
-          <div className="navbar-item has-dropdown is-hoverable">
-            <Link to="/products">
-              <a className="navbar-item">Shop</a>
-            </Link>
-            <div className="navbar-dropdown">
-              <div className="navbar-item">Black Teas</div>
-              <div className="navbar-item">Green Teas</div>
-              <div className="navbar-item">White Teas</div>
-              <div className="navbar-item">Oolong</div>
-            </div>
+          <Link to="/products">
+            <a className="navbar-item">Shop</a>
+          </Link>
+          <div className="navbar-dropdown">
+            <div className="navbar-item">Black Teas</div>
+            <div className="navbar-item">Green Teas</div>
+            <div className="navbar-item">White Teas</div>
+            <div className="navbar-item">Oolong</div>
           </div>
-        </div>
-
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              <a className="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a className="button is-light">Log in</a>
-            </div>
-          </div>
+          <Link to="/signup">
+            <a className="navbar-item">Sign up</a>
+          </Link>
+          <Link to="/login">
+            <a className="navbar-item">Log in</a>
+          </Link>
+          <div className="navbar-item has-dropdown is-hoverable"></div>
         </div>
       </div>
     </nav>
