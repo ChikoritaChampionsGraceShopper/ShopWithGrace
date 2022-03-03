@@ -7,8 +7,21 @@ const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 const ProductsContext = createContext()
 
 export function useProducts() {
-  const { products, isLoading } = useContext(ProductsContext)
-  return { products, isLoading }
+  const { products, isLoading, setisLoading, product, dispatch } = useContext(ProductsContext)
+
+  return {
+    products,
+    product,
+    isLoading,
+    async setSingleProduct(productId) {
+      const { data: product } = await axios.get(`/api/products/${productId}`)
+      dispatch({
+        type: SINGLE_PRODUCT,
+        product
+      })
+      setisLoading(false)
+    }
+  }
 }
 
 const reducer = (state, action) => {
@@ -32,10 +45,10 @@ export default function ProductProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setisLoading] = useState(true)
 
+  //AllProducts
   useEffect(() => {
     async function fetchProducts() {
       const { data: products } = await axios.get('/api/products')
-      // console.log(products)
       dispatch({
         type: SHOW_ALL_PRODUCTS,
         products
@@ -45,28 +58,16 @@ export default function ProductProvider({children}) {
     fetchProducts()
   }, [])
 
-  useEffect(() => {
-    async function fetchSingleProduct() {
-      const { data: product } = await axios.get('/api/products/:id')
-      // console.log(products)
-      dispatch({
-        type: SINGLE_PRODUCT,
-        product
-      })
-      setisLoading(false)
-    }
-    fetchSingleProduct()
-  }, [])
-
   const contextValue = {
     products: state.products,
     product: state.product,
     dispatch,
+    setisLoading,
     isLoading
   }
   return (
     <ProductsContext.Provider value={contextValue}>
       {children}
-      </ProductsContext.Provider>
+    </ProductsContext.Provider>
   )
 }

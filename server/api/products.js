@@ -20,7 +20,7 @@ productRouter.get(`/:id`, async(req, res, next) => {
     }, attributes: {
       exclude: ['favorite', 'status']
     }})
-    res.send(product)
+    res.json(product)
   } catch (error) {
     next(error)
   }

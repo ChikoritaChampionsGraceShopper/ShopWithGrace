@@ -6,6 +6,7 @@ import Home from './components/Home';
 import { me } from './store';
 import AllProducts from './components/AllProducts';
 import Navbar from './components/Navbar';
+import SingleProduct from './components/SingleProduct';
 import HomePage from './components/HomePage';
 
 /**
@@ -32,10 +33,18 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
+          <Route exact path='/' />
+          <Route exact path='/login'>
+            {Login}
+          </Route>
+          <Route exact path='/signup'>
+            {Signup}
+          </Route>
           <Route exact path='/' component={HomePage} />
           <Route path='/login'>{Login}</Route>
           <Route path='/signup'>{Signup}</Route>
-          <Route path='/products' component={AllProducts} />
+          <Route exact path='/products' component={AllProducts} />
+          <Route exact path='/products/:id' component={SingleProduct} />
         </Switch>
       )}
     </div>
