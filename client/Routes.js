@@ -7,6 +7,7 @@ import { me } from './store';
 import HomePage from './components/HomePage';
 import AllProducts from './components/AllProducts';
 import Navbar from './components/Navbar';
+import SingleProduct from './components/SingleProduct';
 
 /**
  * COMPONENT
@@ -38,6 +39,7 @@ const Routes = () => {
             {Signup}
           </Route>
           <Route exact path='/products' component={AllProducts} />
+          <Route exact path='/products/:id' component={SingleProduct} />
         </Switch>
       )}
     </div>
