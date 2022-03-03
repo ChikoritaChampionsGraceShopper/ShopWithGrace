@@ -33,13 +33,6 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
-          <Route exact path='/' />
-          <Route exact path='/login'>
-            {Login}
-          </Route>
-          <Route exact path='/signup'>
-            {Signup}
-          </Route>
           <Route exact path='/' component={HomePage} />
           <Route path='/login'>{Login}</Route>
           <Route path='/signup'>{Signup}</Route>
