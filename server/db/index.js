@@ -10,8 +10,11 @@ const Cart = require('./models/Cart')
 //associations could go here!
 
 User.hasMany(Order)
-Order.belongsToMany(Product, {through: 'OrderDetail'})
-Product.belongsToMany(Order, {through: 'OrderDetail'})
+Order.belongsTo(User, { foreignKey: "userId" })
+Order.hasMany(Cart, { foreignKey: "orderId" });
+Cart.belongsTo(Order, { foreignKey: "orderId" })
+Product.hasMany(Cart, { foreignKey: "productId" });
+Cart.belongsTo(Product, { foreignKey: "productId" });
 
 module.exports = {
   db,
