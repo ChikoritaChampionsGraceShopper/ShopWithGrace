@@ -2,7 +2,7 @@
 'use strict'
 const teas = require('./ProductSeedData')
 const usernames = require('./UserSeedData')
-const {db, models: {User, Product, Cart} } = require('../server/db')
+const {db, models: {User, Product, Cart, Order} } = require('../server/db')
 
 
 /**
@@ -29,7 +29,7 @@ async function seed() {
   ]);
 
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${usernames.length} users`)
   console.log(`seeded ${teas.length} teas`)
   console.log(`seeded successfully`)
   return {
