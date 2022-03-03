@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const items = [{
   id: 1,
@@ -42,6 +42,20 @@ const cartItems = cart.map((item) => (
   </div>
 ));
 
+useEffect(
+  ()=> {
+    total()
+  }, []
+)
+
+const total = () => {
+  let totalVal = 0;
+  for (let i = 0; i < cart.length; i++) {
+    totalVal += cart[i].price
+  }
+  setCartTotal(totalVal)
+}
+
 const removeFromCart = (item) => {
   let hardCopy = [...cart]
   hardCopy = hardCopy.filter((cartItem) => cartItem.id != item.id)
@@ -50,10 +64,12 @@ const removeFromCart = (item) => {
 
 const CartItems = (items) => {
   const [cart, setCart] = useState([]);
+  const[cartTotal, setCartTotal] = useState(0);
     return (
 
       <div>
         {cartItems}
+        total: ${cartTotal}
       </div>
     )
 }
