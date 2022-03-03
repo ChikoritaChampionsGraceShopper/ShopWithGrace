@@ -4,9 +4,9 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
-import HomePage from './components/HomePage';
 import AllProducts from './components/AllProducts';
 import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
 
 /**
  * COMPONENT
@@ -30,14 +30,10 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
-          <Route exact path='/' />
-          <Route exact path='/login'>
-            {Login}
-          </Route>
-          <Route exact path='/signup'>
-            {Signup}
-          </Route>
-          <Route exact path='/products' component={AllProducts} />
+          <Route exact path='/' component={HomePage} />
+          <Route path='/login'>{Login}</Route>
+          <Route path='/signup'>{Signup}</Route>
+          <Route path='/products' component={AllProducts} />
         </Switch>
       )}
     </div>
