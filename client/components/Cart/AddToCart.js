@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Cart from '../../../server/db/models/Cart';
 
 const addToCart = (item) => {
     let addIt = true;
@@ -22,3 +21,21 @@ const AddToCart = () => {
         </div>
     )
 }
+
+
+
+
+// const AddToCart = () => {
+
+//   const addToCart = (item) => setCart((currentCart) => [...currentCart, item]);
+
+
+//   const amountOfItems = (id) => cart.filter((item) => item.id === id).length;
+
+//   const listItemsToBuy = () => items.map((item) => (
+//     <div key={item.id}>
+//       {`${item.name}: $${item.price}`}
+//       <button type="submit" onClick={() => addToCart(item)}>Add</button>
+//     </div>
+//   ))
+//   }
