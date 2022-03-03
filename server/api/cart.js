@@ -4,7 +4,7 @@ const { models: { Cart }} = require('../db')
 cartRouter.get('/', async (req, res, next) => {
   try {
     const cart = await Cart.findAll({
-      attributes: ['id', 'name', 'image', 'quantity', 'price_per_item', 'subtotal', 'total_price']
+      attributes: ['order_id', 'product_id', 'quantity', 'price']
     })
     res.json(cart)
   } catch (error) {
