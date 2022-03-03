@@ -22,7 +22,9 @@ const Routes = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <nav>
+        <Navbar />
+      </nav> */}
       {isLoggedIn ? (
         <Switch>
           <Route path='/home' component={Home} />
