@@ -8,9 +8,6 @@ const AuthForm = ({ name, displayName }) => {
   const { error } = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
-  const updateEmail = (event) => setEmail(event.target.value)
-  const updatePassword = (event) => setPassword(event.target.value)
-
   const handleSubmit = (evt) => {
     evt.preventDefault()
     const formName = evt.target.name
