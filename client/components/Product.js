@@ -8,7 +8,7 @@ const Product = (props) => {
     <div key={product.id} className='product' >
         <h3>{product.name}</h3>
         <h3>{product.price}</h3>
-        <img src={product.image} />
+        <img src={product.image} style={{ width: '200px', height: '200px'}} />
         <h3>{product.description}</h3>
         <h3>{product.origin}</h3>
         <h3>{product.category}</h3>
