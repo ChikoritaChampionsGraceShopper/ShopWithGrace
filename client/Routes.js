@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import SingleProduct from "./components/SingleProduct";
 import HomePage from "./components/HomePage";
 import AccountPage from './components/AccountPage'
+import CartPage from './components/Cart/CartPage'
 
 const Routes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
@@ -28,6 +29,7 @@ const Routes = () => {
           <Route path='/account' component={AccountPage} />
           <Route exact path='/products' component={AllProducts} />
           <Route exact path='/products/:id' component={SingleProduct} />
+          <Route exact path='/cart' component={CartPage} />
         </Switch>
       ) : (
         <Switch>
@@ -36,6 +38,7 @@ const Routes = () => {
           <Route path='/signup'>{Signup}</Route>
           <Route exact path='/products' component={AllProducts} />
           <Route exact path='/products/:id' component={SingleProduct} />
+          <Route exact path='/cart' component={CartPage} />
         </Switch>
       )}
     </div>

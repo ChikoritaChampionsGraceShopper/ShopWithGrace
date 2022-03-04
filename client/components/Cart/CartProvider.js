@@ -11,7 +11,7 @@ const CLEAR_CART = 'CLEAR_CART'
 export const CartContext = createContext()
 
 export function useCart() {
-  const { cart, isLoading, setisLoading, setCart, dispatch } = useContext(CartContext)
+  const { cart, isLoading, setisLoading } = useContext(CartContext)
 
   return {
     cart,
@@ -110,6 +110,7 @@ export default function CartProvider({children}) {
   }, [])
 
   const contextValue = {
+    total: state.total,
     cart: state.cart,
     addToCart,
     removeFromCart,

@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route } from "react-router-dom";
 import { logout } from "../store";
+import CartIcon from '../components/Cart/CartIcon'
+import history from '../history'
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
@@ -46,6 +48,9 @@ const Navbar = () => {
           <Link to='/' >
           <p className="navbar-item" onClick={() => dispatch(logout())}>logout</p>
           </Link>
+          <div className="navbar-item">
+          <CartIcon/>
+          </div>
           </div>
           : <div>
             <Link to="/signup">
@@ -54,6 +59,9 @@ const Navbar = () => {
           <Link to="/login">
             <p className="navbar-item">Log in</p>
           </Link>
+          <div className="navbar-item">
+          <CartIcon props={history}/>
+          </div>
           </div>
         }
           <div className="navbar-item has-dropdown is-hoverable"></div>

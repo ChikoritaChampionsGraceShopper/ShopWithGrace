@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { CartContext } from './CartProvider'
-import { useCart } from './CartProvider'
+import { useCart, CartContext } from './CartProvider'
 
 const CartIcon = ({history}) => {
   const { itemCount } = useContext(CartContext)

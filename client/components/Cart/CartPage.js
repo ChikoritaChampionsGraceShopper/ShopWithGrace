@@ -48,7 +48,7 @@ const items = [
   },
 ];
 
-const CartItems = () => {
+const CartPage = () => {
   const { cartItems, itemCount, total, increase, decrease, removeProduct, clearCart } = useContext(CartContext)
   const cartFuncs = { increase, decrease, removeProduct }
   const {cart, isLoading, setCart, removeFromCart} = useCart()
@@ -68,16 +68,12 @@ const CartItems = () => {
               cartItems.map(item => <CartItem {...item} key={item.id} {...cartFuncs} />)
             }
           </div>
-
           <Total itemCount={itemCount} total={total} clearCart={clearCart} />
-          
         </div>
       }
       </>
     // </Layout>
-    
   )
 }
 
-
-export default CartItems;
+export default CartPage;
