@@ -1,3 +1,8 @@
+const router = require('express').Router();
+const {
+  models: { User },
+} = require('../db');
+module.exports = router;
 const userRouter = require('express').Router()
 const { models: { User }} = require('../db')
 module.exports = userRouter
@@ -12,9 +17,9 @@ userRouter.get('/', async (req, res, next) => {
     })
     res.json(users)
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 userRouter.get('/:id', async (req, res, next) => {
   try {
