@@ -1,16 +1,15 @@
-import React, { Component, Fragment, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
-import Home from './components/Home';
-import { me } from './store';
-import AllProducts from './components/AllProducts';
-import SingleProduct from './components/SingleProduct';
-import HomePage from './components/HomePage';
 
-/**
- * COMPONENT
- */
+import React, { Component, Fragment, useEffect } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login, Signup } from "./components/AuthForm";
+import Home from "./components/Home";
+import { me } from "./store";
+import AllProducts from "./components/AllProducts";
+import Navbar from "./components/Navbar";
+import SingleProduct from "./components/SingleProduct";
+import HomePage from "./components/HomePage";
+import AccountPage from './components/AccountPage'
 
 const Routes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
@@ -24,8 +23,11 @@ const Routes = () => {
     <div>
       {isLoggedIn ? (
         <Switch>
-          <Route path='/home' component={Home} />
-          <Redirect to='/home' />
+          <Route exact path='/' component={HomePage} />
+          <Route path="/home" component={Home} />
+          <Route path='/account' component={AccountPage} />
+          <Route exact path='/products' component={AllProducts} />
+          <Route exact path='/products/:id' component={SingleProduct} />
         </Switch>
       ) : (
         <Switch>

@@ -27,10 +27,10 @@ const Navbar = () => {
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
           <Link to="/">
-            <a className="navbar-item">Home</a>
+            <p className="navbar-item">Home</p>
           </Link>
           <Link to="/products">
-            <a className="navbar-item">Shop</a>
+            <p className="navbar-item">Shop</p>
           </Link>
           <div className="navbar-dropdown">
             <div className="navbar-item">Black Teas</div>
@@ -38,12 +38,24 @@ const Navbar = () => {
             <div className="navbar-item">White Teas</div>
             <div className="navbar-item">Oolong</div>
           </div>
-          <Link to="/signup">
-            <a className="navbar-item">Sign up</a>
+          { isLoggedIn
+          ? <div>
+          <Link to='/account' >
+          <p className="navbar-item" >Account</p>
+          </Link>
+          <Link to='/' >
+          <p className="navbar-item" onClick={() => dispatch(logout())}>logout</p>
+          </Link>
+          </div>
+          : <div>
+            <Link to="/signup">
+            <p className="navbar-item">Sign up</p>
           </Link>
           <Link to="/login">
-            <a className="navbar-item">Log in</a>
+            <p className="navbar-item">Log in</p>
           </Link>
+          </div>
+        }
           <div className="navbar-item has-dropdown is-hoverable"></div>
         </div>
       </div>
