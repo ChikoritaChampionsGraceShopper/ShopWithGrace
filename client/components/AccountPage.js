@@ -3,6 +3,7 @@ import { useAccount } from './AccountProvider'
 
 const AccountPage = () => {
   const [user, isLoading] = useAccount()
+  console.log('user: ', user)
 
   return (
     <div id='user_page' className='something'>

@@ -12,8 +12,9 @@ const AllProducts = () => {
       { isLoading
         ? <div className='loading'>Loading Products...</div>
         : products.map(product => (
-          <Product product={product} key={product.id} pickProduct={(productId) => setSingleProduct(productId)}
-        />
+          <Link to={`/products/${product.id}`} onClick={() => setSingleProduct(product.id)} >
+          <Product product={product} key={product.id} />
+        </Link>
         ))
         }
     </div>

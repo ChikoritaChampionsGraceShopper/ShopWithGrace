@@ -7,6 +7,7 @@ import store from './store';
 // import App from './App';
 import Main from './components/Main';
 import ProductProvider from './components/ProductsProvider';
+import AccountProvider from './components/AccountProvider'
 
 ReactDOM.render(
   <Provider store={store}>

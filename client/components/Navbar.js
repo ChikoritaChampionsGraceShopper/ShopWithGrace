@@ -38,12 +38,24 @@ const Navbar = () => {
             <div className="navbar-item">White Teas</div>
             <div className="navbar-item">Oolong</div>
           </div>
-          <Link to="/signup">
+          { isLoggedIn
+          ? <div>
+            <Link to='/' >
+          <a className="navbar-item" onClick={logout()}>logout</a>
+          </Link>
+          <Link to='/account' >
+          <a className="navbar-item" >Account</a>
+          </Link>
+          </div>
+          : <div>
+            <Link to="/signup">
             <a className="navbar-item">Sign up</a>
           </Link>
           <Link to="/login">
             <a className="navbar-item">Log in</a>
           </Link>
+          </div>
+        }
           <div className="navbar-item has-dropdown is-hoverable"></div>
         </div>
       </div>
