@@ -1,7 +1,6 @@
-const router = require('express').Router();
-module.exports = router;
-const userRouter = require('express').Router();
-module.exports = userRouter;
+const userRouter = require('express').Router()
+const { models: { User }} = require('../db')
+module.exports = userRouter
 
 userRouter.get('/', async (req, res, next) => {
   try {

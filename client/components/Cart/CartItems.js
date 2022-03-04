@@ -45,6 +45,29 @@ const items = [
   },
 ];
 
+const Cart = () => {
+  const {cart, isLoading, setCart, removeFromCart} = useCart()
+
+  return (
+    cart.map((item) => (
+      <div key={item.id}>
+        {`${item.name}: $${item.price} - Quantity: ${item.quantity}`}
+        {`Total: ${cartTotal}`}
+        <input
+          type='submit'
+          value='remove'
+          onClick={() => removeFromCart(item)}
+        />
+      </div>
+
+  //   <div>
+  //   {cartItems}
+  //   total: ${cartTotal}
+  // </div>
+  ))
+  )
+}
+
 const CartItems = (items) => {
   const [cart, setCart] = useState([]);
   const cartTotal = cart.reduce((total, { price = 0 }) => total + price, 0);
