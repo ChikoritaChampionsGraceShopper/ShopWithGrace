@@ -44,7 +44,7 @@ const Navbar = () => {
           <p className="navbar-item" >Account</p>
           </Link>
           <Link to='/' >
-          <p className="navbar-item" onClick={logout()}>logout</p>
+          <p className="navbar-item" onClick={() => dispatch(logout())}>logout</p>
           </Link>
           </div>
           : <div>
