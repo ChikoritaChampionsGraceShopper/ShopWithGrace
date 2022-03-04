@@ -26,4 +26,13 @@ form div {
 
 .navbar-menu {
   align-items: center;
+  justify-content: space-between;
+}
+
+.buttons .button {
+  margin: 0;
+}
+
+.hero-body {
+  text-align: center;
 }

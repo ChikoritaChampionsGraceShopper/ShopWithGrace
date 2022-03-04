@@ -8,18 +8,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-<<<<<<< HEAD
-    <div>
-      <h1>Chao's Teas Test</h1>
-      <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to='/home'>Home</Link>
-            <a href='#' onClick={() => dispatch(logout())}>
-              Logout
-            </a>
-=======
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <img src="/images/logo.png" width="100" height="100" />
@@ -41,29 +29,22 @@ const Navbar = () => {
           <Link to="/">
             <a className="navbar-item">Home</a>
           </Link>
-          <div className="navbar-item has-dropdown is-hoverable">
-            <Link to="/products">
-              <a className="navbar-item">Shop</a>
-            </Link>
-            <div className="navbar-dropdown">
-              <div className="navbar-item">Black Teas</div>
-              <div className="navbar-item">Green Teas</div>
-              <div className="navbar-item">White Teas</div>
-              <div className="navbar-item">Oolong</div>
-            </div>
->>>>>>> 49651c72112309f6a32f3fca91f932635a52d5a5
+          <Link to="/products">
+            <a className="navbar-item">Shop</a>
+          </Link>
+          <div className="navbar-dropdown">
+            <div className="navbar-item">Black Teas</div>
+            <div className="navbar-item">Green Teas</div>
+            <div className="navbar-item">White Teas</div>
+            <div className="navbar-item">Oolong</div>
           </div>
-        </div>
-
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              <a className="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a className="button is-light">Log in</a>
-            </div>
-          </div>
+          <Link to="/signup">
+            <a className="navbar-item">Sign up</a>
+          </Link>
+          <Link to="/login">
+            <a className="navbar-item">Log in</a>
+          </Link>
+          <div className="navbar-item has-dropdown is-hoverable"></div>
         </div>
       </div>
     </nav>
