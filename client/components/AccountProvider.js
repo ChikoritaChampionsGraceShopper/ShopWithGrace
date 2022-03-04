@@ -10,14 +10,7 @@ export function useAccount() {
 
   return {
     user,
-    async setSingleProduct(userId) {
-      const { data: user } = await axios.get(`/api/users/${userId}`)
-      dispatch({
-        type: SHOW_USER,
-        user
-      })
-      setisLoading(false)
-    }
+    isLoading
   }
 }
 
@@ -40,21 +33,18 @@ export default function AccountProvider({children}) {
   const [isLoading, setisLoading] = useState(true)
 
   //User
-  // useEffect(() => {
-  //   async function fetchUser(userId) {
-  //     const { data: user } = await axios.get(`/api/users/${userId}`)
-  //     dispatch({
-  //       type: SHOW_USER,
-  //       user
-  //     })
-  //     setisLoading(false)
-  //   }
-  //   fetchUser()
-  // }, [])
+  useEffect(() => {
+    async function fetchUser(userId = 1) {
 
-  // useEffect(() => {
-  //   setSingleProduct(productId)
-  // }, [product])
+      const { data: user } = await axios.get(`/api/users/${userId}`)
+      dispatch({
+        type: SHOW_USER,
+        user
+      })
+      setisLoading(false)
+    }
+    fetchUser()
+  }, [])
 
   const contextValue = {
     user: state.user,

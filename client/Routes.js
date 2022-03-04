@@ -8,10 +8,7 @@ import AllProducts from "./components/AllProducts";
 import Navbar from "./components/Navbar";
 import SingleProduct from "./components/SingleProduct";
 import HomePage from "./components/HomePage";
-
-/**
- * COMPONENT
- */
+import AccountPage from './components/AccountPage'
 
 const Routes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
@@ -23,29 +20,21 @@ const Routes = () => {
 
   return (
     <div>
-      {/* <nav>
-        <Navbar />
-      </nav> */}
       {isLoggedIn ? (
         <Switch>
+          <Route exact path='/' component={HomePage} />
           <Route path="/home" component={Home} />
-          <Redirect to="/home" />
+          <Route path='/account' component={AccountPage} />
+          <Route exact path='/products' component={AllProducts} />
+          <Route exact path='/products/:id' component={SingleProduct} />
         </Switch>
       ) : (
         <Switch>
-<<<<<<< HEAD
           <Route exact path='/' component={HomePage} />
           <Route path='/login'>{Login}</Route>
           <Route path='/signup'>{Signup}</Route>
           <Route exact path='/products' component={AllProducts} />
           <Route exact path='/products/:id' component={SingleProduct} />
-=======
-          <Route exact path="/" component={HomePage} />
-          <Route path="/login">{Login}</Route>
-          <Route path="/signup">{Signup}</Route>
-          <Route exact path="/products" component={AllProducts} />
-          <Route exact path="/products/:id" component={SingleProduct} />
->>>>>>> 49651c72112309f6a32f3fca91f932635a52d5a5
         </Switch>
       )}
     </div>
