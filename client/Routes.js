@@ -33,11 +33,19 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
+<<<<<<< HEAD
+          <Route exact path='/' component={HomePage} />
+          <Route path='/login'>{Login}</Route>
+          <Route path='/signup'>{Signup}</Route>
+          <Route exact path='/products' component={AllProducts} />
+          <Route exact path='/products/:id' component={SingleProduct} />
+=======
           <Route exact path="/" component={HomePage} />
           <Route path="/login">{Login}</Route>
           <Route path="/signup">{Signup}</Route>
           <Route exact path="/products" component={AllProducts} />
           <Route exact path="/products/:id" component={SingleProduct} />
+>>>>>>> 49651c72112309f6a32f3fca91f932635a52d5a5
         </Switch>
       )}
     </div>
