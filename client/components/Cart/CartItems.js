@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useCart, CartContext } from './CartProvider';
+import CartItem from './CartItem';
+import Total from './Total';
 
 const items = [
   {
@@ -45,67 +48,36 @@ const items = [
   },
 ];
 
-const Cart = () => {
+const CartItems = () => {
+  const { cartItems, itemCount, total, increase, decrease, removeProduct, clearCart } = useContext(CartContext)
+  const cartFuncs = { increase, decrease, removeProduct }
   const {cart, isLoading, setCart, removeFromCart} = useCart()
 
   return (
-    cart.map((item) => (
-      <div key={item.id}>
-        {`${item.name}: $${item.price} - Quantity: ${item.quantity}`}
-        {`Total: ${cartTotal}`}
-        <input
-          type='submit'
-          value='remove'
-          onClick={() => removeFromCart(item)}
-        />
-      </div>
+    // <Layout>
+      <>
+      <h1> Cart </h1>
+      {
+        cartItems.length === 0
+        ?
+        <div className='empty-cart'> Your cart is empty </div>
+        :
+        <div className='cart-page'>
+          <div className='cart-item-container'>
+            {
+              cartItems.map(item => <CartItem {...item} key={item.id} {...cartFuncs} />)
+            }
+          </div>
 
-  //   <div>
-  //   {cartItems}
-  //   total: ${cartTotal}
-  // </div>
-  ))
+          <Total itemCount={itemCount} total={total} clearCart={clearCart} />
+          
+        </div>
+      }
+      </>
+    // </Layout>
+    
   )
 }
 
-const CartItems = (items) => {
-  const [cart, setCart] = useState([]);
-  const cartTotal = cart.reduce((total, { price = 0 }) => total + price, 0);
-
-  const removeFromCart = (item) => {
-    setCart((currentCart) => {
-      const indexOfItemToRemove = currentCart.findIndex(
-        (cartItem) => cartItem.id === item.id
-      );
-
-      if (indexOfItemToRemove === -1) {
-        return currentCart;
-      }
-
-      return [
-        ...currentCart.slice(0, indexOfItemToRemove),
-        ...currentCart.slice(indexOfItemToRemove + 1),
-      ];
-    });
-  };
-  const cartItems = cart.map((item) => (
-    <div key={item.id}>
-      {`${item.name}: $${item.price} - Quantity: ${item.quantity}`}
-      {`Total: ${cartTotal}`}
-      <input
-        type='submit'
-        value='remove'
-        onClick={() => removeFromCart(item)}
-      />
-    </div>
-  ));
-
-  return (
-    <div>
-      {cartItems}
-      total: ${cartTotal}
-    </div>
-  );
-};
 
 export default CartItems;

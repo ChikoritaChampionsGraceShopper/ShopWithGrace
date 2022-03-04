@@ -8,7 +8,7 @@ const INCREASE_ITEM = 'INCREASE_ITEM'
 const DECREASE_ITEM = 'DECREASE_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 
-const CartContext = createContext()
+export const CartContext = createContext()
 
 export function useCart() {
   const { cart, isLoading, setisLoading, setCart, dispatch } = useContext(CartContext)
