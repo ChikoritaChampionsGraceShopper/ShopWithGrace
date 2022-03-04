@@ -11,9 +11,11 @@ import ProductProvider from './components/ProductsProvider';
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <ProductProvider>
-        <Main />
-      </ProductProvider>
+      <AccountProvider>
+        <ProductProvider>
+          <Main />
+        </ProductProvider>
+      </AccountProvider>
     </Router>
   </Provider>,
   document.getElementById('app')
