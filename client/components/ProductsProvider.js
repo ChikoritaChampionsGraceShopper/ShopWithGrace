@@ -56,15 +56,6 @@ export default function ProductProvider({children}) {
     fetchProducts()
   }, [])
 
-  useEffect(() => {
-    async function fetchSingleProduct(productId) {
-      const { data: product } = await axios.get(`/api/products/${productId}`)
-      dispatch({ type: SINGLE_PRODUCT, product })
-      setisLoading(false)
-    }
-    fetchSingleProduct(productId)
-  }, [])
-
   const contextValue = {
     products: state.products,
     product: state.product,

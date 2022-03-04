@@ -34,14 +34,15 @@ export default function AccountProvider({children}) {
 
   //User
   useEffect(() => {
-    async function fetchUser(userId = 1) {
-
-      const { data: user } = await axios.get(`/api/users/${userId}`)
-      dispatch({
-        type: SHOW_USER,
-        user
-      })
-      setisLoading(false)
+    async function fetchUser(userId) {
+      if (userId) {
+          const { data: user } = await axios.get(`/api/users/${userId}`)
+          dispatch({
+            type: SHOW_USER,
+            user
+          })
+          setisLoading(false)
+        }
     }
     fetchUser()
   }, [])
