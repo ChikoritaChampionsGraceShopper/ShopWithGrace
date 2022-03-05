@@ -8,7 +8,7 @@ const Total = ({ itemCount, total, clearCart, history }) => {
         <p>Total Items: {itemCount}</p>
         <p>{`Total: $${total}`}</p>
         <div className='checkout'>
-          <button className='button is-black' onClick={() => history.push('/checkout')}> Checkout </button> 
+          <button className='button is-black' onClick={() => history.push('/checkout')}> Checkout </button>
           <button className='button is-white' onClick={() => clearCart()}> Clear </button>
         </div>
       </div>
@@ -16,5 +16,5 @@ const Total = ({ itemCount, total, clearCart, history }) => {
   )
 }
 
-export default withRouter(total);
+export default withRouter(Total);
 

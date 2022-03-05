@@ -6,7 +6,7 @@ const CartItem = (product) => {
     return (
       <div className='cart-item'>
         <div classname='item-image'>
-          <img src=[image] alt='product' />
+          {/* <img src=[image] alt='product' /> */}
         </div>
         <div className='name-price'>
           <h4> {name} </h4>
@@ -32,7 +32,7 @@ const CartItem = (product) => {
             </button>
           }
           {
-            quantity > 1 && 
+            quantity > 1 &&
             <button
             onClick={() => decrease(product)}
             className='btn-decrease'
