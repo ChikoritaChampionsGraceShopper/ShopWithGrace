@@ -1,21 +1,21 @@
 const userOrders = [{
   status: 'Fulfilled',
 },{
-  status: 'Unfulfilled',
+  status: 'Fulfilled',
+},{
+  status: 'Fulfilled',
+},{
+  status: 'Fulfilled',
 },{
   status: 'Fulfilled',
 },{
   status: 'Unfulfilled',
 },{
-  status: 'Fulfilled',
+  status: 'Unfulfilled',
 },{
   status: 'Unfulfilled',
 },{
-  status: 'Fulfilled',
-},{
   status: 'Unfulfilled',
-},{
-  status: 'Fulfilled',
 },{
   status: 'Unfulfilled',
 }]

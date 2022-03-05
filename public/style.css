@@ -36,3 +36,15 @@ form div {
 .hero-body {
   text-align: center;
 }
+
+.notfound {
+  text-align: center;
+  font-size: 30px;
+}
+
+.notfound1 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
