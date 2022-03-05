@@ -20,7 +20,13 @@ export function useCart() {
   }
 }
 
-export const sumItems = cartItems => {
+const addToLocalStorage = (cartItems) => {
+  const cart = cartItems.length > 0 ? cartItems : [];
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+export const sumItems = (cartItems) => {
+  addToLocalStorage(cartItems)
   return {
     itemCount: cartItems.reduce((total, product) => total + product.quantity, 0),
     total: cartItems.reduce((total, product) => total + product.price * product.quntity, 0)
@@ -78,6 +84,7 @@ const reducer = (state, action) => {
       }
     }
     case CLEAR_CART: {
+      localStorage.removeItem('cart');
       return {
         cartItems: [],
         itemCount: 0,
@@ -89,7 +96,10 @@ const reducer = (state, action) => {
     }
   }
 
-  const initialState = { cartItems: [], itemCount: 0, total: 0 }
+  const localCartStorage = localStorage.getItem('cart') ?
+  JSON.parse(localStorage.getItem('cart')) : [];
+
+  const initialState = { cartItems: localCartStorage, itemCount: 0, total: 0 }
 
 export default function CartProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
