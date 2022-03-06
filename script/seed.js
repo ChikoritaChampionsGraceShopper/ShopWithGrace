@@ -17,7 +17,6 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-
     usernames.map(user => {
       return User.create(user)
     })
