@@ -11,12 +11,17 @@ const CLEAR_CART = 'CLEAR_CART'
 export const CartContext = createContext()
 
 export function useCart() {
-  const { cart, isLoading, setisLoading } = useContext(CartContext)
+  const { cart, isLoading, setisLoading, dispatch } = useContext(CartContext)
 
   return {
     cart,
     isLoading,
     setisLoading,
+    async fetchCart(id) {
+      const { data: cart } = await axios.get(`/api/cart/${id}`)
+      dispatch({ type: SHOW_CART, cart })
+      setisLoading(false)
+    }
   }
 }
 
@@ -110,14 +115,14 @@ export default function CartProvider({children}) {
   const decreaseItemQuantity = (payload) => { dispatch({type: DECREASE_ITEM, payload})}
   const clearCart = () => { dispatch({type: CLEAR_CART })}
 
-  useEffect(() => {
-    async function fetchCart() {
-      const { data: cart } = await axios.get('/api/cart')
-      dispatch({ type: SHOW_CART, cart })
-      setisLoading(false)
-    }
-    fetchCart()
-  }, [])
+  // useEffect(() => {
+  //   async function fetchCart(id) {
+  //     const { data: cart } = await axios.get(`/api/carts/${id}`)
+  //     dispatch({ type: SHOW_CART, cart })
+  //     setisLoading(false)
+  //   }
+  //   fetchCart()
+  // }, [])
 
   const contextValue = {
     total: state.total,

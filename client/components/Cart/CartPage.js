@@ -51,7 +51,14 @@ const items = [
 const CartPage = () => {
   const { cartItems, itemCount, total, increase, decrease, removeProduct, clearCart } = useContext(CartContext)
   const cartFuncs = { increase, decrease, removeProduct }
-  const {cart, isLoading, setCart, removeFromCart} = useCart()
+  const {cart, isLoading, setCart, fetchCart} = useCart()
+  const id = window.localStorage.getItem('id')
+
+  fetchCart(id)
+  // console.log('cartItems: ', cartItems)
+  // console.log('cart: ', cart)
+  // console.log('itemCount: ', itemCount)
+  // console.log('total: ', total)
 
   return (
     // <Layout>

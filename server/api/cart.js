@@ -1,5 +1,5 @@
 const cartRouter = require('express').Router()
-const { models: { Cart }} = require('../db')
+const { models: { Cart, Product, Order }} = require('../db')
 
 cartRouter.get('/', async (req, res, next) => {
   try {
@@ -11,5 +11,33 @@ cartRouter.get('/', async (req, res, next) => {
     next(error)
   }
 })
+
+cartRouter.get('/:userId', async (req, res, next) => {
+  try {
+    const userCart = await Order.findOne({ where: {
+      userId: req.params.userId,
+      status: 'Unfulfilled'
+    }, include: {
+      model: Cart
+    }})
+    res.json(userCart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// cartRouter.put('/:userId', async (req, res, next) => {
+//   try {
+//     const userCart = await Order.findOne({ where: {
+//       userId: req.params.userId,
+//       status: 'Unfulfilled'
+//     }, include: {
+//       model: Cart
+//     }})
+//     res.json(userCart)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 module.exports = cartRouter
