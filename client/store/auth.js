@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 
+const ID = 'id'
 const TOKEN = 'token'
 const SET_AUTH = 'SET_AUTH'
 
@@ -28,6 +29,7 @@ export const authenticate = (username, password, method) => async dispatch => {
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN)
+  window.localStorage.removeItem(ID)
   history.push('/')
   return {
     type: SET_AUTH,
@@ -38,6 +40,7 @@ export const logout = () => {
 export default function(state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
+      window.localStorage.setItem('id', action.auth.id)
       return action.auth
     default:
       return state

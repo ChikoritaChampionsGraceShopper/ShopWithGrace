@@ -1,16 +1,23 @@
 import axios from 'axios'
 import React, {useReducer, useContext, createContext, useEffect, useState} from 'react'
+import me from '../store/auth'
 
 const SHOW_USER = 'SHOW_USER'
 
-const AccountContext = createContext()
+export const AccountContext = createContext()
 
 export function useAccount() {
-  const { user, isLoading, setisLoading, dispatch } = useContext(AccountContext)
+  const { user, isLoading, setisLoading, fetchUser, dispatch } = useContext(AccountContext)
 
   return {
     user,
-    isLoading
+    isLoading,
+    async fetchUser(id) {
+      const { data: user } = await axios.get(`/api/users/${id}`, {headers: {authorization: window.localStorage.getItem('token')}})
+      console.log(user)
+      dispatch({ type: SHOW_USER, user})
+      setisLoading(false)
+    }
   }
 }
 
@@ -33,19 +40,15 @@ export default function AccountProvider({children}) {
   const [isLoading, setisLoading] = useState(true)
 
   //User
-  useEffect(() => {
-    async function fetchUser(userId) {
-      if (userId) {
-          const { data: user } = await axios.get(`/api/users/${userId}`)
-          dispatch({
-            type: SHOW_USER,
-            user
-          })
-          setisLoading(false)
-        }
-    }
-    fetchUser()
-  }, [])
+  // useEffect(() => {
+  //   async function fetchUser(id) {
+  //     const { data: user } = await axios.get(`/api/users/${id}`)
+  //     console.log(user)
+  //     dispatch({ type: SHOW_USER, user})
+  //     setisLoading(false)
+  //   }
+  //   fetchUser()
+  // },[])
 
   const contextValue = {
     user: state.user,
