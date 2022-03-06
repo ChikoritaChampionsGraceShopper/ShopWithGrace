@@ -2,7 +2,19 @@ const userRouter = require('express').Router()
 const { models: { User }} = require('../db')
 module.exports = userRouter
 
-userRouter.get('/', async (req, res, next) => {
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    console.log(token)
+    const user = await User.findByToken(token);
+    req.user = user;
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+userRouter.get('/', requireToken, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
