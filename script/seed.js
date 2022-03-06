@@ -53,6 +53,7 @@ async function seed() {
   })
   await dummyProduct.createCart({quantity: 1, price: 10})
   const foundOrder = await Order.findOne({where: {userId: 25}})
+  foundOrder.addCart(1)
 
   // console.log(User.prototype) //connected to Orders
   // console.log(Order.prototype) //connected to Carts

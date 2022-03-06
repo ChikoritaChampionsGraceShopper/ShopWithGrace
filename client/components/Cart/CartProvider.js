@@ -19,6 +19,7 @@ export function useCart() {
     setisLoading,
     async fetchCart(id) {
       const { data: cart } = await axios.get(`/api/cart/${id}`)
+      console.log(cart)
       dispatch({ type: SHOW_CART, cart })
       setisLoading(false)
     }

@@ -2,11 +2,11 @@ import React, { useContext } from 'react'
 import { useCart, CartContext } from './CartProvider'
 import {Link} from 'react-router-dom'
 
-const CartIcon = () => {
+const CartIcon = (props) => {
   const { itemCount } = useContext(CartContext)
-
+  const id = props.id
   return (
-    <Link to={'/cart'} >
+    <Link to={`/cart/${id}`} >
     <div className='cart-container' >
       <img src='https://imgs.search.brave.com/IiYikCMYq8aJc8p1UbfcRchnfnyMkuaLzu1rrDijSBA/rs:fit:474:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC51/YUVGOTRDdldRUGZ4/N1NkQUtNQ0hnSGFI/YSZwaWQ9QXBp' />
       {
