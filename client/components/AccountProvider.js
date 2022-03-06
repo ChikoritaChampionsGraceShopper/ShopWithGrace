@@ -3,6 +3,7 @@ import React, {useReducer, useContext, createContext, useEffect, useState} from 
 import me from '../store/auth'
 
 const SHOW_USER = 'SHOW_USER'
+const EDIT_USER = 'EDIT_USER'
 
 export const AccountContext = createContext()
 
@@ -28,6 +29,9 @@ const reducer = (state, action) => {
     case SHOW_USER: {
       return { ...state, user: action.user }
     }
+    case EDIT_USER: {
+      return { ...state, ...action.user }
+    }
     default:
       return state
     }
@@ -49,6 +53,8 @@ export default function AccountProvider({children}) {
   //   }
   //   fetchUser()
   // },[])
+
+
 
   const contextValue = {
     user: state.user,

@@ -22,6 +22,19 @@ async function seed() {
       return Product.create(product);
     }),
   ]);
+  const [dummyProduct] = await Promise.all([
+    Product.create({
+      name: 'Dummy Tea',
+      image: 'https://www.teasandthes.com/images/product//b/i/bitan_piaoxue_200.jpg',
+      category: 'Green',
+      price: 10,
+      favorite: "0",
+      status: 'in stock',
+      inventory: 25,
+      origin: 'China',
+      description: 'Hello I am the dummy data'
+    })
+  ])
 
   const [harrison] = await Promise.all([
     User.create({
@@ -36,9 +49,17 @@ async function seed() {
     })
   ])
   const makeOrders = await User.findAll()
-  const newOrders = makeOrders.map(user => {
+  const newOrders = await makeOrders.map(user => {
     user.createOrder()
   })
+  await dummyProduct.createCart({quantity: 1, price: 10})
+  const foundOrder = await Order.findOne({where: {userId: 25}})
+  foundOrder.addCart(1)
+
+  // console.log(User.prototype) //connected to Orders
+  // console.log(Order.prototype) //connected to Carts
+  // console.log(Product.prototype) //connected to Carts
+  // console.log(Cart.prototype) //connected-Orders&Product
 
   console.log(`seeded ${usernames.length} users`);
   console.log(`seeded ${teas.length} teas`);
