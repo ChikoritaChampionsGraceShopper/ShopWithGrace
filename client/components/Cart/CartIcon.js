@@ -1,16 +1,19 @@
 import React, { useContext } from 'react'
 import { useCart, CartContext } from './CartProvider'
+import {Link} from 'react-router-dom'
 
-const CartIcon = ({history}) => {
+const CartIcon = () => {
   const { itemCount } = useContext(CartContext)
 
   return (
-    <div className='cart-container' onClick={() => history.push('/cart')}>
+    <Link to={'/cart'} >
+    <div className='cart-container' >
       <img src='https://imgs.search.brave.com/IiYikCMYq8aJc8p1UbfcRchnfnyMkuaLzu1rrDijSBA/rs:fit:474:225:1/g:ce/aHR0cHM6Ly90c2Ux/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC51/YUVGOTRDdldRUGZ4/N1NkQUtNQ0hnSGFI/YSZwaWQ9QXBp' />
       {
         itemCount > 0 ? <span className='cart-count' id='lblCartCount'> { itemCount } </span> : null
       }
     </div>
+    </Link>
   )
 }
 
