@@ -26,15 +26,26 @@ cartRouter.get('/:userId', async (req, res, next) => {
   }
 })
 
-// cartRouter.put('/:userId', async (req, res, next) => {
+cartRouter.post('/:userId', async (req, res, next) => {
+  try {
+    console.log(req)
+    const userCart = await Order.findOne({ where: {
+      userId: req.params.userId,
+      status: 'Unfulfilled'
+    }, include: {
+      model: Cart
+    }})
+    res.json(userCart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// cartRouter.delete('/', async (req, res, next) => {
 //   try {
-//     const userCart = await Order.findOne({ where: {
-//       userId: req.params.userId,
-//       status: 'Unfulfilled'
-//     }, include: {
-//       model: Cart
+//     const destroyCart = await Cart.findOne({ where: {
+
 //     }})
-//     res.json(userCart)
 //   } catch (error) {
 //     next(error)
 //   }

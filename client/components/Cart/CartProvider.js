@@ -17,10 +17,14 @@ export function useCart() {
     cart,
     isLoading,
     setisLoading,
+    async updateCart(orderId, updatedInfo, userId) {
+      const { data: updatedCart } = await axios.post(`/api/cart/${orderId}`,
+      updatedInfo, userId)
+      dispatch({ type: ADD_ITEM, updatedCart })
+    },
     async fetchCart(id) {
-      const { data: cart } = await axios.get(`/api/cart/${id}`)
-      console.log(cart)
-      dispatch({ type: SHOW_CART, cart })
+      const { data: order } = await axios.get(`/api/cart/${id}`)
+      dispatch({ type: SHOW_CART, order })
       setisLoading(false)
     }
   }
@@ -44,7 +48,7 @@ const reducer = (state, action) => {
   console.log('action: ', action)
   switch(action.type) {
     case SHOW_CART: {
-      return { ...state, products: action.products }
+      return { ...state, order: action.order, cartItems: [...action.order.carts ] }
     }
     case ADD_ITEM: {
       if(!state.cartItems.find(item => item.id === action.payload.id)) {
@@ -126,6 +130,7 @@ export default function CartProvider({children}) {
   // }, [])
 
   const contextValue = {
+    ...state,
     total: state.total,
     cart: state.cart,
     addToCart,
