@@ -48,19 +48,21 @@ const items = [
   },
 ];
 
-const CartPage = (props) => {
+const CartPage = ({match}) => {
   const { cartItems, itemCount, total, increase, decrease, removeProduct, clearCart } = useContext(CartContext)
   const cartFuncs = { increase, decrease, removeProduct }
-  const {cart, isLoading, setCart, fetchCart} = useCart()
-  const id = props.id
-  console.log(id)
+  const {order, fetchCart, updateCart} = useCart()
+  const id = match.params.id
   useEffect(() => {
     fetchCart(id)
   }, [])
-  // console.log('cartItems: ', cartItems)
-  // console.log('cart: ', cart)
-  // console.log('itemCount: ', itemCount)
-  // console.log('total: ', total)
+  useEffect(() => {
+    updateCart(25, 2, 25)
+  }, [cartItems])
+  console.log('cartItems: ', cartItems)
+  console.log('cart: ', order)
+  console.log('itemCount: ', itemCount)
+  console.log('total: ', total)
 
   return (
     // <Layout>

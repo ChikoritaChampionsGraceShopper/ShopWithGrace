@@ -29,7 +29,7 @@ const Routes = () => {
           <Route path='/account/:id' component={AccountPage} />
           <Route exact path='/products' component={AllProducts} />
           <Route exact path='/products/:id' component={SingleProduct} />
-          <Route exact path='/cart' component={CartPage} />
+          <Route exact path='/cart/:id' component={CartPage} />
         </Switch>
       ) : (
         <Switch>

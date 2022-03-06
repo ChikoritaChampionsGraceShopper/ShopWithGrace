@@ -20,7 +20,7 @@ const CartItem = (product) => {
             onClick={() => increase(product)}
             className='btn-increase'
           >
-            <PlusCircleIcon width='20px' />
+            {/* <PlusCircleIcon width='20px' /> */}
           </button>
           {
             quantity === 1 &&
@@ -28,7 +28,7 @@ const CartItem = (product) => {
               onClick={() => removeProduct(product)}
               className='btn-trash'
             >
-              <TrashIcon width='20px' />
+              {/* <TrashIcon width='20px' /> */}
             </button>
           }
           {
@@ -37,7 +37,7 @@ const CartItem = (product) => {
             onClick={() => decrease(product)}
             className='btn-decrease'
             >
-              <MinusCircleIcon width='20px' />
+              {/* <MinusCircleIcon width='20px' /> */}
             </button>
           }
         </div>
