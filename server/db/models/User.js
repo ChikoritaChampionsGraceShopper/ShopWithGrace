@@ -9,60 +9,60 @@ const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
   },
   full_name: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
   },
   email: {
     type: Sequelize.STRING,
-    allowNull: false,
+    // allowNull: false,
     validate: {
       isEmail: true,
-      notEmpty: true,
+      // notEmpty: true,
     },
   },
   street_address: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
   },
   city: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
   },
   state: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
   },
   zip_code: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
   },
 });
 

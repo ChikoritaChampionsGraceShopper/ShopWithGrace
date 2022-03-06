@@ -61,10 +61,9 @@ const reducer = (state, action) => {
 
 const initialState = { products: [], product: {} };
 
-export default function ProductProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [isLoading, setisLoading] = useState(true);
-  let productId = state.product.id;
+export default function ProductProvider({children}) {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const [isLoading, setisLoading] = useState(true)
 
   //AllProducts
   useEffect(() => {

@@ -1,17 +1,10 @@
-'use strict';
-const teas = require('./ProductSeedData');
-const usernames = require('./UserSeedData');
-const orders = require('./OrderSeedData');
-const carts = require('./CartSeedData');
-const {
-  db,
-  models: { User, Product, Cart, Order },
-} = require('../server/db');
 
-/**
- * seed - this function clears the database, updates tables to
- *      match the models, and populates the database.
- */
+'use strict'
+const teas = require('./ProductSeedData')
+const usernames = require('./UserSeedData')
+const carts = require('./CartSeedData')
+const {db, models: {User, Product, Cart, Order} } = require('../server/db')
+
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
@@ -30,29 +23,33 @@ async function seed() {
     }),
   ]);
 
-  //Creating Orders
-  const orderItems = await Promise.all([
-    orders.map((order) => {
-      return Order.create(order);
-    }),
-  ]);
-
-  // Creating Carts
-  const cartItems = await Promise.all([
-    carts.map((cart) => {
-      return Cart.create(cart);
-    }),
-  ]);
+  const [harrison] = await Promise.all([
+    User.create({
+      username: 'Harrison',
+      password: 'secure',
+      full_name: 'Harrison Lynch',
+      email: 'hblynch2001@gmail.com',
+      street_address: '1 Hogwarts Path',
+      city: 'Hogwarts',
+      state: 'Wizarding World',
+      zip_code: '00000'
+    })
+  ])
+  const makeOrders = await User.findAll()
+  const newOrders = makeOrders.map(user => {
+    user.createOrder()
+  })
 
   console.log(`seeded ${usernames.length} users`);
   console.log(`seeded ${teas.length} teas`);
   console.log(`seeded successfully`);
   return {
+    harrison,
     products,
     users,
-    orderItems,
-    cartItems,
-  };
+    newOrders
+    // cartItems
+  }
 }
 
 /*
