@@ -1,3 +1,4 @@
+
 'use strict'
 const teas = require('./ProductSeedData')
 const usernames = require('./UserSeedData')
@@ -10,10 +11,10 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    usernames.map(user => {
-       User.create(user)
-    })
-  ])
+    usernames.map((user) => {
+      return User.create(user);
+    }),
+  ]);
 
   // Creating Products
   const products = await Promise.all([
@@ -60,9 +61,9 @@ async function seed() {
   // console.log(Product.prototype) //connected to Carts
   // console.log(Cart.prototype) //connected-Orders&Product
 
-  console.log(`seeded ${usernames.length} users`)
-  console.log(`seeded ${teas.length} teas`)
-  console.log(`seeded successfully`)
+  console.log(`seeded ${usernames.length} users`);
+  console.log(`seeded ${teas.length} teas`);
+  console.log(`seeded successfully`);
   return {
     harrison,
     products,
@@ -70,7 +71,6 @@ async function seed() {
     newOrders
     // cartItems
   }
-
 }
 
 /*
