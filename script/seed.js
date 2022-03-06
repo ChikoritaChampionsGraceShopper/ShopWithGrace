@@ -68,8 +68,7 @@ async function seed() {
     harrison,
     products,
     users,
-    newUserOrders,
-    matchProductOrders
+    newOrders
     // cartItems
   }
 }
