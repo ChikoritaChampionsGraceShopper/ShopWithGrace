@@ -1,11 +1,12 @@
-
-'use strict'
-const teas = require('./ProductSeedData')
-const usernames = require('./UserSeedData')
-const orders = require('./OrderSeedData')
-const carts = require('./CartSeedData')
-const {db, models: {User, Product, Cart, Order} } = require('../server/db')
-
+'use strict';
+const teas = require('./ProductSeedData');
+const usernames = require('./UserSeedData');
+const orders = require('./OrderSeedData');
+const carts = require('./CartSeedData');
+const {
+  db,
+  models: { User, Product, Cart, Order },
+} = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -17,11 +18,10 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-
-    usernames.map(user => {
-      return User.create(user)
-    })
-  ])
+    usernames.map((user) => {
+      return User.create(user);
+    }),
+  ]);
 
   // Creating Products
   const products = await Promise.all([
@@ -35,26 +35,24 @@ async function seed() {
     orders.map((order) => {
       return Order.create(order);
     }),
-  ])
+  ]);
 
   // Creating Carts
   const cartItems = await Promise.all([
     carts.map((cart) => {
-      return Cart.create(cart)
-    })
-  ])
+      return Cart.create(cart);
+    }),
+  ]);
 
-
-  console.log(`seeded ${usernames.length} users`)
-  console.log(`seeded ${teas.length} teas`)
-  console.log(`seeded successfully`)
+  console.log(`seeded ${usernames.length} users`);
+  console.log(`seeded ${teas.length} teas`);
+  console.log(`seeded successfully`);
   return {
     products,
     users,
     orderItems,
-    cartItems
-  }
-
+    cartItems,
+  };
 }
 
 /*
