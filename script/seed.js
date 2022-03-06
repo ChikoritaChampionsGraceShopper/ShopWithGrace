@@ -1,3 +1,4 @@
+
 'use strict'
 const teas = require('./ProductSeedData')
 const usernames = require('./UserSeedData')
@@ -10,10 +11,10 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    usernames.map(user => {
-       User.create(user)
-    })
-  ])
+    usernames.map((user) => {
+      return User.create(user);
+    }),
+  ]);
 
   // Creating Products
   const products = await Promise.all([
@@ -39,6 +40,7 @@ async function seed() {
     user.createOrder()
   })
 
+<<<<<<< HEAD
   function getRandom(max) {
     return Math.floor(Math.random() * max)
   }
@@ -57,6 +59,11 @@ async function seed() {
   console.log(`seeded ${usernames.length} users`)
   console.log(`seeded ${teas.length} teas`)
   console.log(`seeded successfully`)
+=======
+  console.log(`seeded ${usernames.length} users`);
+  console.log(`seeded ${teas.length} teas`);
+  console.log(`seeded successfully`);
+>>>>>>> 6fe1dac1d43ec057384f138776665dfb4f41d015
   return {
     harrison,
     products,
@@ -65,7 +72,6 @@ async function seed() {
     matchProductOrders
     // cartItems
   }
-
 }
 
 /*
