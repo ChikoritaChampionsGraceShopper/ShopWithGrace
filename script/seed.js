@@ -34,11 +34,26 @@ async function seed() {
       zip_code: '00000'
     })
   ])
-  const makeOrders = await User.findAll()
-  const newOrders = makeOrders.map(user => {
+  const makeUserOrders = await User.findAll()
+  const newUserOrders = makeUserOrders.map(user => {
     user.createOrder()
   })
 
+  function getRandom(max) {
+    return Math.floor(Math.random() * max)
+  }
+
+  const productOrders = await Product.findAll()
+  const matchProductOrders = productOrders.map(product => {
+    const productID = getRandom(productOrders.length)
+    const userID = getRandom(newUserOrders.length)
+    const userOrder = newUserOrders[userID]
+    product.addOrder(productID)
+  })
+
+  console.log(Order.prototype)
+  console.log(`seeded ${matchProductOrders.length} carts`)
+  console.log(`seeded ${newUserOrders.length} orders`)
   console.log(`seeded ${usernames.length} users`)
   console.log(`seeded ${teas.length} teas`)
   console.log(`seeded successfully`)
@@ -46,7 +61,8 @@ async function seed() {
     harrison,
     products,
     users,
-    newOrders
+    newUserOrders,
+    matchProductOrders
     // cartItems
   }
 
