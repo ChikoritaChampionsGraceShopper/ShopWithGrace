@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { AccountContext, useAccount } from './AccountProvider'
 
-const AccountPage = () => {
+const AccountPage = ({match}) => {
   const { user, isLoading } = useContext(AccountContext)
   const {fetchUser} = useAccount()
-  const id = window.localStorage.getItem('id')
+  const { id } = match.params
   useEffect(() => {
     fetchUser(id)
   }, [])

@@ -10,7 +10,7 @@ import React, {
 const SHOW_ALL_PRODUCTS = 'SHOW_ALL_PRODUCTS';
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT';
 
-const ProductsContext = createContext();
+export const ProductsContext = createContext()
 
 export function useProducts() {
   const { products, isLoading, setisLoading, product, dispatch } =

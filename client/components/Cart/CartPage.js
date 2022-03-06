@@ -48,10 +48,19 @@ const items = [
   },
 ];
 
-const CartPage = () => {
+const CartPage = (props) => {
   const { cartItems, itemCount, total, increase, decrease, removeProduct, clearCart } = useContext(CartContext)
   const cartFuncs = { increase, decrease, removeProduct }
-  const {cart, isLoading, setCart, removeFromCart} = useCart()
+  const {cart, isLoading, setCart, fetchCart} = useCart()
+  const id = props.id
+  console.log(id)
+  useEffect(() => {
+    fetchCart(id)
+  }, [])
+  // console.log('cartItems: ', cartItems)
+  // console.log('cart: ', cart)
+  // console.log('itemCount: ', itemCount)
+  // console.log('total: ', total)
 
   return (
     // <Layout>

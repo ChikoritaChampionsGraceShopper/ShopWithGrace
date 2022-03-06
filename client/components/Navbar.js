@@ -6,7 +6,10 @@ import CartIcon from '../components/Cart/CartIcon'
 import history from '../history'
 
 const Navbar = () => {
-  const isLoggedIn = useSelector((state) => !!state.auth.id);
+  let id = 0
+  const isLoggedIn = useSelector((state) => {
+    id = state.auth.id
+    return !!state.auth.id});
   const dispatch = useDispatch();
 
   return (
@@ -42,14 +45,14 @@ const Navbar = () => {
           </div>
           { isLoggedIn
           ? <div>
-          <Link to='/account' >
+          <Link to={`/account/${id}`} >
           <p className="navbar-item" >Account</p>
           </Link>
           <Link to='/' >
           <p className="navbar-item" onClick={() => dispatch(logout())}>logout</p>
           </Link>
           <div className="navbar-item">
-          <CartIcon/>
+          <CartIcon id={id}/>
           </div>
           </div>
           : <div>
