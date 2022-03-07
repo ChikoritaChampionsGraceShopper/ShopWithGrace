@@ -1,22 +1,13 @@
 const userRouter = require('express').Router();
-const { userOrAdmin } = require('./gateKeepingMiddleware')
+const { requireToken, isAdmin } = require('./gateKeepingMiddleware')
 const { models: { User }, } = require('../db');
 module.exports = userRouter;
 
-const requireToken = async (req, res, next) => {
+userRouter.get('/', requireToken, isAdmin, async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
-    console.log(token);
-    const user = await User.findByToken(token);
-    req.user = user;
-    next();
-  } catch (err) {
-    next(err);
-  }
-};
-
-userRouter.get('/', async (req, res, next) => {
-  try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!')
+    }
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
       // users' passwords are encrypted, it won't help if we just
@@ -29,8 +20,11 @@ userRouter.get('/', async (req, res, next) => {
   }
 });
 
-userRouter.get('/:id', async (req, res, next) => {
+userRouter.get('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!')
+    }
     const user = await User.findOne({
       where: {
         id: req.params.id,
@@ -41,3 +35,4 @@ userRouter.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
+

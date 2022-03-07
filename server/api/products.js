@@ -1,6 +1,7 @@
 const productRouter = require('express').Router()
-const { Router } = require('react-router-dom')
+const { requireToken, isAdmin } = require('./gateKeepingMiddleware')
 const { models: { Product }} = require('../db')
+
 
 productRouter.get('/', async (req, res, next) => {
   try {
@@ -27,8 +28,11 @@ productRouter.get(`/:id`, async(req, res, next) => {
   }
 })
 
-productRouter.post('/', async (req, res, next) => {
+productRouter.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!')
+    }
     const data = req.body
     const { dataVal } = await Product.create(data)
     res.json(dataVal)
@@ -37,8 +41,11 @@ productRouter.post('/', async (req, res, next) => {
   }
 })
 
-productRouter.put('/:productId', async (req, res, next) => {
+productRouter.put('/:productId', requireToken, isAdmin, async (req, res, next) => {
   try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!')
+    }
     const data = req.body
     const { productId } = req.params
     await Product.udpate({ ...data }, {where: {id: productId}})
@@ -48,8 +55,11 @@ productRouter.put('/:productId', async (req, res, next) => {
   }
 })
 
-productRouter.delete('/:productId', async (req, res, next) => {
+productRouter.delete('/:productId', requireToken, isAdmin, async (req, res, next) => {
   try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!')
+    }
     const { productId } = req.params
     await Product.destroy({where: {id: productId}})
     res.status(204).end()
