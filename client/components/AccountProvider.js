@@ -15,7 +15,6 @@ export function useAccount() {
     isLoading,
     async fetchUser(id) {
       const { data: user } = await axios.get(`/api/users/${id}`, {headers: {authorization: window.localStorage.getItem('token')}})
-      console.log(user)
       dispatch({ type: SHOW_USER, user})
       setisLoading(false)
     }
@@ -43,20 +42,8 @@ export default function AccountProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setisLoading] = useState(true)
 
-  //User
-  // useEffect(() => {
-  //   async function fetchUser(id) {
-  //     const { data: user } = await axios.get(`/api/users/${id}`)
-  //     console.log(user)
-  //     dispatch({ type: SHOW_USER, user})
-  //     setisLoading(false)
-  //   }
-  //   fetchUser()
-  // },[])
-
-
-
   const contextValue = {
+    ...state,
     user: state.user,
     dispatch,
     setisLoading,

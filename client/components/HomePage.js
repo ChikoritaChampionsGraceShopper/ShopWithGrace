@@ -10,7 +10,6 @@ import Recommendation from './Recommendation';
 const HomePage = () => {
   const { products, isLoading, mapArr, setSingleProduct } = useProducts();
   const { addToCart } = useContext(CartContext);
-  console.log(mapArr);
 
   return (
     <div>
