@@ -1,4 +1,5 @@
 const productRouter = require('express').Router()
+const { Router } = require('react-router-dom')
 const { models: { Product }} = require('../db')
 
 productRouter.get('/', async (req, res, next) => {
@@ -23,6 +24,37 @@ productRouter.get(`/:id`, async(req, res, next) => {
     res.json(product)
   } catch (error) {
     next(error)
+  }
+})
+
+productRouter.post('/', async (req, res, next) => {
+  try {
+    const data = req.body
+    const { dataVal } = await Product.create(data)
+    res.json(dataVal)
+  } catch (err) {
+    next(err)
+  }
+})
+
+productRouter.put('/:productId', async (req, res, next) => {
+  try {
+    const data = req.body
+    const { productId } = req.params
+    await Product.udpate({ ...data }, {where: {id: productId}})
+    res.json(data)
+  } catch (err) {
+    next(err)
+  }
+})
+
+productRouter.delete('/:productId', async (req, res, next) => {
+  try {
+    const { productId } = req.params
+    await Product.destroy({where: {id: productId}})
+    res.status(204).end()
+  } catch (err) {
+    next(err)
   }
 })
 

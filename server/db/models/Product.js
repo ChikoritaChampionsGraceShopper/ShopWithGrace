@@ -24,15 +24,6 @@ const Product = db.define('product', {
       min: 0,
     }
   },
-  favorite: {
-    type: Sequelize.ENUM('0', '1'),
-    get() {
-      if (this.favorite === '1') return true
-      else {
-        return false
-      }
-    }
-  },
   status: {
     type: Sequelize.ENUM('in stock', 'low stock', 'out of stock'),
     get() {
