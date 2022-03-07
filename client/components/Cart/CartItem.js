@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from './CartProvider';
 
 
-const CartItem = (product) => {
-    const { name, image, price, quantity, increase, decrease, removeProduct } = product;
+const CartItem = (props) => {
+    const { increaseItemQuantity, decreaseItemQuantity, removeFromCart } = useContext(CartContext)
+    const { name, image, price, quantity } = props.product;
+    // console.log('increase', increase)
+    console.log('quantity', quantity)
     return (
       <div className='cart-item'>
-        <div classname='item-image'>
+        <div className='item-image'>
           {/* <img src=[image] alt='product' /> */}
         </div>
         <div className='name-price'>
@@ -17,26 +21,24 @@ const CartItem = (product) => {
         </div>
         <div className='btns-container'>
           <button
-            onClick={() => increase(product)}
+            onClick={() => increaseItemQuantity(props.product)}
             className='btn-increase'
-          >
+          > Increase
             {/* <PlusCircleIcon width='20px' /> */}
           </button>
           {
-            quantity === 1 &&
+            quantity === 1 ?
             <button
-              onClick={() => removeProduct(product)}
+              onClick={() => removeFromCart(props.product)}
               className='btn-trash'
-            >
+            > Remove
               {/* <TrashIcon width='20px' /> */}
             </button>
-          }
-          {
-            quantity > 1 &&
+            :
             <button
-            onClick={() => decrease(product)}
+            onClick={() => decreaseItemQuantity(props.product)}
             className='btn-decrease'
-            >
+            >Decrease
               {/* <MinusCircleIcon width='20px' /> */}
             </button>
           }

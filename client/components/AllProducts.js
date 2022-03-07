@@ -25,7 +25,7 @@ const AllProducts = () => {
             <button onClick={() => addToCart(product)}>Add to Cart</button>
           </div>
         ))
-      }
+      )}
     </div>
   );
 };
