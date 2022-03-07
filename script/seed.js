@@ -58,11 +58,11 @@ async function seed() {
   // const makeOrderDetails = await allOrders.map(order => {
   //   order.setProduct({quantity: 2, price: 20, productId: 122})
   // })
-  const allProducts = await Product.findAll()
-  const newProductOrders = await allProducts.map(product => {
-    product.addOrder(25)
-  })
-  // await dummyProduct.addOrder(25, {quantity: 1, price: 10});
+  // const allProducts = await Product.findAll()
+  // const newProductOrders = await allProducts.map(product => {
+  //   product.addOrder(25)
+  // })
+  await dummyProduct.addOrder(25, {quantity: 1, price: 10});
   // const foundOrder = await Order.findOne({ where: { userId: 25 } });
   // await foundOrder.addOrder_Details(1);
 
@@ -79,7 +79,7 @@ async function seed() {
     products,
     users,
     newOrders,
-    newProductOrders
+    // newProductOrders
     // makeOrderDetails
   };
 }

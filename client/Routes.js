@@ -5,7 +5,6 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
 import AllProducts from './components/AllProducts';
-import Navbar from './components/Navbar';
 import SingleProduct from './components/SingleProduct';
 import HomePage from './components/HomePage';
 import AccountPage from './components/AccountPage';
