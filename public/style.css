@@ -48,13 +48,13 @@ form div {
   margin-right: auto;
   width: 50%;
 }
-
+/* Routes */
 .routes {
   display: flex;
   justify-content: center;
   margin: 0 auto;
 }
-
+/* All Products */
 .allProductsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -109,7 +109,7 @@ form div {
   font-weight: bold;
   max-width: 120px;
 }
-
+/* single Product */
 .singleProductContainer {
   display: flex;
   flex-direction: column;
@@ -136,4 +136,54 @@ form div {
   width: auto;
   max-height: 240px;
   align-self: center;
+}
+
+/* User info */
+.userProfile {
+  display: flex;
+}
+
+.profileAndBlank {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profileContainer {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.ordersLabel,
+.profileLabel {
+  margin: 1em 0;
+  font-size: 18px;
+}
+
+.userProfileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100px;
+  box-shadow: 0.8px 0.9px 3px rgb(8, 8, 8);
+  padding: 1em;
+}
+
+.userProfileInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5em 0;
+  width: 300px;
+}
+
+.userProfileContainer button {
+  width: 200px;
+  align-self: center;
+  margin-top: 1em;
+}
+
+.userProfileContainer button:hover {
+  background-color: #757575;
+  color: white;
 }
