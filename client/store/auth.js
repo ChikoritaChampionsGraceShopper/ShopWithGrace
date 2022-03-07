@@ -12,6 +12,7 @@ export const me = () => async dispatch => {
     const res = await axios.get('/auth/me', {
       headers: { authorization: token }
     })
+    history.push('/')
     return dispatch(setAuth(res.data))
   }
 }
@@ -39,7 +40,6 @@ export default function(state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
       return action.auth
-
     default:
       return state
   }
