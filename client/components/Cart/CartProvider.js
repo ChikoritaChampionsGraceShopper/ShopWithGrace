@@ -2,10 +2,7 @@ import axios from 'axios'
 import React, {useReducer, useContext, createContext, useEffect, useState} from 'react'
 
 const SHOW_CART = 'SHOW_CART'
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-const ADD_ITEM = 'ADD_TO_CART'
-const INCREASE_ITEM = 'INCREASE_ITEM'
-const DECREASE_ITEM = 'DECREASE_ITEM'
+const EDIT_CART = 'EDIT_CART'
 const CLEAR_CART = 'CLEAR_CART'
 
 export const CartContext = createContext()
@@ -17,13 +14,13 @@ export function useCart() {
     cart,
     isLoading,
     setisLoading,
-    async updateCart(orderId, updatedInfo, userId) {
-      const { data: updatedCart } = await axios.post(`/api/cart/${orderId}`,
-      updatedInfo, userId)
-      dispatch({ type: ADD_ITEM, updatedCart })
+    async updateCart(orderId) {
+      const localStorageOrder = JSON.parse(window.localStorage.getItem('order'))
+      const { data } = await axios.put(`/api/orderdetails/${orderId}`, localStorageOrder)
+      dispatch({ type: EDIT_CART, data })
     },
     async fetchCart(id) {
-      const { data: order } = await axios.get(`/api/cart/${id}`)
+      const { data: order } = await axios.get(`/api/orderdetails/${id}`)
       dispatch({ type: SHOW_CART, order })
       setisLoading(false)
     }
@@ -48,50 +45,10 @@ const reducer = (state, action) => {
   console.log('action: ', action)
   switch(action.type) {
     case SHOW_CART: {
-      return { ...state, order: action.order, cartItems: [...action.order.carts ] }
+      return { ...state, order: action.order, cartItems: [...action.order.products ] }
     }
-    case ADD_ITEM: {
-      if(!state.cartItems.find(item => item.id === action.payload.id)) {
-        state.cartItems.push({
-          ...action.payload,
-          quantity: 1,
-        });
-      }
-      return {
-        ...state,
-        cartItems: [...state.cartItems],
-        itemCount: state.cartItems.reduce((total, product) => total + product.quantity, 0),
-        total: state.cartItems.reduce((total, product) => total + product.price * product.quantity, 0)
-      }
-    }
-    case INCREASE_ITEM: {
-      const increaseIdx = state.cartItems.findIndex(item => item.id === action.payload.id)
-      state.cartItems[increaseIdx].quantity++
-      return {
-        ...state,
-        cartItems: [...state.cartItems],
-        ...sumItems(state.cartItems)
-      }
-    }
-    case DECREASE_ITEM: {
-      const decreaseIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
-      const product = state.cartItems[decreaseIndex];
-      if (product.quantity !== 0 && product.quantity !== 1) {
-        product.quantity--;
-      }
-      return {
-        ...state,
-        cartItems: [...state.cartItems],
-        ...sumItems(state.cartItems),
-      }
-    }
-    case REMOVE_FROM_CART : {
-      const adjustedCart = state.cartItems.filter(item => item.id !== action.payload.id)
-      return {
-        ...state,
-        carttItems: [...adjustedCart],
-        ...sumItems(adjustedCart)
-      }
+    case EDIT_CART: {
+      return { ...state, order: [...action.payload]}
     }
     case CLEAR_CART: {
       localStorage.removeItem('cart');
@@ -114,29 +71,15 @@ const reducer = (state, action) => {
 export default function CartProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setisLoading] = useState(true)
-  const addToCart = (payload) => { dispatch({type: ADD_ITEM, payload})}
-  const removeFromCart = (payload) => { dispatch({type: REMOVE_FROM_CART, payload})}
-  const increaseItemQuantity = (payload) => { dispatch({type: INCREASE_ITEM, payload})}
-  const decreaseItemQuantity = (payload) => { dispatch({type: DECREASE_ITEM, payload})}
+  const editCart = (payload) => { dispatch({type: ADD_ITEM, payload})}
   const clearCart = () => { dispatch({type: CLEAR_CART })}
 
-  // useEffect(() => {
-  //   async function fetchCart(id) {
-  //     const { data: cart } = await axios.get(`/api/carts/${id}`)
-  //     dispatch({ type: SHOW_CART, cart })
-  //     setisLoading(false)
-  //   }
-  //   fetchCart()
-  // }, [])
+
 
   const contextValue = {
     ...state,
     total: state.total,
-    cart: state.cart,
-    addToCart,
-    removeFromCart,
-    increaseItemQuantity,
-    decreaseItemQuantity,
+    cart: state.order,
     clearCart,
     dispatch,
     setisLoading,

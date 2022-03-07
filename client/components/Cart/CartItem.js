@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { CartContext } from './CartProvider';
+import { useCart } from './CartProvider';
 
 
 const CartItem = (props) => {
-    const { increaseItemQuantity, decreaseItemQuantity, removeFromCart } = useContext(CartContext)
+    const { updateCart } = useCart()
     const { name, image, price, quantity } = props.product;
-    // console.log('increase', increase)
+    // const { id } = props.cart
+    console.log('here are the props: ', props)
     console.log('quantity', quantity)
     return (
       <div className='cart-item'>
@@ -21,7 +22,7 @@ const CartItem = (props) => {
         </div>
         <div className='btns-container'>
           <button
-            onClick={() => increaseItemQuantity(props.product)}
+            // onClick={() => updateCart(id)}
             className='btn-increase'
           > Increase
             {/* <PlusCircleIcon width='20px' /> */}
@@ -29,14 +30,14 @@ const CartItem = (props) => {
           {
             quantity === 1 ?
             <button
-              onClick={() => removeFromCart(props.product)}
+              // onClick={() => updateCart(id)}
               className='btn-trash'
             > Remove
               {/* <TrashIcon width='20px' /> */}
             </button>
             :
             <button
-            onClick={() => decreaseItemQuantity(props.product)}
+            // onClick={() => updateCart(id)}
             className='btn-decrease'
             >Decrease
               {/* <MinusCircleIcon width='20px' /> */}
