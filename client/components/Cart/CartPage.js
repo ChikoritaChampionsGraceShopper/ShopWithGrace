@@ -49,15 +49,14 @@ const items = [
 ];
 
 const CartPage = ({match}) => {
-  const { cartItems, itemCount, total, increase, decrease, removeProduct, clearCart } = useContext(CartContext)
-  const cartFuncs = { increase, decrease, removeProduct }
+  const { cartItems, itemCount, total, clearCart } = useContext(CartContext)
   const {order, fetchCart, updateCart} = useCart()
   const id = match.params.id
   useEffect(() => {
     fetchCart(id)
   }, [])
   useEffect(() => {
-    updateCart(25, 2, 25)
+    updateCart(25, 1, 25)
   }, [cartItems])
   console.log('cartItems: ', cartItems)
   console.log('cart: ', order)
@@ -76,7 +75,7 @@ const CartPage = ({match}) => {
         <div className='cart-page'>
           <div className='cart-item-container'>
             {
-              cartItems.map(item => <CartItem {...item} key={item.id} {...cartFuncs} />)
+              cartItems.map(item => <CartItem product={item} key={item.id} />)
             }
           </div>
           <Total itemCount={itemCount} total={total} clearCart={clearCart} />
