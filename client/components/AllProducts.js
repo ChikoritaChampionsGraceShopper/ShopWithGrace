@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useProducts } from './ProductsProvider';
 import Product from './Product';
-import { CartContext } from './Cart/CartProvider';
+import { useCart } from './Cart/CartProvider';
 
 const AllProducts = () => {
   const { products, isLoading, setSingleProduct } = useProducts();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart()
   // console.log('products: ', products)
   return (
     <div className='allProductsContainer'>

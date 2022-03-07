@@ -14,6 +14,23 @@ export function useCart() {
     cart,
     isLoading,
     setisLoading,
+    addToCart(itemId, quantity) {
+      const oldCart = JSON.parse(window.localStorage.getItem('order'));
+      let payload = {}
+      if (!oldCart) payload = { [itemId]: 1}
+      else {
+        payload = oldCart
+          if (Object.keys(oldCart).includes(itemId)) {
+              if (oldCart[itemId]) {
+                payload[itemId] += quantity
+              }
+          } else {
+            payload[itemId] = 1
+          }
+      }
+      window.localStorage.setItem('order', JSON.stringify(payload))
+      dispatch({ type: EDIT_CART, payload })
+    },
     async updateCart(orderId) {
       const localStorageOrder = JSON.parse(window.localStorage.getItem('order'))
       const { data } = await axios.put(`/api/orderdetails/${orderId}`, localStorageOrder)
@@ -28,8 +45,8 @@ export function useCart() {
 }
 
 const addToLocalStorage = (cartItems) => {
-  const cart = cartItems.length > 0 ? cartItems : [];
-  localStorage.setItem('cart', JSON.stringify(cart));
+  const order = cartItems.length > 0 ? cartItems : [];
+  localStorage.setItem('order', JSON.stringify(order));
 }
 
 export const sumItems = (cartItems) => {
@@ -48,7 +65,7 @@ const reducer = (state, action) => {
       return { ...state, order: action.order, cartItems: [...action.order.products ] }
     }
     case EDIT_CART: {
-      return { ...state, order: [...action.payload]}
+      return { ...state, order: action.payload}
     }
     case CLEAR_CART: {
       localStorage.removeItem('cart');
@@ -63,8 +80,8 @@ const reducer = (state, action) => {
     }
   }
 
-  const localCartStorage = localStorage.getItem('cart') ?
-  JSON.parse(localStorage.getItem('cart')) : [];
+  const localCartStorage = localStorage.getItem('order') ?
+  JSON.parse(localStorage.getItem('order')) : [];
 
   const initialState = { cartItems: localCartStorage, itemCount: 0, total: 0 }
 
@@ -74,12 +91,11 @@ export default function CartProvider({children}) {
   const editCart = (payload) => { dispatch({type: ADD_ITEM, payload})}
   const clearCart = () => { dispatch({type: CLEAR_CART })}
 
-
-
   const contextValue = {
     ...state,
     total: state.total,
     cart: state.order,
+    editCart,
     clearCart,
     dispatch,
     setisLoading,

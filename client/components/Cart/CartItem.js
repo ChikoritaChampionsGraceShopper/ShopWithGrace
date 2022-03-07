@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { useCart } from './CartProvider';
 
-
 const CartItem = (props) => {
-    const { updateCart } = useCart()
+    const { updateCart, addToCart } = useCart()
     const { name, image, price, quantity } = props.product;
     // const { id } = props.cart
     console.log('here are the props: ', props)
@@ -22,7 +21,7 @@ const CartItem = (props) => {
         </div>
         <div className='btns-container'>
           <button
-            // onClick={() => updateCart(id)}
+            onClick={() => addToCart(props.product.id)}
             className='btn-increase'
           > Increase
             {/* <PlusCircleIcon width='20px' /> */}

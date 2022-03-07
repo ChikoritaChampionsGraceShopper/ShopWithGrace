@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 import { useProducts } from './ProductsProvider'
 import Product from './Product'
-import { CartContext } from './Cart/CartProvider'
+import { useCart } from './Cart/CartProvider'
 
 const SingleProduct = ({match}) => {
   const { product, isLoading, setSingleProduct } = useProducts()
-  const { addToCart } = useContext(CartContext)
+  const { addToCart } = useCart()
   const { id } = match.params
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const SingleProduct = ({match}) => {
         <Product product={product} />
       <div className="singleProductDescription" >
         {product.description}
-      <button onClick={() => addToCart(product)} >Add to Cart</button>
+      <button onClick={() => addToCart(product.id, 1)} >Add to Cart</button>
         </div>
       </div>
       }
