@@ -12,7 +12,6 @@ export const me = () => async dispatch => {
     const res = await axios.get('/auth/me', {
       headers: { authorization: token }
     })
-    history.push('/')
     return dispatch(setAuth(res.data))
   }
 }
