@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useProducts } from './ProductsProvider'
 import Product from './Product'
-import { CartContext, useCart } from './Cart/CartProvider'
+import { CartContext } from './Cart/CartProvider'
 
 const SingleProduct = ({match}) => {
   const { product, isLoading, setSingleProduct } = useProducts()
@@ -14,12 +13,16 @@ const SingleProduct = ({match}) => {
   }, [])
 
   return (
-    <div id="single-product" key={product.id} >
+    <div className="singleProductContainer" key={product.id} >
     { isLoading
       ? <div className='loading'>Loading Product...</div>
-      : <><Product product={product} />
+      : <div className='singleProductCard'>
+        <Product product={product} />
+      <div className="singleProductDescription" >
+        {product.description}
       <button onClick={() => addToCart(product)} >Add to Cart</button>
-      </>
+        </div>
+      </div>
       }
   </div>
   )

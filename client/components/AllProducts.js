@@ -10,22 +10,22 @@ const AllProducts = () => {
   const { addToCart } = useContext(CartContext);
   // console.log('products: ', products)
   return (
-    <div id='products' className='column'>
+    <div className='allProductsContainer'>
       {isLoading ? (
         <div className='loading'>Loading Products...</div>
       ) : (
         products.map((product) => (
-          <div key={product.id}>
+          <div className='productCardOutline' key={product.id}>
+              <Product product={product} key={product.id} />
             <Link
               to={`/products/${product.id}`}
               onClick={() => setSingleProduct(product.id)}
-            >
-              <Product product={product} key={product.id} />
+            >View Product
             </Link>
             <button onClick={() => addToCart(product)}>Add to Cart</button>
           </div>
         ))
-      }
+      )}
     </div>
   );
 };
