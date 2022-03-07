@@ -48,3 +48,64 @@ form div {
   margin-right: auto;
   width: 50%;
 }
+
+.routes {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.allProductsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  max-width: 900px;
+}
+
+.productCardOutline {
+  border: 1px solid transparent;
+  width: 280px;
+  border-radius: 5px;
+  padding: 0.5em;
+  transition: box-shadow 0.1s ease-in-out;
+  box-shadow: 0.8px 0.9px 3px rgb(187, 187, 187);
+  margin: 0.3em;
+}
+
+.productCardOutline:hover {
+  box-shadow: 0.8px 0.9px 3px rgb(118, 203, 231);
+}
+
+.productContainer {
+  height: auto;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 0;
+  margin: 0.3em;
+}
+
+.productContainer * {
+  margin: 0.3em 0;
+  color: black;
+}
+
+.productContainer img {
+  height: 200px;
+  width: auto;
+}
+
+.productContainer .nameAndPrice {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.productName {
+  font-weight: bold;
+  max-width: 120px;
+}
