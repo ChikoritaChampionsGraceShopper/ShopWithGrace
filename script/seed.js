@@ -1,10 +1,8 @@
 'use strict';
 const teas = require('./ProductSeedData');
 const usernames = require('./UserSeedData');
-const carts = require('./CartSeedData');
-const {
-  db,
-  models: { User, Product, Cart, Order },
+const carts = require('./OrderDetailsSeedData');
+const { db, models: { User, Product, Order_Details, Order },
 } = require('../server/db');
 
 async function seed() {
@@ -56,14 +54,22 @@ async function seed() {
   const newOrders = await makeOrders.map((user) => {
     user.createOrder();
   });
-  await dummyProduct.createCart({ quantity: 1, price: 10 });
-  const foundOrder = await Order.findOne({ where: { userId: 25 } });
-  foundOrder.addCart(1);
+  // const allOrders = await Order.findAll()
+  // const makeOrderDetails = await allOrders.map(order => {
+  //   order.setProduct({quantity: 2, price: 20, productId: 122})
+  // })
+  const allProducts = await Product.findAll()
+  const newProductOrders = await allProducts.map(product => {
+    product.addOrder(25)
+  })
+  // await dummyProduct.addOrder(25, {quantity: 1, price: 10});
+  // const foundOrder = await Order.findOne({ where: { userId: 25 } });
+  // await foundOrder.addOrder_Details(1);
 
   // console.log(User.prototype) //connected to Orders
-  // console.log(Order.prototype) //connected to Carts
-  // console.log(Product.prototype) //connected to Carts
-  // console.log(Cart.prototype) //connected-Orders&Product
+  // console.log(Order.prototype) //connected to Order_Details
+  // console.log(Product.prototype) //connected to Order_Details
+  // console.log(Order_Details.prototype) //connected-Orders&Product
 
   console.log(`seeded ${usernames.length} users`);
   console.log(`seeded ${teas.length} teas`);
@@ -73,7 +79,8 @@ async function seed() {
     products,
     users,
     newOrders,
-    // cartItems
+    newProductOrders
+    // makeOrderDetails
   };
 }
 
