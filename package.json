@@ -1,7 +1,7 @@
 {
   "name": "chikoritadb",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "I don't know why it's boojee, but it is cool!",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
