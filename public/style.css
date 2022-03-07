@@ -48,6 +48,9 @@ form div {
   margin-right: auto;
   width: 50%;
 }
+.recommendations {
+  text-align: center;
+}
 /* Routes */
 .routes {
   display: flex;

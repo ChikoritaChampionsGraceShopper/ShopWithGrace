@@ -26,10 +26,11 @@ const HomePage = () => {
         </div>
         <div>
           {mapArr[0] === undefined ? (
-            <div>Loading Data</div>
+            <div>Loading Recommendations</div>
           ) : (
-            <div>
-              <h1>Recommendation</h1>
+            <>
+            <div className='recommendations'>Recommendations:</div>
+            <div className='allProductsContainer'>
               {mapArr.map((item) => {
                 return (
                   <div key={item.id}>
@@ -45,6 +46,7 @@ const HomePage = () => {
                 );
               })}
             </div>
+            </>
           )}
         </div>
       </section>
