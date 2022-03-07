@@ -10,28 +10,28 @@ const CartPage = ({match}) => {
   useEffect(() => {
     fetchCart(id)
   }, [])
-  useEffect(() => {
-    updateCart(id)
-  }, [cartItems])
+  // useEffect(() => {
+  //   updateCart(id)
+  // }, [cartItems])
 
-  console.log('cartItems: ', cartItems)
-  console.log('cart: ', cart)
-  console.log('itemCount: ', itemCount)
-  console.log('total: ', total)
+  // console.log('cartItems: ', cartItems)
+  // console.log('cart products: ', cart.products)
+  // console.log('itemCount: ', itemCount)
+  // console.log('total: ', total)
 
   return (
     // <Layout>
       <>
       <h1> Cart </h1>
       {
-        cartItems.length === 0
+        !cart
         ?
         <div className='empty-cart'> Your cart is empty </div>
         :
         <div className='cart-page'>
           <div className='cart-item-container'>
             {
-              cartItems.map(item => <CartItem product={item} cart={cart} key={item.id} />)
+              cart.products.map(item => <CartItem product={item} cart={cart} key={item.id} />)
             }
           </div>
           <Total itemCount={itemCount} total={total} clearCart={clearCart} />

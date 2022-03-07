@@ -13,6 +13,7 @@ Order_DetailsRouter.get('/', async (req, res, next) => {
 
 Order_DetailsRouter.get('/:id', async (req, res, next) => {
   try {
+    // console.log(req.headers)
     const userCart = await Order.findOne({ where: {
       id: req.params.id,
       status: 'Unfulfilled'
@@ -26,25 +27,22 @@ Order_DetailsRouter.get('/:id', async (req, res, next) => {
 })
 
 Order_DetailsRouter.put('/:id', async (req, res, next) => {
+  console.log(req.body)
   try {
-    const orderToUpdate = await Order.findByPk(req.params.id, {include: {model: Product}})
-    // const user = await User.findByPk(req.params.userId, {
-    //   include: {model: Order, include: {model: Product}}
-    // })
-
-    // const orderId = user.order.filter(order => order.status === 'Unfulfilled')
-    const {productId, quantity} = req.body
-    if (quantity === 0) orderToUpdate.removeProduct(productId)
-    await orderToUpdate.addProduct({productId, quantity})
-    // const [productOrderToBeUpdated, wasCreated] = await Order_Details.findOrCreate({where: {
-    //   productId,
-    //   orderId
-    // }})
-    // if (quantity === 0) await productOrderToBeUpdated.destroy()
-    // if (wasCreated) return res.sendStatus(201)
-    // productOrderToBeUpdated.quantity = quantity
-    await orderToUpdate.save()
-    res.sendStatus(201)
+    let order = await Order.findByPk(req.params.id)
+    if (order) await order.removeProducts(await order.getProducts())
+    if (!order) order = await Order.create({status: "Fullfilled"})
+      for (let productId in req.body) {
+        let product = await Product.findByPk(productId)
+        order.addProduct(product, {price: product.price, quantity: req.body[productId]})
+        let stock = product.inventory - req.body[productId]
+        // console.log(stock)
+        if (stock < 1) product.update({inventory: 0})
+        else {
+          product.update({inventory: stock})
+        }
+      }
+        res.json(req.body)
   } catch (err) {
     next(err)
   }

@@ -22,7 +22,7 @@ const AllProducts = () => {
               onClick={() => setSingleProduct(product.id)}
             >View Product
             </Link>
-            <button onClick={() => addToCart(product)}>Add to Cart</button>
+            <button onClick={() => addToCart(product.id, 1)}>Add to Cart</button>
           </div>
         ))
       )}

@@ -10,31 +10,30 @@ export const CartContext = createContext()
 export function useCart() {
   const { cart, isLoading, setisLoading, dispatch } = useContext(CartContext)
 
+  function addToCart(itemId, quantity) {
+    const oldCart = JSON.parse(window.localStorage.getItem('order'));
+    let payload = {}
+    if (!oldCart) payload = { [itemId]: 1}
+    else {
+      payload = oldCart
+      if (oldCart[itemId]) payload[itemId] += quantity
+      else {
+          payload[itemId] = 1
+        }
+    }
+    window.localStorage.setItem('order', JSON.stringify(payload))
+    dispatch({ type: EDIT_CART, payload })
+  }
+
   return {
     cart,
     isLoading,
     setisLoading,
-    addToCart(itemId, quantity) {
-      const oldCart = JSON.parse(window.localStorage.getItem('order'));
-      let payload = {}
-      if (!oldCart) payload = { [itemId]: 1}
-      else {
-        payload = oldCart
-          if (Object.keys(oldCart).includes(itemId)) {
-              if (oldCart[itemId]) {
-                payload[itemId] += quantity
-              }
-          } else {
-            payload[itemId] = 1
-          }
-      }
-      window.localStorage.setItem('order', JSON.stringify(payload))
-      dispatch({ type: EDIT_CART, payload })
-    },
+    addToCart,
     async updateCart(orderId) {
       const localStorageOrder = JSON.parse(window.localStorage.getItem('order'))
-      const { data } = await axios.put(`/api/orderdetails/${orderId}`, localStorageOrder)
-      dispatch({ type: EDIT_CART, data })
+      const { order } = await axios.put(`/api/orderdetails/${orderId}`, localStorageOrder)
+      dispatch({ type: EDIT_CART, order })
     },
     async fetchCart(id) {
       const { data: order } = await axios.get(`/api/orderdetails/${id}`)

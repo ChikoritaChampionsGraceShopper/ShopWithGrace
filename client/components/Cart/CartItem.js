@@ -3,8 +3,8 @@ import { useCart } from './CartProvider';
 
 const CartItem = (props) => {
     const { updateCart, addToCart } = useCart()
-    const { name, image, price, quantity } = props.product;
-    // const { id } = props.cart
+    const { name, image, price, order_details } = props.product;
+    const { quantity } = order_details
     console.log('here are the props: ', props)
     console.log('quantity', quantity)
     return (
