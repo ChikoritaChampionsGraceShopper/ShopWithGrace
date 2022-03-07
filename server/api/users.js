@@ -1,6 +1,8 @@
 const userRouter = require('express').Router();
-const { userOrAdmin } = require('./gateKeepingMiddleware')
-const { models: { User }, } = require('../db');
+const { userOrAdmin } = require('./gateKeepingMiddleware');
+const {
+  models: { User, Product, Order, Order_Details },
+} = require('../db');
 module.exports = userRouter;
 
 const requireToken = async (req, res, next) => {
@@ -39,5 +41,67 @@ userRouter.get('/:id', async (req, res, next) => {
     res.json(user);
   } catch (err) {
     next(err);
+  }
+});
+
+userRouter.post('/', async (req, res, next) => {
+  try {
+    const user = await User.Create(req.body);
+    const newOrder = await Order.create({
+      //add something to here to see if order is fullfilled or unfullfilled
+      userId: user.id,
+    });
+    user.hasOrder(newOrder);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userRouter.put('/:UserId', async (req, res, next) => {
+  try {
+    const {
+      id,
+      username,
+      password,
+      full_name,
+      email,
+      street_address,
+      city,
+      state,
+      zip_code,
+      isAdmin,
+    } = req.body;
+    const { userId } = req.params;
+    // const salt = User.generateSalt()
+    const hashPassword = User.encryptPassword(password, salt);
+
+    await User.update(
+      {
+        username,
+        password,
+        full_name,
+        email,
+        street_address,
+        city,
+        state,
+        zip_code,
+        isAdmin,
+      },
+      { where: { id: userId } }
+    );
+    //res.status(204).end()
+  } catch (error) {
+    next(error);
+  }
+});
+
+userRouter.delete('/:userId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId);
+    await user.destroy();
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
   }
 });
