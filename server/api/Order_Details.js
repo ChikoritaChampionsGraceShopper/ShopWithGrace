@@ -34,7 +34,7 @@ Order_DetailsRouter.post('/:userId', async (req, res, next) => {
       userId: req.params.userId,
       status: 'Unfulfilled'
     }, include: {
-      model: Order_Details
+      model: Product
     }})
     res.json(userOrder_Details)
   } catch (error) {
