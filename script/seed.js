@@ -1,9 +1,11 @@
-
-'use strict'
-const teas = require('./ProductSeedData')
-const usernames = require('./UserSeedData')
-const carts = require('./CartSeedData')
-const {db, models: {User, Product, Cart, Order} } = require('../server/db')
+'use strict';
+const teas = require('./ProductSeedData');
+const usernames = require('./UserSeedData');
+const carts = require('./CartSeedData');
+const {
+  db,
+  models: { User, Product, Cart, Order },
+} = require('../server/db');
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
@@ -25,16 +27,17 @@ async function seed() {
   const [dummyProduct] = await Promise.all([
     Product.create({
       name: 'Dummy Tea',
-      image: 'https://www.teasandthes.com/images/product//b/i/bitan_piaoxue_200.jpg',
+      image:
+        'https://www.teasandthes.com/images/product//b/i/bitan_piaoxue_200.jpg',
       category: 'Green',
       price: 10,
-      favorite: "0",
+      favorite: '0',
       status: 'in stock',
       inventory: 25,
       origin: 'China',
-      description: 'Hello I am the dummy data'
-    })
-  ])
+      description: 'Hello I am the dummy data',
+    }),
+  ]);
 
   const [harrison] = await Promise.all([
     User.create({
@@ -45,16 +48,17 @@ async function seed() {
       street_address: '1 Hogwarts Path',
       city: 'Hogwarts',
       state: 'Wizarding World',
-      zip_code: '00000'
-    })
-  ])
-  const makeOrders = await User.findAll()
-  const newOrders = await makeOrders.map(user => {
-    user.createOrder()
-  })
-  await dummyProduct.createCart({quantity: 1, price: 10})
-  const foundOrder = await Order.findOne({where: {userId: 25}})
-  foundOrder.addCart(1)
+      zip_code: '00000',
+      isAdmin: true,
+    }),
+  ]);
+  const makeOrders = await User.findAll();
+  const newOrders = await makeOrders.map((user) => {
+    user.createOrder();
+  });
+  await dummyProduct.createCart({ quantity: 1, price: 10 });
+  const foundOrder = await Order.findOne({ where: { userId: 25 } });
+  foundOrder.addCart(1);
 
   // console.log(User.prototype) //connected to Orders
   // console.log(Order.prototype) //connected to Carts
@@ -68,9 +72,9 @@ async function seed() {
     harrison,
     products,
     users,
-    newOrders
+    newOrders,
     // cartItems
-  }
+  };
 }
 
 /*
