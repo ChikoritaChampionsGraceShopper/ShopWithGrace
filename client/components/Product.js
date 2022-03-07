@@ -1,30 +1,58 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Product = (props) => {
   const product = props.product;
+  let id = 0;
+  const isLoggedIn = useSelector((state) => {
+    id = state.auth.id;
+    return !!state.auth.id;
+  });
+  const dispatch = useDispatch();
 
   return (
-    <div key={product.id} className='productContainer'>
-      <div>
-        <div>
+    <div>
+      {isLoggedIn ? (
+        <div key={product.id} className='productContainer'>
           <div>
-            <img src={product.image} style={{ width: '200px', height: '200px' }} />
-            <div className='nameAndPrice'>
-              <div className='productName'>{product.name}</div>
-              <div className='productPrice'>${product.price}</div>
+            <div>
+              <div>
+                <img
+                  src={product.image}
+                  style={{ width: '200px', height: '200px' }}
+                />
+                <div className='nameAndPrice'>
+                  <div className='productName'>{product.name}</div>
+                  <div className='productPrice'>${product.price}</div>
+                </div>
+                <div className='productInventory'>isInStock Goes here</div>
+                <Link to='/edit-product'>
+                  <button>Edit</button>
+                </Link>
+              </div>
             </div>
-            <div className='productInventory'>isInStock Goes here</div>
-            </div>
+          </div>
         </div>
-      </div>
-
-      {/* <h3>{product.name}</h3>
-      <h3>{product.price}</h3>
-      <h3>{product.description}</h3>
-      <h3>{product.origin}</h3>
-      <h3>{product.category}</h3>
-      <br /> */}
+      ) : (
+        <div key={product.id} className='productContainer'>
+          <div>
+            <div>
+              <div>
+                <img
+                  src={product.image}
+                  style={{ width: '200px', height: '200px' }}
+                />
+                <div className='nameAndPrice'>
+                  <div className='productName'>{product.name}</div>
+                  <div className='productPrice'>${product.price}</div>
+                </div>
+                <div className='productInventory'>isInStock Goes here</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
