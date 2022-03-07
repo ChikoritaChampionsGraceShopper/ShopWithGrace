@@ -10,33 +10,66 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
-.navbar-item {
-  padding: 0;
-}
-
-.navbar-menu {
-  align-items: center;
+/* Nav Menu */
+.nav-menu {
+  display: flex;
   justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
 }
 
-.buttons .button {
+.nav-menu a {
+  text-decoration: none;
+  color: black;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.logged-out {
+  display: flex;
+  flex-direction: row;
+}
+
+.logged-in {
+  display: flex;
+  flex-direction: row;
+}
+
+ul {
+  list-style: none;
   margin: 0;
+  margin-left: auto;
 }
 
-.hero-body {
+li {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+/* Homepage Hero  */
+.hero-image {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("./images/tea-img.jpg") center/cover no-repeat;
+}
+
+.hero-title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+.shop-now-btn {
   text-align: center;
 }
 
+/* Not Found */
 .notfound {
   text-align: center;
   font-size: 30px;
@@ -49,12 +82,7 @@ form div {
   width: 50%;
 }
 
-.routes {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-}
-
+/* Shop Products */
 .allProductsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -110,6 +138,7 @@ form div {
   max-width: 120px;
 }
 
+/* Single Product */
 .singleProductContainer {
   display: flex;
   flex-direction: column;
@@ -136,4 +165,34 @@ form div {
   width: auto;
   max-height: 240px;
   align-self: center;
+}
+
+/* Cart */
+.cart-container {
+  width: 30px;
+}
+
+/* Account Form */
+.account-form {
+  display: flex;
+  justify-content: center;
+}
+
+/* Recommended */
+.recommended-title {
+  display: block;
+  text-align: center;
+  padding: 2%;
+}
+
+.recommended-title h1 {
+  color: black;
+  font-size: larger;
+}
+
+.recommended-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1%;
 }
