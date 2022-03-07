@@ -7,7 +7,7 @@ const Cart = db.define('cart', {
   },
   price: {
     type: Sequelize.BIGINT,
-  }
-})
+  },
+});
 
 module.exports = Cart;

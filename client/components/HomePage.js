@@ -38,11 +38,9 @@ const HomePage = () => {
                       onClick={() => setSingleProduct(item.id)}
                     >
                       <Product product={item} />
-                      <button onClick={() => addToCart(item)}>
-                        Add to Cart
-                      </button>
-                      <br />
                     </Link>
+                    <button onClick={() => addToCart(item)}>Add to Cart</button>
+                    <br />
                   </div>
                 );
               })}

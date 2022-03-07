@@ -1,11 +1,13 @@
-const userRouter = require('express').Router()
-const { models: { User }} = require('../db')
-module.exports = userRouter
+const userRouter = require('express').Router();
+const {
+  models: { User },
+} = require('../db');
+module.exports = userRouter;
 
 const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log(token)
+    console.log(token);
     const user = await User.findByToken(token);
     req.user = user;
     next();
@@ -28,7 +30,7 @@ userRouter.get('/', requireToken, async (req, res, next) => {
   }
 });
 
-userRouter.get('/:id', async (req, res, next) => {
+userRouter.get('/:id', requireToken, async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
