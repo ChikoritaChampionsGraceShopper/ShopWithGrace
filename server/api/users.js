@@ -1,7 +1,6 @@
 const userRouter = require('express').Router();
-const {
-  models: { User },
-} = require('../db');
+const { userOrAdmin } = require('./gateKeepingMiddleware')
+const { models: { User }, } = require('../db');
 module.exports = userRouter;
 
 const requireToken = async (req, res, next) => {
@@ -16,7 +15,7 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-userRouter.get('/', requireToken, async (req, res, next) => {
+userRouter.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -30,7 +29,7 @@ userRouter.get('/', requireToken, async (req, res, next) => {
   }
 });
 
-userRouter.get('/:id', requireToken, async (req, res, next) => {
+userRouter.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
