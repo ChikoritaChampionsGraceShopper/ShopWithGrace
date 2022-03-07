@@ -24,6 +24,12 @@ const Navbar = () => {
             <div>
               <ul className="links">
                 <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/products">Shop</Link>
+                </li>
+                <li>
                   <Link to={`/account/${id}`}>Account</Link>
                 </li>
                 <li>
