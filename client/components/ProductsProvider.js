@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import React, {
   useReducer,
   useContext,
@@ -24,6 +24,7 @@ export function useProducts() {
     let randomItem = products[Math.floor(Math.random() * products.length)];
     return randomItem;
   };
+
   async function setSingleProduct(productId) {
     const { data: product } = await axios.get(`/api/products/${productId}`);
     console.log(product)
@@ -41,7 +42,6 @@ export function useProducts() {
       filteredProducts,
     });
     setisLoading(false);
-    // history.push(`/products/all/${category}`)
   }
   async function EditSingleProduct(productId, newProduct) {
     const { data: product } = await axios.put(
@@ -61,6 +61,7 @@ export function useProducts() {
       product,
     });
   }
+
   async function addSingleProduct(newProduct) {
     const { data: product } = await axios.post(`/api/products`, newProduct);
     dispatch({
@@ -95,8 +96,8 @@ export function useProducts() {
 }
 
 const reducer = (state, action) => {
-  console.log('state: ', state);
-  console.log('action: ', action);
+  console.log("state: ", state);
+  console.log("action: ", action);
   switch (action.type) {
     case SHOW_ALL_PRODUCTS: {
       return { ...state, products: action.products };

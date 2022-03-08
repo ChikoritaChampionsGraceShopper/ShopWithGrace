@@ -24,17 +24,26 @@ const SingleProduct = ({match}) => {
   }
 
   return (
-    <div className="singleProductContainer" key={product.id} >
-    { isLoading
-      ? <div className='loading'>Loading Product...</div>
-      : <div className='singleProductCard'>
-          <Product product={product} />
-        <div className="singleProductDescription" >
-          {product.description}
-        <button onClick={() => handleUpdate()} >Add to Cart</button>
+    <div className="singleProductContainer" key={product.id}>
+      {isLoading ? (
+        <div className="loading">Loading Product...</div>
+      ) : (
+        <div className="singleProductCard">
+          <div>
+            <Product product={product} />
+          </div>
+          <div className="single-product-addToCart">
+            <button className="button is-light" onClick={() => handleUpdate()}>
+              Add to Cart
+            </button>
+          </div>
+          <div>
+            <Link to={`/edit-product/${id}`}>
+              <button className="button is-light">Edit Product</button>
+            </Link>
+          </div>
         </div>
-        </div>
-      }
+      )}
     </div>
   );
 };

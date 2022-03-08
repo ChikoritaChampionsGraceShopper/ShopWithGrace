@@ -30,17 +30,34 @@ const AllProducts = () => {
           <div className="productCardOutline" key={product.id}>
             <div>
               <Product product={product} key={product.id} />
-            <Link
-              to={`/products/${product.id}`}
-              onClick={() => setSingleProduct(product.id)}
-            >View Product
-            </Link>
+              <Link
+                to={`/products/${product.id}`}
+                onClick={() => setSingleProduct(product.id)}
+              >
+                View Product
+              </Link>
             </div>
-            <button onClick={() => handleUpdate(product.id)}>Add to Cart</button>
+            <div className="all-products-buttons">
+              <div className="view-product-button">
+                <Link
+                  to={`/products/${product.id}`}
+                  onClick={() => setSingleProduct(product.id)}
+                >
+                  <button className="button is-light">View Product</button>
+                </Link>
+              </div>
+              <div className="all-products-addToCart">
+                <button
+                  className="button is-light"
+                  onClick={() => handleUpdate(product.id)}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
           </div>
         ))
-      )
-      }
+      )}
     </div>
   );
 };

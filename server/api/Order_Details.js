@@ -67,10 +67,19 @@ Order_DetailsRouter.post('/:id', async (req, res, next) => {
   }
 })
 
-Order_DetailsRouter.delete('/', async (req, res, next) => {
+Order_DetailsRouter.delete('/:userId', async (req, res, next) => {
   try {
-    const destroyOrder_Details = await Order_Details.findOne({ where: {
-    }})
+    const user = await User.findByPk(req.params.userId, {
+      include: {model: Order, include: {model: Product}}
+    })
+    const cartContents = user.orders.filter(order => !order.status)[0].products
+    await Promise.all(
+      cartContents.map(async item => {
+        const orderRemoved = item.OrderItems
+        await orderRemoved.destroy()
+      })
+    )
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }

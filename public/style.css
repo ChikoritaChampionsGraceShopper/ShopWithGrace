@@ -176,6 +176,13 @@ li {
 
 .all-products-addToCart {
   text-align: center;
+  padding: 0.5rem;
+}
+
+.all-products-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 /* Single Product */
