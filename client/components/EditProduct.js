@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 // import { useForm } from 'react-hook-form';
-import { useProducts } from './ProductsProvider';
+import { ProductsContext, useProducts } from './ProductsProvider';
+import history from '../history';
 
 const EditProduct = ({ match }) => {
   const { id } = match.params;
-  const { EditSingleProduct } = useProducts();
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
-  const [inventory, setInventory] = useState('');
-  const [origin, setOrigin] = useState('');
-  const [description, setDescription] = useState('');
+  const state = useContext(ProductsContext);
+  console.log(state);
+  const { product, EditSingleProduct, setSingleProduct } = useProducts();
+  const [name, setName] = useState(product.name);
+  const [price, setPrice] = useState(product.price);
+  const [category, setCategory] = useState(product.category);
+  const [inventory, setInventory] = useState(state.product.inventory);
+  const [origin, setOrigin] = useState(state.product.origin);
+  const [description, setDescription] = useState(state.product.description);
+  useEffect(() => {
+    setSingleProduct(id);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,6 +29,7 @@ const EditProduct = ({ match }) => {
       origin,
       description,
     });
+    history.push(`/products/${id}`);
   };
 
   return (

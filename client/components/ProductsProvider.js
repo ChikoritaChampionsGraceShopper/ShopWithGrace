@@ -116,8 +116,6 @@ export default function ProductProvider({ children }) {
 
   const contextValue = {
     ...state,
-    products: state.products,
-    product: state.product,
     dispatch,
     setisLoading,
     isLoading,
