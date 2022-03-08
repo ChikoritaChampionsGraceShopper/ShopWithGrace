@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { useCart } from "./Cart/CartProvider";
+import { Link } from "react-router-dom";
 import Recommendation from './Recommendation';
 
 const HomePage = () => {
@@ -27,9 +28,12 @@ const HomePage = () => {
               I don't know why it's boujee, but it is cool!
             </h1>
             <div className="shop-now-btn">
-              <button className="button is-black" id="shop-now">
-                SHOP NOW
-              </button>
+              <Link
+                to={`/products`}>
+                <button className="button is-black" id="shop-now">
+                  SHOP NOW
+                </button>
+              </Link>
             </div>
           </div>
         </div>

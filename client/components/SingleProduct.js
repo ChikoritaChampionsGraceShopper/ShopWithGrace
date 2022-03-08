@@ -8,11 +8,10 @@ const SingleProduct = ({match}) => {
   const { updateCart } = useCart()
   const { id } = match.params
   const state = useContext(CartContext)
-  console.log('thisis how', state)
 
   useEffect(() => {
-    setSingleProduct(id)
-  }, [])
+    setSingleProduct(id);
+  }, []);
 
   function handleUpdate() {
     updateCart(state.order.id, product.id, 1)
@@ -23,15 +22,15 @@ const SingleProduct = ({match}) => {
     { isLoading
       ? <div className='loading'>Loading Product...</div>
       : <div className='singleProductCard'>
-        <Product product={product} />
-      <div className="singleProductDescription" >
-        {product.description}
-      <button onClick={() => handleUpdate()} >Add to Cart</button>
+          <Product product={product} />
+        <div className="singleProductDescription" >
+          {product.description}
+        <button onClick={() => handleUpdate()} >Add to Cart</button>
         </div>
-      </div>
+        </div>
       }
-  </div>
-  )
-}
+    </div>
+  );
+};
 
-export default SingleProduct
+export default SingleProduct;

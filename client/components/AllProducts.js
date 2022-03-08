@@ -13,22 +13,25 @@ const AllProducts = () => {
   }
 
   return (
-    <div className='allProductsContainer'>
+    <div className="allProductsContainer">
       {isLoading ? (
-        <div className='loading'>Loading Products...</div>
+        <div className="loading">Loading Products...</div>
       ) : (
         products.map((product) => (
-          <div className='productCardOutline' key={product.id}>
+          <div className="productCardOutline" key={product.id}>
+            <div>
               <Product product={product} key={product.id} />
             <Link
               to={`/products/${product.id}`}
               onClick={() => setSingleProduct(product.id)}
             >View Product
             </Link>
+            </div>
             <button onClick={() => handleUpdate(product.id)}>Add to Cart</button>
           </div>
         ))
-      )}
+      )
+      }
     </div>
   );
 };

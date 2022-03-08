@@ -26,19 +26,27 @@ const AuthForm = ({ name, displayName }) => {
   },[handleSubmit])
 
   return (
-    <div className='account-form'>
+    <div className="account-form">
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="username">
             <small>Username</small>
           </label>
-          <input name="username" type="text" onChange={(event)=> setEmail(event)} />
+          <input
+            name="username"
+            type="text"
+            onChange={(event) => setEmail(event)}
+          />
         </div>
         <div>
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" onChange={(event)=> setPassword(event)}/>
+          <input
+            name="password"
+            type="password"
+            onChange={(event) => setPassword(event)}
+          />
         </div>
         <div>
           <button type="submit">{displayName}</button>
@@ -46,8 +54,8 @@ const AuthForm = ({ name, displayName }) => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
     </div>
-  )
-}
+  );
+};
 
-export const Login = <AuthForm name="login" displayName="Login" />
-export const Signup = <AuthForm name="signup" displayName="Sign Up" />
+export const Login = <AuthForm name="login" displayName="Login" />;
+export const Signup = <AuthForm name="signup" displayName="Sign Up" />;

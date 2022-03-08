@@ -27,7 +27,7 @@ const Recommendation = () => {
             <div className="recommended-container">
               {mapArr.map((item) => {
                 return (
-                  <div key={item.id}>
+                  <div key={item.id} className="recommended-product-container">
                     <Link
                       to={`/products/${item.id}`}
                       onClick={() => setSingleProduct(item.id)}

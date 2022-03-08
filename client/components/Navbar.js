@@ -1,9 +1,9 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, Route } from "react-router-dom";
-import { logout } from "../store";
-import CartIcon from "../components/Cart/CartIcon";
-import history from "../history";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, Route } from 'react-router-dom';
+import { logout } from '../store';
+import CartIcon from '../components/Cart/CartIcon';
+import history from '../history';
 
 const Navbar = () => {
   let id = 0;
@@ -15,25 +15,25 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="nav-menu">
-        <div className="logo">
-          <Link to="/">Chao's Teas</Link>
+      <nav className='nav-menu'>
+        <div className='logo'>
+          <Link to='/'>Chao's Teas</Link>
         </div>
         {isLoggedIn ? (
-          <div className="logged-in">
+          <div className='logged-in'>
             <div>
-              <ul className="links">
+              <ul className='links'>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to='/'>Home</Link>
                 </li>
                 <li>
-                  <Link to="/products">Shop</Link>
+                  <Link to='/products'>Shop</Link>
                 </li>
                 <li>
                   <Link to={`/account/${id}`}>Account</Link>
                 </li>
                 <li>
-                  <Link to="/" onClick={() => dispatch(logout())}>
+                  <Link to='/' onClick={() => dispatch(logout())}>
                     Logout
                   </Link>
                 </li>
@@ -44,20 +44,20 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="logged-out">
+          <div className='logged-out'>
             <div>
-              <ul className="links">
+              <ul className='links'>
                 <li>
-                  <Link to="/">Home</Link>
+                  <Link to='/'>Home</Link>
                 </li>
                 <li>
-                  <Link to="/products">Shop</Link>
+                  <Link to='/products'>Shop</Link>
                 </li>
                 <li>
-                  <Link to="/signup">Sign up</Link>
+                  <Link to='/signup'>Sign up</Link>
                 </li>
                 <li>
-                  <Link to="/login">Log in</Link>
+                  <Link to='/login'>Log in</Link>
                 </li>
               </ul>
             </div>
