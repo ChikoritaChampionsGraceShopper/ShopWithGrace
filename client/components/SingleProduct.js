@@ -5,8 +5,9 @@ import { CartContext, useCart } from './Cart/CartProvider'
 
 const SingleProduct = ({match}) => {
   const { product, isLoading, setSingleProduct } = useProducts()
-  const { addToCart, grabLocaLStorageMerge, updateCart } = useCart()
+  const { updateCart } = useCart()
   const { id } = match.params
+  const state = useContext(CartContext)
 
   useEffect(() => {
     setSingleProduct(id)
@@ -14,7 +15,7 @@ const SingleProduct = ({match}) => {
   console.log(product.id)
 
   function handleUpdate() {
-    updateCart(25, product.id, 1)
+    updateCart(state.order.id, product.id, 1)
   }
 
   return (

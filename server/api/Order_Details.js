@@ -38,16 +38,13 @@ Order_DetailsRouter.put('/:id', async (req, res, next) => {
         orderId: req.params.id
       }
     })
-    // if quantity === 0 then destroy the ProductOrder instance
     if (quantity === 0) await productOrderToBeUpdated.destroy()
-    // if product wasCreated return status 201
     if (wasCreated) return res.sendStatus(201)
-
-    // otherwise, we need to update the quantity of productOrderToBeUpdated
-    productOrderToBeUpdated.quantity = quantity
+    else {
+    productOrderToBeUpdated.quantity = parseInt(productOrderToBeUpdated.quantity) + quantity
     await productOrderToBeUpdated.save()
-
     res.sendStatus(201)
+  }
   } catch (err) {
     next(err)
   }

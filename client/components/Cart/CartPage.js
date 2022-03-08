@@ -5,16 +5,11 @@ import Total from './Total';
 
 const CartPage = ({match}) => {
   const { order, cartItems, itemCount, total, clearCart } = useContext(CartContext)
-  const { fetchCart, updateCart } = useCart()
+  const { fetchCart } = useCart()
   const id = match.params.id
   useEffect(() => {
     fetchCart(id)
   }, [])
-
-  // console.log('cartItems: ', cartItems)
-  // console.log('cart order: ', order.products)
-  // console.log('itemCount: ', itemCount)
-  // console.log('total: ', total)
 
   return (
     // <Layout>

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, {useReducer, useContext, createContext, useEffect, useState} from 'react'
+import history from 'history'
 
 const SHOW_CART = 'SHOW_CART'
 const EDIT_CART = 'EDIT_CART'
@@ -9,27 +10,12 @@ const GRAB_CART = 'GRAB_CART'
 export const CartContext = createContext()
 
 export function useCart() {
-  const { order, isLoading, setisLoading, dispatch } = useContext(CartContext)
+  const { isLoading, setisLoading, dispatch } = useContext(CartContext)
 
-  // function addToCart(itemId, quantity) {
-  //   const oldCart = JSON.parse(window.localStorage.getItem('order'));
-  //   let payload = {}
-  //   if (!oldCart) payload = { [itemId]: 1}
-  //   else {
-  //     payload = oldCart
-  //     if (oldCart[itemId]) payload[itemId] += quantity
-  //     else {
-  //         payload[itemId] = 1
-  //       }
-  //   }
-  //   window.localStorage.setItem('order', JSON.stringify(payload))
-  //   dispatch({ type: EDIT_CART, payload })
-  // }
 
   return {
     isLoading,
     setisLoading,
-    // addToCart,
     async updateCart(orderId, productId, quantity) {
       await axios.put(`/api/orderdetails/${orderId}`, {productId, quantity})
       dispatch({ type: EDIT_CART, productId, quantity })
@@ -42,19 +28,6 @@ export function useCart() {
     async grabLocaLStorageMerge(pastCart, cartFromLocalStorage) {
           dispatch({type: GRAB_CART, pastCart, cartFromLocalStorage})
     }
-  }
-}
-
-const addToLocalStorage = (cartItems) => {
-  const order = cartItems.length > 0 ? cartItems : [];
-  localStorage.setItem('order', JSON.stringify(order));
-}
-
-export const sumItems = (cartItems) => {
-  addToLocalStorage(cartItems)
-  return {
-    itemCount: cartItems.reduce((total, product) => total + product.quantity, 0),
-    total: cartItems.reduce((total, product) => total + product.price * product.quntity, 0)
   }
 }
 
@@ -99,10 +72,10 @@ const reducer = (state, action) => {
     }
   }
 
-  const localCartStorage = localStorage.getItem('order') ?
-  JSON.parse(localStorage.getItem('order')) : [];
+  // const localCartStorage = localStorage.getItem('order') ?
+  // JSON.parse(localStorage.getItem('order')) : [];
 
-  const initialState = { cartItems: localCartStorage, itemCount: 0, total: 0 }
+  const initialState = { cartItems: [], itemCount: 0, total: 0 }
 
 export default function CartProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -110,10 +83,22 @@ export default function CartProvider({children}) {
   const editCart = (payload) => { dispatch({type: EDIT_CART, payload})}
   const clearCart = () => { dispatch({type: CLEAR_CART })}
 
+  // const addToLocalStorage = (cartItems) => {
+  //   const order = cartItems.length > 0 ? cartItems : [];
+  //   localStorage.setItem('order', JSON.stringify(order));
+  // }
+
+  // const sumItems = (cartItems) => {
+  //   addToLocalStorage(cartItems)
+  //   return {
+  //     itemCount: cartItems.reduce((total, product) => total + product.quantity, 0),
+  //     total: cartItems.reduce((total, product) => total + product.price * product.quntity, 0)
+  //   }
+  // }
+
   const contextValue = {
     ...state,
-    total: state.total,
-    order: state.order,
+    // sumItems,
     editCart,
     clearCart,
     dispatch,

@@ -1,17 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useCart } from './CartProvider';
 
 const CartItem = (props) => {
-    const { updateCart, addToCart } = useCart()
+    const { updateCart, fetchCart } = useCart()
     const { name, image, price, order_details } = props.product;
     const { id } = props.order
     const { quantity } = order_details
-    console.log('here are the props: ', props)
-    console.log('quantity', quantity)
+
+    // console.log('let me know the changes!', order_details)
+
+  async function handleChange(quantity) {
+      updateCart(id, props.product.id, quantity)
+    }
+
     return (
       <div className='cart-item'>
         <div className='item-image'>
-          {/* <img src=[image] alt='product' /> */}
+          <img src={image} alt='product' />
         </div>
         <div className='name-price'>
           <h4> {name} </h4>
@@ -22,22 +27,22 @@ const CartItem = (props) => {
         </div>
         <div className='btns-container'>
           <button
-            onClick={() => updateCart(id, props.product.id, 1)}
+            onClick={() => handleChange(1)}
             className='btn-increase'
           > Increase
             {/* <PlusCircleIcon width='20px' /> */}
           </button>
           {
-            quantity === 1 ?
+            quantity < 2 ?
             <button
-              // onClick={() => updateCart(id)}
+              onClick={() => handleChange(0)}
               className='btn-trash'
             > Remove
               {/* <TrashIcon width='20px' /> */}
             </button>
             :
             <button
-            // onClick={() => updateCart(id)}
+            onClick={() => handleChange(-1)}
             className='btn-decrease'
             >Decrease
               {/* <MinusCircleIcon width='20px' /> */}
