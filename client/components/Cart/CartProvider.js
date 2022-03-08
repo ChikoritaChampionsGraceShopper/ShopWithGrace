@@ -8,7 +8,7 @@ const CLEAR_CART = 'CLEAR_CART'
 export const CartContext = createContext()
 
 export function useCart() {
-  const { cart, isLoading, setisLoading, dispatch } = useContext(CartContext)
+  const { order, isLoading, setisLoading, dispatch } = useContext(CartContext)
 
   function addToCart(itemId, quantity) {
     const oldCart = JSON.parse(window.localStorage.getItem('order'));
@@ -26,7 +26,6 @@ export function useCart() {
   }
 
   return {
-    cart,
     isLoading,
     setisLoading,
     addToCart,
@@ -67,7 +66,7 @@ const reducer = (state, action) => {
       return { ...state, order: action.payload}
     }
     case CLEAR_CART: {
-      localStorage.removeItem('cart');
+      localStorage.removeItem('order');
       return {
         cartItems: [],
         itemCount: 0,
@@ -93,7 +92,7 @@ export default function CartProvider({children}) {
   const contextValue = {
     ...state,
     total: state.total,
-    cart: state.order,
+    order: state.order,
     editCart,
     clearCart,
     dispatch,

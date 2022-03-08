@@ -36,10 +36,10 @@ Order_DetailsRouter.put('/:id', async (req, res, next) => {
         let product = await Product.findByPk(productId)
         order.addProduct(product, {price: product.price, quantity: req.body[productId]})
         let stock = product.inventory - req.body[productId]
-        // console.log(stock)
-        if (stock < 1) product.update({inventory: 0})
+        console.log(stock)
+        if (stock < 1) window.alert('sorry, no more beans!')
         else {
-          product.update({inventory: stock})
+        product.update({inventory: stock})
         }
       }
         res.json(req.body)
