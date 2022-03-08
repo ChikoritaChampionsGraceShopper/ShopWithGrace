@@ -23,11 +23,16 @@ const SingleProduct = ({ match }) => {
             <Product product={product} />
           </div>
           <div className="single-product-addToCart">
-            <button onClick={() => addToCart(product)}>Add to Cart</button>
+            <button
+              className="button is-light"
+              onClick={() => addToCart(product)}
+            >
+              Add to Cart
+            </button>
           </div>
           <div>
             <Link to={`/edit-product/${id}`}>
-              <button>Edit Product</button>
+              <button className="button is-light">Edit Product</button>
             </Link>
           </div>
         </div>

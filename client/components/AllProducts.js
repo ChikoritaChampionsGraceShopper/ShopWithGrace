@@ -20,16 +20,23 @@ const AllProducts = (props) => {
             <div>
               <Product product={product} key={product.id} />
             </div>
-            <div className="view-product-button">
-              <Link
-                to={`/products/${product.id}`}
-                onClick={() => setSingleProduct(product.id)}
-              >
-                <button>View Product</button>
-              </Link>
-            </div>
-            <div className="all-products-addToCart">
-              <button onClick={() => addToCart(product)}>Add to Cart</button>
+            <div className="all-products-buttons">
+              <div className="view-product-button">
+                <Link
+                  to={`/products/${product.id}`}
+                  onClick={() => setSingleProduct(product.id)}
+                >
+                  <button className="button is-light">View Product</button>
+                </Link>
+              </div>
+              <div className="all-products-addToCart">
+                <button
+                  className="button is-light"
+                  onClick={() => addToCart(product)}
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           </div>
         ))

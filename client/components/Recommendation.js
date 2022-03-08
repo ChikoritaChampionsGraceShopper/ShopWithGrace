@@ -30,7 +30,12 @@ const Recommendation = () => {
                     >
                       <Product product={item} />
                     </Link>
-                    <button onClick={() => addToCart(item)}>Add to Cart</button>
+                    <button
+                      className="button is-light"
+                      onClick={() => addToCart(item)}
+                    >
+                      Add to Cart
+                    </button>
                     <br />
                   </div>
                 );
