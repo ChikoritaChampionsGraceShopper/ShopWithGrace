@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Product = (props) => {
   console.log(props);
@@ -22,7 +22,7 @@ const Product = (props) => {
       <div className="single-product-origin">
         Country of origin: {product.origin}
       </div>
-      <div>{product.status}</div>
+      <div>Type of tea: {product.category}</div>
       <div className="single-product-description">{product.description}</div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useProducts } from "./ProductsProvider";
 import Product from "./Product";
 import { CartContext } from "./Cart/CartProvider";
+import { Link } from "react-router-dom";
 
 const SingleProduct = ({ match }) => {
   const { product, isLoading, setSingleProduct } = useProducts();
@@ -23,6 +24,11 @@ const SingleProduct = ({ match }) => {
           </div>
           <div className="single-product-addToCart">
             <button onClick={() => addToCart(product)}>Add to Cart</button>
+          </div>
+          <div>
+            <Link to={`/edit-product/${id}`}>
+              <button>Edit Product</button>
+            </Link>
           </div>
         </div>
       )}
