@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Product = (props) => {
+  console.log(props);
   const product = props.product;
   let id = 0;
   const isLoggedIn = useSelector((state) => {
@@ -27,9 +28,10 @@ const Product = (props) => {
                   <div className='productPrice'>${product.price}</div>
                 </div>
                 <div className='productInventory'>isInStock Goes here</div>
-                <Link to='/edit-product'>
+                <Link to={`/edit-product/${product.id}`}>
                   <button>Edit</button>
                 </Link>
+                <button onClick={() => {}}>Delete</button>
               </div>
             </div>
           </div>

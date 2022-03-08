@@ -2,7 +2,9 @@
 const teas = require('./ProductSeedData');
 const usernames = require('./UserSeedData');
 const carts = require('./OrderDetailsSeedData');
-const { db, models: { User, Product, Order_Details, Order },
+const {
+  db,
+  models: { User, Product, Order_Details, Order },
 } = require('../server/db');
 
 async function seed() {
@@ -62,7 +64,7 @@ async function seed() {
   // const newProductOrders = await allProducts.map(product => {
   //   product.addOrder(25)
   // })
-  await dummyProduct.addOrder(25, {quantity: 1, price: 10});
+  await dummyProduct.addOrder(25, { quantity: 1, price: 10 });
   // const foundOrder = await Order.findOne({ where: { userId: 25 } });
   // await foundOrder.addOrder_Details(1);
 

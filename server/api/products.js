@@ -1,72 +1,94 @@
-const productRouter = require('express').Router()
-const { requireToken, isAdmin } = require('./gateKeepingMiddleware')
-const { models: { Product }} = require('../db')
-
+const productRouter = require('express').Router();
+const { requireToken, isAdmin } = require('./gateKeepingMiddleware');
+const {
+  models: { Product },
+} = require('../db');
 
 productRouter.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
-      attributes: ['id', 'name', 'image', 'category', 'price', 'inventory', 'origin', 'description']
-    })
+      attributes: [
+        'id',
+        'name',
+        'image',
+        'category',
+        'price',
+        'inventory',
+        'origin',
+        'description',
+      ],
+    });
     // console.log(products)
-    res.json(products)
+    res.json(products);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-productRouter.get(`/:id`, async(req, res, next) => {
+productRouter.get(`/:id`, async (req, res, next) => {
   try {
-    const product = await Product.findOne({where: {
-      id: req.params.id,
-    }, attributes: {
-      exclude: ['favorite', 'status']
-    }})
-    res.json(product)
+    const product = await Product.findOne({
+      where: {
+        id: req.params.id,
+      },
+      attributes: {
+        exclude: ['favorite', 'status'],
+      },
+    });
+    res.json(product);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 productRouter.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     if (!req.user.isAdmin) {
-      return res.status(403).send('You have hit a security barrier!')
+      return res.status(403).send('You have hit a security barrier!');
     }
-    const data = req.body
-    const { dataVal } = await Product.create(data)
-    res.json(dataVal)
+    const data = req.body;
+    const { dataVal } = await Product.create(data);
+    res.json(dataVal);
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
-productRouter.put('/:productId', requireToken, isAdmin, async (req, res, next) => {
-  try {
-    if (!req.user.isAdmin) {
-      return res.status(403).send('You have hit a security barrier!')
+productRouter.put(
+  '/:productId',
+  // requireToken,
+  // isAdmin,
+  async (req, res, next) => {
+    try {
+      // if (!req.user.isAdmin) {
+      //   return res.status(403).send('You have hit a security barrier!');
+      // }
+      const data = req.body;
+      const { productId } = req.params;
+      await Product.update({ ...data }, { where: { id: productId } });
+      res.json(data);
+    } catch (err) {
+      next(err);
     }
-    const data = req.body
-    const { productId } = req.params
-    await Product.udpate({ ...data }, {where: {id: productId}})
-    res.json(data)
-  } catch (err) {
-    next(err)
   }
-})
+);
 
-productRouter.delete('/:productId', requireToken, isAdmin, async (req, res, next) => {
-  try {
-    if (!req.user.isAdmin) {
-      return res.status(403).send('You have hit a security barrier!')
+productRouter.delete(
+  '/:productId',
+  // requireToken,
+  // isAdmin,
+  async (req, res, next) => {
+    try {
+      // if (!req.user.isAdmin) {
+      //   return res.status(403).send('You have hit a security barrier!');
+      // }
+      const { productId } = req.params;
+      await Product.destroy({ where: { id: productId } });
+      res.status(204).end();
+    } catch (err) {
+      next(err);
     }
-    const { productId } = req.params
-    await Product.destroy({where: {id: productId}})
-    res.status(204).end()
-  } catch (err) {
-    next(err)
   }
-})
+);
 
-
-module.exports = productRouter
+module.exports = productRouter;

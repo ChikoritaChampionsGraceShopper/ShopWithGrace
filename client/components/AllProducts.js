@@ -5,8 +5,9 @@ import { useProducts } from './ProductsProvider';
 import Product from './Product';
 import { CartContext } from './Cart/CartProvider';
 
-const AllProducts = () => {
-  const { products, isLoading, setSingleProduct } = useProducts();
+const AllProducts = (props) => {
+  const { products, isLoading, setSingleProduct, deleteSingleProduct } =
+    useProducts();
   const { addToCart } = useContext(CartContext);
   // console.log('products: ', products)
   return (
@@ -16,11 +17,12 @@ const AllProducts = () => {
       ) : (
         products.map((product) => (
           <div className='productCardOutline' key={product.id}>
-              <Product product={product} key={product.id} />
+            <Product product={product} key={product.id} props={props} />
             <Link
               to={`/products/${product.id}`}
               onClick={() => setSingleProduct(product.id)}
-            >View Product
+            >
+              View Product
             </Link>
             <button onClick={() => addToCart(product)}>Add to Cart</button>
           </div>

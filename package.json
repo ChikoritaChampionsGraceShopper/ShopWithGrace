@@ -28,6 +28,7 @@
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
     "react-combine-providers": "^0.9.6",
+    "react-hook-form": "^7.27.1",
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
