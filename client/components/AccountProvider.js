@@ -22,8 +22,6 @@ export function useAccount() {
 }
 
 const reducer = (state, action) => {
-  console.log('state: ', state)
-  console.log('action: ', action)
   switch(action.type) {
     case SHOW_USER: {
       return { ...state, user: action.user }
@@ -44,7 +42,6 @@ export default function AccountProvider({children}) {
 
   const contextValue = {
     ...state,
-    user: state.user,
     dispatch,
     setisLoading,
     isLoading

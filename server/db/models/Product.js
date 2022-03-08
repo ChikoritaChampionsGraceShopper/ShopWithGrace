@@ -18,18 +18,10 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0,
-    }
-  },
-  status: {
-    type: Sequelize.ENUM('in stock', 'low stock', 'out of stock'),
-    get() {
-      if (this.inventory === 0) this.status = 'out of stock'
-      if (this.inventory <= 10) this.status = 'low stock'
-      if (this.inventory > 10) this.status = 'in stock'
     }
   },
   inventory: {
@@ -40,7 +32,7 @@ const Product = db.define('product', {
     }
   },
   origin: {
-    type: Sequelize.ENUM('China', 'Taiwan', 'India', 'Japan'),
+    type: Sequelize.STRING,
     allowNull: false
   },
   description: {

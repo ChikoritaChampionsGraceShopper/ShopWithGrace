@@ -6,12 +6,17 @@ import { Link } from "react-router-dom";
 
 const SingleProduct = ({ match }) => {
   const { product, isLoading, setSingleProduct } = useProducts();
-  const { addToCart } = useContext(CartContext);
+  const { updateCart } = useCart();
   const { id } = match.params;
+  const state = useContext(CartContext);
 
   useEffect(() => {
     setSingleProduct(id);
   }, []);
+
+  function handleUpdate() {
+    updateCart(state.order.id, product.id, 1);
+  }
 
   return (
     <div className="singleProductContainer" key={product.id}>
@@ -23,10 +28,7 @@ const SingleProduct = ({ match }) => {
             <Product product={product} />
           </div>
           <div className="single-product-addToCart">
-            <button
-              className="button is-light"
-              onClick={() => addToCart(product)}
-            >
+            <button className="button is-light" onClick={() => handleUpdate()}>
               Add to Cart
             </button>
           </div>

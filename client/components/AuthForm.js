@@ -1,20 +1,29 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { authenticate } from "../store";
+import React, { useState, useEffect, useContext } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {authenticate} from '../store'
+import { useCart } from "./Cart/CartProvider";
+import { AccountContext } from "./AccountProvider";
 
 const AuthForm = ({ name, displayName }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { error } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const { error } = useSelector(state => state.auth)
+  const {fetchCart} = useCart()
+  const {user} = useContext(AccountContext)
+  const dispatch = useDispatch()
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const formName = evt.target.name;
-    const username = evt.target.username.value;
-    const password = evt.target.password.value;
-    dispatch(authenticate(username, password, formName));
-  };
+    evt.preventDefault()
+    const formName = evt.target.name
+    const username = evt.target.username.value
+    const password = evt.target.password.value
+    dispatch(authenticate(username, password, formName))
+  }
+  useEffect(() => {
+    if (user.id) {
+    fetchCart(user.id)
+    }
+  },[handleSubmit])
 
   return (
     <div className="account-form">
