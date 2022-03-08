@@ -7,8 +7,14 @@ import { Link } from "react-router-dom";
 import { CartContext, useCart } from "./Cart/CartProvider";
 
 const Recommendation = () => {
-  const { products, isLoading, mapArr, setSingleProduct } = useProducts();
-  const { addToCart } = useContext(CartContext);
+  const { product, mapArr, setSingleProduct } = useProducts();
+  const {updateCart} = useCart()
+  const state = useContext(CartContext)
+  console.log('here is the state!!', state)
+
+  function handleUpdate(product) {
+    updateCart(state.order.id, product.id, 1)
+  }
 
   return (
     <div>
@@ -30,7 +36,7 @@ const Recommendation = () => {
                     >
                       <Product product={item} />
                     </Link>
-                    <button onClick={() => addToCart(item)}>Add to Cart</button>
+                    <button onClick={() => handleUpdate(item)}>Add to Cart</button>
                     <br />
                   </div>
                 );

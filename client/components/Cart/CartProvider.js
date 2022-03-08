@@ -1,6 +1,5 @@
 import axios from 'axios'
-import React, {useReducer, useContext, createContext, useEffect, useState} from 'react'
-import history from 'history'
+import React, {useReducer, useContext, createContext, useState} from 'react'
 
 const SHOW_CART = 'SHOW_CART'
 const EDIT_CART = 'EDIT_CART'
@@ -12,21 +11,25 @@ export const CartContext = createContext()
 export function useCart() {
   const { isLoading, setisLoading, dispatch } = useContext(CartContext)
 
+  async function fetchCart(id) {
+    const { data: order } = await axios.get(`/api/orderdetails/${id}`)
+    dispatch({ type: SHOW_CART, order })
+    setisLoading(false)
+  }
+
+  async function updateCart(orderId, productId, quantity) {
+    await axios.put(`/api/orderdetails/${orderId}`, {productId, quantity})
+    dispatch({ type: EDIT_CART, productId, quantity })
+    fetchCart(orderId)
+  }
 
   return {
     isLoading,
     setisLoading,
-    async updateCart(orderId, productId, quantity) {
-      await axios.put(`/api/orderdetails/${orderId}`, {productId, quantity})
-      dispatch({ type: EDIT_CART, productId, quantity })
-    },
-    async fetchCart(id) {
-      const { data: order } = await axios.get(`/api/orderdetails/${id}`)
-      dispatch({ type: SHOW_CART, order })
-      setisLoading(false)
-    },
+    updateCart,
+    fetchCart,
     async grabLocaLStorageMerge(pastCart, cartFromLocalStorage) {
-          dispatch({type: GRAB_CART, pastCart, cartFromLocalStorage})
+        dispatch({type: GRAB_CART, pastCart, cartFromLocalStorage})
     }
   }
 }
@@ -72,9 +75,6 @@ const reducer = (state, action) => {
     }
   }
 
-  // const localCartStorage = localStorage.getItem('order') ?
-  // JSON.parse(localStorage.getItem('order')) : [];
-
   const initialState = { cartItems: [], itemCount: 0, total: 0 }
 
 export default function CartProvider({children}) {
@@ -83,22 +83,9 @@ export default function CartProvider({children}) {
   const editCart = (payload) => { dispatch({type: EDIT_CART, payload})}
   const clearCart = () => { dispatch({type: CLEAR_CART })}
 
-  // const addToLocalStorage = (cartItems) => {
-  //   const order = cartItems.length > 0 ? cartItems : [];
-  //   localStorage.setItem('order', JSON.stringify(order));
-  // }
-
-  // const sumItems = (cartItems) => {
-  //   addToLocalStorage(cartItems)
-  //   return {
-  //     itemCount: cartItems.reduce((total, product) => total + product.quantity, 0),
-  //     total: cartItems.reduce((total, product) => total + product.price * product.quntity, 0)
-  //   }
-  // }
-
   const contextValue = {
     ...state,
-    // sumItems,
+    order: state.order,
     editCart,
     clearCart,
     dispatch,

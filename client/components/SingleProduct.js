@@ -8,11 +8,11 @@ const SingleProduct = ({match}) => {
   const { updateCart } = useCart()
   const { id } = match.params
   const state = useContext(CartContext)
+  console.log('thisis how', state)
 
   useEffect(() => {
     setSingleProduct(id)
   }, [])
-  console.log(product.id)
 
   function handleUpdate() {
     updateCart(state.order.id, product.id, 1)

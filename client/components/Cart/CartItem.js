@@ -2,12 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { useCart } from './CartProvider';
 
 const CartItem = (props) => {
-    const { updateCart, fetchCart } = useCart()
+    const { updateCart } = useCart()
     const { name, image, price, order_details } = props.product;
     const { id } = props.order
     const { quantity } = order_details
-
-    // console.log('let me know the changes!', order_details)
 
   async function handleChange(quantity) {
       updateCart(id, props.product.id, quantity)

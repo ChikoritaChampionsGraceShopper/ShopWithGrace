@@ -6,10 +6,16 @@ import Product from "./Product";
 import { Link } from "react-router-dom";
 import { CartContext, useCart } from "./Cart/CartProvider";
 import Recommendation from './Recommendation';
+import { AccountContext } from "./AccountProvider";
 
 const HomePage = () => {
   const { products, isLoading, mapArr, setSingleProduct } = useProducts();
-  const { addToCart } = useContext(CartContext);
+  const { fetchCart } = useContext(CartContext);
+  const state = useContext(AccountContext)
+  console.log(state)
+  // useEffect(() => {
+  //   fetchCart(id)
+  // }, [])
 
   return (
     <div>

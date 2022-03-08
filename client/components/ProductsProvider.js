@@ -65,7 +65,6 @@ export default function ProductProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setisLoading] = useState(true)
 
-  //AllProducts
   useEffect(() => {
     async function fetchProducts() {
       const { data: products } = await axios.get('/api/products');
@@ -77,8 +76,6 @@ export default function ProductProvider({children}) {
 
   const contextValue = {
     ...state,
-    products: state.products,
-    product: state.product,
     dispatch,
     setisLoading,
     isLoading,
