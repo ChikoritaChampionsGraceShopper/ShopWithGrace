@@ -1,6 +1,5 @@
 const userRouter = require('express').Router();
 const { requireToken, isAdmin } = require('./gateKeepingMiddleware')
-const { models: { User }, } = require('../db');
 const { userOrAdmin } = require('./gateKeepingMiddleware');
 const {
   models: { User, Product, Order, Order_Details },
