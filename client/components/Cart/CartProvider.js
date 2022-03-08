@@ -12,7 +12,6 @@ export function useCart() {
   const { isLoading, setisLoading, dispatch } = useContext(CartContext)
 
   const sumItems = (cartItems) => {
-    console.log(cartItems)
     let totalItems = 0
     let newValue = 0
 
@@ -20,7 +19,6 @@ export function useCart() {
       totalItems += item.order_details.quantity * 1
       newValue += item.price * item.order_details.quantity
     })
-    console.log(typeof totalItems)
     return {totalItems, newValue}
   }
 
@@ -49,8 +47,6 @@ export function useCart() {
 }
 
 const reducer = (state, action) => {
-  console.log('state: ', state)
-  console.log('action: ', action)
   switch(action.type) {
     case SHOW_CART: {
       return { ...state, order: action.order }

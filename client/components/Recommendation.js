@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 import { CartContext, useCart } from "./Cart/CartProvider";
 
 const Recommendation = () => {
-  const { product, mapArr, setSingleProduct } = useProducts();
+  const { mapArr, setSingleProduct } = useProducts();
   const {updateCart} = useCart()
   const state = useContext(CartContext)
-  console.log('here is the state!!', state)
 
   function handleUpdate(product) {
     updateCart(state.order.id, product.id, 1)
@@ -35,7 +34,9 @@ const Recommendation = () => {
                     >
                       <Product product={item} />
                     </Link>
+                    <div>
                     <button onClick={() => handleUpdate(item)}>Add to Cart</button>
+                    </div>
                     <br />
                   </div>
                 );

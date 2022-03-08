@@ -17,14 +17,11 @@ const CartPage = ({match}) => {
 
   if (order) {
     const { totalItems, newValue } = sumItems(order.products)
-    console.log(typeof totalItems)
     total = newValue
     itemCount = totalItems
   }
 
-  // console.log(order)
   return (
-    // <Layout>
       <>
       <h1> Cart </h1>
       {
@@ -42,7 +39,6 @@ const CartPage = ({match}) => {
         </div>
       }
       </>
-    // </Layout>
   )
 }
 
