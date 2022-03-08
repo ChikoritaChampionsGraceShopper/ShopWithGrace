@@ -25,6 +25,9 @@ const AllProducts = (props) => {
               View Product
             </Link>
             <button onClick={() => addToCart(product)}>Add to Cart</button>
+            <button onClick={() => deleteSingleProduct(product.id)}>
+              Delete
+            </button>
           </div>
         ))
       )}
