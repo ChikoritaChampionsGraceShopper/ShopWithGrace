@@ -1,16 +1,13 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Product = (props) => {
-  console.log(props);
   const product = props.product;
   let id = 0;
   const isLoggedIn = useSelector((state) => {
     id = state.auth.id;
     return !!state.auth.id;
   });
-  const dispatch = useDispatch();
 
   return (
     <div key={product.id} className="productContainer">
