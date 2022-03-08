@@ -18,7 +18,6 @@ productRouter.get('/', async (req, res, next) => {
         'description',
       ],
     });
-    // console.log(products)
     res.json(products);
   } catch (error) {
     next(error);
