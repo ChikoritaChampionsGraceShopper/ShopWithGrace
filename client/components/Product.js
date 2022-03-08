@@ -1,30 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Product = (props) => {
   const product = props.product;
 
   return (
-    <div key={product.id} className='productContainer'>
-      <div>
-        <div>
-          <div>
-            <img src={product.image} style={{ width: '200px', height: '200px' }} />
-            <div className='nameAndPrice'>
-              <div className='productName'>{product.name}</div>
-              <div className='productPrice'>${product.price}</div>
-            </div>
-            <div className='productInventory'>isInStock Goes here</div>
-            </div>
-        </div>
+    <div key={product.id} className="productContainer">
+      <div className="single-product-img">
+        <img src={product.image} style={{ width: "200px", height: "200px" }} />
       </div>
-
-      {/* <h3>{product.name}</h3>
-      <h3>{product.price}</h3>
-      <h3>{product.description}</h3>
-      <h3>{product.origin}</h3>
-      <h3>{product.category}</h3>
-      <br /> */}
+      <div className="single-product-name">{product.name}</div>
+      <div className="single-product-price">Price: ${product.price}</div>
+      <div className="single-product-origin">
+        Country of origin: {product.origin}
+      </div>
+      <div>{product.status}</div>
+      <div className="single-product-description">{product.description}</div>
     </div>
   );
 };
