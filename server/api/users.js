@@ -46,7 +46,6 @@ userRouter.post('/', requireToken, isAdmin, async (req, res, next) => {
     }
     const user = await User.Create(req.body);
     const newOrder = await Order.create({
-      //add something to here to see if order is fullfilled or unfullfilled
       userId: user.id,
     });
     user.hasOrder(newOrder);
@@ -62,7 +61,6 @@ userRouter.put('/:UserId', requireToken, isAdmin, async (req, res, next) => {
       return res.status(403).send('You have hit a security barrier!');
     }
     const {
-      id,
       username,
       password,
       full_name,
@@ -71,7 +69,6 @@ userRouter.put('/:UserId', requireToken, isAdmin, async (req, res, next) => {
       city,
       state,
       zip_code,
-      isAdmin,
     } = req.body;
     const { userId } = req.params;
     // const salt = User.generateSalt()
@@ -87,7 +84,6 @@ userRouter.put('/:UserId', requireToken, isAdmin, async (req, res, next) => {
         city,
         state,
         zip_code,
-        isAdmin,
       },
       { where: { id: userId } }
     );
