@@ -1,20 +1,22 @@
 import axios from "axios";
-import React, { useEffect, useContext } from "react";
-import { useProducts } from "./ProductsProvider";
-import Product from "./Product";
-import { Link } from "react-router-dom";
-import { CartContext, useCart } from "./Cart/CartProvider";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { useCart } from "./Cart/CartProvider";
 import Recommendation from './Recommendation';
-import { AccountContext } from "./AccountProvider";
 
 const HomePage = () => {
-  const { products, isLoading, mapArr, setSingleProduct } = useProducts();
-  const { fetchCart } = useContext(CartContext);
-  const state = useContext(AccountContext)
-  console.log(state)
-  // useEffect(() => {
-  //   fetchCart(id)
-  // }, [])
+  const { fetchCart } = useCart();
+  let id = 0
+  const isLoggedIn = useSelector((state) => {
+    id = state.auth.id;
+    return !!state.auth.id;
+  });
+  useEffect(() => {
+    if (id) {
+    fetchCart(id)
+    }
+  },[])
+
 
   return (
     <div>
@@ -38,7 +40,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-// useEffect(() => {
-//   return () => {};
-// }, []);

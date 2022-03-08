@@ -1,19 +1,17 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { useProducts } from './ProductsProvider';
 import Product from './Product';
 import { useCart } from './Cart/CartProvider';
 
 const AllProducts = () => {
   const { products, isLoading, setSingleProduct } = useProducts();
-  const { addToCart, updateCart } = useCart()
+  const { updateCart } = useCart()
 
   function handleUpdate(productId) {
     updateCart(25, productId, 1)
   }
 
-  // console.log('products: ', products)
   return (
     <div className='allProductsContainer'>
       {isLoading ? (

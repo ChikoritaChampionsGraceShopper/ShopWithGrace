@@ -11,6 +11,7 @@ const CartPage = ({match}) => {
     fetchCart(id)
   }, [])
 
+  console.log(order)
   return (
     // <Layout>
       <>

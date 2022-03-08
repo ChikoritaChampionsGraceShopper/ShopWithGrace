@@ -11,16 +11,16 @@ export const CartContext = createContext()
 export function useCart() {
   const { isLoading, setisLoading, dispatch } = useContext(CartContext)
 
-  async function fetchCart(id) {
-    const { data: order } = await axios.get(`/api/orderdetails/${id}`)
+  async function fetchCart(userId) {
+    const { data: order } = await axios.get(`/api/orderdetails/${userId}`)
     dispatch({ type: SHOW_CART, order })
     setisLoading(false)
   }
 
-  async function updateCart(orderId, productId, quantity) {
-    await axios.put(`/api/orderdetails/${orderId}`, {productId, quantity})
+  async function updateCart(userId, productId, quantity) {
+    await axios.put(`/api/orderdetails/${userId}`, {productId, quantity})
     dispatch({ type: EDIT_CART, productId, quantity })
-    fetchCart(orderId)
+    fetchCart(userId)
   }
 
   return {

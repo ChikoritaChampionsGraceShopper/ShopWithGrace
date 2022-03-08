@@ -10,11 +10,10 @@ Order_DetailsRouter.get('/', async (req, res, next) => {
   }
 })
 
-Order_DetailsRouter.get('/:id', async (req, res, next) => {
+Order_DetailsRouter.get('/:userId', async (req, res, next) => {
   try {
-    // console.log(req.headers)
     const userCart = await Order.findOne({ where: {
-      id: req.params.id,
+      userId: req.params.userId,
       status: 'Unfulfilled'
       },
       include: { model: Product }
