@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 // import { useForm } from 'react-hook-form';
-import { useProducts } from './ProductsProvider';
+import { ProductsContext, useProducts } from "./ProductsProvider";
+import history from "../history";
 
 const EditProduct = ({ match }) => {
   const { id } = match.params;
-  const { EditSingleProduct } = useProducts();
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
-  const [inventory, setInventory] = useState('');
-  const [origin, setOrigin] = useState('');
-  const [description, setDescription] = useState('');
+  const state = useContext(ProductsContext);
+  console.log(state);
+  const { product, EditSingleProduct, setSingleProduct } = useProducts();
+  const [name, setName] = useState(state.product.name);
+  const [price, setPrice] = useState(state.product.price);
+  const [category, setCategory] = useState(state.product.category);
+  const [inventory, setInventory] = useState(state.product.inventory);
+  const [origin, setOrigin] = useState(state.product.origin);
+  const [description, setDescription] = useState(state.product.description);
+
+  useEffect(() => {
+    setSingleProduct(id);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,6 +30,7 @@ const EditProduct = ({ match }) => {
       origin,
       description,
     });
+    history.push(`/products/${id}`);
   };
 
   return (
@@ -30,7 +38,7 @@ const EditProduct = ({ match }) => {
       <label>
         Name:
         <input
-          type='text'
+          type="text"
           value={name}
           onChange={(event) => {
             setName(event.target.value);
@@ -40,7 +48,7 @@ const EditProduct = ({ match }) => {
       <label>
         Price:
         <input
-          type='text'
+          type="text"
           value={price}
           onChange={(event) => {
             setPrice(event.target.value);
@@ -50,7 +58,7 @@ const EditProduct = ({ match }) => {
       <label>
         Category:
         <input
-          type='text'
+          type="text"
           value={category}
           onChange={(event) => {
             setCategory(event.target.value);
@@ -60,7 +68,7 @@ const EditProduct = ({ match }) => {
       <label>
         Inventory:
         <input
-          type='text'
+          type="text"
           value={inventory}
           onChange={(event) => {
             setInventory(event.target.value);
@@ -70,7 +78,7 @@ const EditProduct = ({ match }) => {
       <label>
         Origin:
         <input
-          type='text'
+          type="text"
           value={origin}
           onChange={(event) => {
             setOrigin(event.target.value);
@@ -80,14 +88,14 @@ const EditProduct = ({ match }) => {
       <label>
         Description:
         <input
-          type='text'
+          type="text"
           value={description}
           onChange={(event) => {
             setDescription(event.target.value);
           }}
         />
       </label>
-      <button type='submit'>Submit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 };
