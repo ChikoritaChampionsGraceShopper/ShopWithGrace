@@ -1,6 +1,5 @@
 const Order_DetailsRouter = require('express').Router()
-const { models: { Order_Details, Product, Order }} = require('../db')
-const User = require('../db/models/User')
+const { models: { User, Order_Details, Product, Order }} = require('../db')
 
 Order_DetailsRouter.get('/', async (req, res, next) => {
   try {
@@ -27,22 +26,28 @@ Order_DetailsRouter.get('/:id', async (req, res, next) => {
 })
 
 Order_DetailsRouter.put('/:id', async (req, res, next) => {
-  console.log(req.body)
   try {
-    let order = await Order.findByPk(req.params.id)
-    if (order) await order.removeProducts(await order.getProducts())
-    if (!order) order = await Order.create({status: "Fullfilled"})
-      for (let productId in req.body) {
-        let product = await Product.findByPk(productId)
-        order.addProduct(product, {price: product.price, quantity: req.body[productId]})
-        let stock = product.inventory - req.body[productId]
-        console.log(stock)
-        if (stock < 1) window.alert('sorry, no more beans!')
-        else {
-        product.update({inventory: stock})
-        }
+    const {productId, quantity} = req.body
+    // update the ProductOrder instance
+    const [
+      productOrderToBeUpdated,
+      wasCreated
+    ] = await Order_Details.findOrCreate({
+      where: {
+        productId,
+        orderId: req.params.id
       }
-        res.json(req.body)
+    })
+    // if quantity === 0 then destroy the ProductOrder instance
+    if (quantity === 0) await productOrderToBeUpdated.destroy()
+    // if product wasCreated return status 201
+    if (wasCreated) return res.sendStatus(201)
+
+    // otherwise, we need to update the quantity of productOrderToBeUpdated
+    productOrderToBeUpdated.quantity = quantity
+    await productOrderToBeUpdated.save()
+
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }

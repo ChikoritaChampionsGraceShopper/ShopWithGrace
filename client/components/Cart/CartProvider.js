@@ -4,40 +4,43 @@ import React, {useReducer, useContext, createContext, useEffect, useState} from 
 const SHOW_CART = 'SHOW_CART'
 const EDIT_CART = 'EDIT_CART'
 const CLEAR_CART = 'CLEAR_CART'
+const GRAB_CART = 'GRAB_CART'
 
 export const CartContext = createContext()
 
 export function useCart() {
   const { order, isLoading, setisLoading, dispatch } = useContext(CartContext)
 
-  function addToCart(itemId, quantity) {
-    const oldCart = JSON.parse(window.localStorage.getItem('order'));
-    let payload = {}
-    if (!oldCart) payload = { [itemId]: 1}
-    else {
-      payload = oldCart
-      if (oldCart[itemId]) payload[itemId] += quantity
-      else {
-          payload[itemId] = 1
-        }
-    }
-    window.localStorage.setItem('order', JSON.stringify(payload))
-    dispatch({ type: EDIT_CART, payload })
-  }
+  // function addToCart(itemId, quantity) {
+  //   const oldCart = JSON.parse(window.localStorage.getItem('order'));
+  //   let payload = {}
+  //   if (!oldCart) payload = { [itemId]: 1}
+  //   else {
+  //     payload = oldCart
+  //     if (oldCart[itemId]) payload[itemId] += quantity
+  //     else {
+  //         payload[itemId] = 1
+  //       }
+  //   }
+  //   window.localStorage.setItem('order', JSON.stringify(payload))
+  //   dispatch({ type: EDIT_CART, payload })
+  // }
 
   return {
     isLoading,
     setisLoading,
-    addToCart,
-    async updateCart(orderId) {
-      const localStorageOrder = JSON.parse(window.localStorage.getItem('order'))
-      const { order } = await axios.put(`/api/orderdetails/${orderId}`, localStorageOrder)
-      dispatch({ type: EDIT_CART, order })
+    // addToCart,
+    async updateCart(orderId, productId, quantity) {
+      await axios.put(`/api/orderdetails/${orderId}`, {productId, quantity})
+      dispatch({ type: EDIT_CART, productId, quantity })
     },
     async fetchCart(id) {
       const { data: order } = await axios.get(`/api/orderdetails/${id}`)
       dispatch({ type: SHOW_CART, order })
       setisLoading(false)
+    },
+    async grabLocaLStorageMerge(pastCart, cartFromLocalStorage) {
+          dispatch({type: GRAB_CART, pastCart, cartFromLocalStorage})
     }
   }
 }
@@ -60,10 +63,28 @@ const reducer = (state, action) => {
   console.log('action: ', action)
   switch(action.type) {
     case SHOW_CART: {
-      return { ...state, order: action.order, cartItems: [...action.order.products ] }
+      return { ...state, order: action.order }
     }
     case EDIT_CART: {
-      return { ...state, order: action.payload}
+      if (action.quantity === 0) {
+        let newCart = {...state}
+        delete newCart[action.productId]
+        localStorage.setItem('order', JSON.stringify(newCart))
+        return newCart
+      }
+      let newCart = {...state}
+      newCart[action.productId] = action.quantity
+      localStorage.setItem('order', JSON.stringify(newCart))
+      return newCart
+    }
+    case GRAB_CART: {
+      let newCart = {
+        ...state,
+        ...action.cartFromLocalStorage,
+        ...action.pastCart
+      }
+      localStorage.setItem('order', JSON.stringify(newCart))
+      return newCart
     }
     case CLEAR_CART: {
       localStorage.removeItem('order');
@@ -86,7 +107,7 @@ const reducer = (state, action) => {
 export default function CartProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setisLoading] = useState(true)
-  const editCart = (payload) => { dispatch({type: ADD_ITEM, payload})}
+  const editCart = (payload) => { dispatch({type: EDIT_CART, payload})}
   const clearCart = () => { dispatch({type: CLEAR_CART })}
 
   const contextValue = {

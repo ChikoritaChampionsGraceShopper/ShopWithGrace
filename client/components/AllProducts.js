@@ -7,7 +7,12 @@ import { useCart } from './Cart/CartProvider';
 
 const AllProducts = () => {
   const { products, isLoading, setSingleProduct } = useProducts();
-  const { addToCart } = useCart()
+  const { addToCart, updateCart } = useCart()
+
+  function handleUpdate(productId) {
+    updateCart(25, productId, 1)
+  }
+
   // console.log('products: ', products)
   return (
     <div className='allProductsContainer'>
@@ -22,7 +27,7 @@ const AllProducts = () => {
               onClick={() => setSingleProduct(product.id)}
             >View Product
             </Link>
-            <button onClick={() => addToCart(product.id, 1)}>Add to Cart</button>
+            <button onClick={() => handleUpdate(product.id)}>Add to Cart</button>
           </div>
         ))
       )}

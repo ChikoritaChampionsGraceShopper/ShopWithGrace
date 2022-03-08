@@ -4,6 +4,7 @@ import { useCart } from './CartProvider';
 const CartItem = (props) => {
     const { updateCart, addToCart } = useCart()
     const { name, image, price, order_details } = props.product;
+    const { id } = props.order
     const { quantity } = order_details
     console.log('here are the props: ', props)
     console.log('quantity', quantity)
@@ -14,14 +15,14 @@ const CartItem = (props) => {
         </div>
         <div className='name-price'>
           <h4> {name} </h4>
-          <p> {`Price: ${price}`} </p>
+          <p> {`Price: $${price}`} </p>
         </div>
         <div className='quantity'>
           <p> {`Quantity: ${quantity}`} </p>
         </div>
         <div className='btns-container'>
           <button
-            onClick={() => addToCart(props.product.id)}
+            onClick={() => updateCart(id, props.product.id, 1)}
             className='btn-increase'
           > Increase
             {/* <PlusCircleIcon width='20px' /> */}
