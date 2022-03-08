@@ -11,6 +11,7 @@ const SHOW_ALL_PRODUCTS = 'SHOW_ALL_PRODUCTS';
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT';
 const EDIT_PRODUCT = 'EDIT_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
+const ADD_PRODUCT = 'ADD_PRODUCT';
 
 export const ProductsContext = createContext();
 
@@ -39,16 +40,19 @@ export function useProducts() {
       product,
     });
   }
-  async function deleteSingleProduct(productId, history) {
-    const { data: product } = await axios.delete(
-      `/api/products/${productId}`,
-      history
-    );
+  async function deleteSingleProduct(productId) {
+    const { data: product } = await axios.delete(`/api/products/${productId}`);
     dispatch({
       type: DELETE_PRODUCT,
       product,
     });
-    history.push('/products');
+  }
+  async function addSingleProduct(newProduct) {
+    const { data: product } = await axios.post(`/api/products`, newProduct);
+    dispatch({
+      type: ADD_PRODUCT,
+      product,
+    });
   }
 
   let mapArr = [
@@ -66,6 +70,7 @@ export function useProducts() {
     EditSingleProduct,
     setSingleProduct,
     deleteSingleProduct,
+    addSingleProduct,
   };
 }
 
@@ -84,6 +89,9 @@ const reducer = (state, action) => {
     }
     case DELETE_PRODUCT: {
       return state.filter((product) => product.id !== action.product.id);
+    }
+    case ADD_PRODUCT: {
+      return { ...state, product: action.product };
     }
     default:
       return state;
