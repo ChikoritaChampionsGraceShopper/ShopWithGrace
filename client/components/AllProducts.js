@@ -5,8 +5,9 @@ import { useProducts } from "./ProductsProvider";
 import Product from "./Product";
 import { CartContext } from "./Cart/CartProvider";
 
-const AllProducts = () => {
-  const { products, isLoading, setSingleProduct } = useProducts();
+const AllProducts = (props) => {
+  const { products, isLoading, setSingleProduct, deleteSingleProduct } =
+    useProducts();
   const { addToCart } = useContext(CartContext);
   // console.log('products: ', products)
   return (

@@ -9,7 +9,7 @@ module.exports = userRouter;
 userRouter.get('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     if (!req.user.isAdmin) {
-      return res.status(403).send('You have hit a security barrier!')
+      return res.status(403).send('You have hit a security barrier!');
     }
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -26,7 +26,7 @@ userRouter.get('/', requireToken, isAdmin, async (req, res, next) => {
 userRouter.get('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     if (!req.user.isAdmin) {
-      return res.status(403).send('You have hit a security barrier!')
+      return res.status(403).send('You have hit a security barrier!');
     }
     const user = await User.findOne({
       where: {
@@ -39,8 +39,11 @@ userRouter.get('/:id', requireToken, isAdmin, async (req, res, next) => {
   }
 });
 
-userRouter.post('/', async (req, res, next) => {
+userRouter.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!');
+    }
     const user = await User.Create(req.body);
     const newOrder = await Order.create({
       //add something to here to see if order is fullfilled or unfullfilled
@@ -53,8 +56,11 @@ userRouter.post('/', async (req, res, next) => {
   }
 });
 
-userRouter.put('/:UserId', async (req, res, next) => {
+userRouter.put('/:UserId', requireToken, isAdmin, async (req, res, next) => {
   try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!');
+    }
     const {
       id,
       username,
@@ -91,8 +97,11 @@ userRouter.put('/:UserId', async (req, res, next) => {
   }
 });
 
-userRouter.delete('/:userId', async (req, res, next) => {
+userRouter.delete('/:userId', requireToken, isAdmin, async (req, res, next) => {
   try {
+    if (!req.user.isAdmin) {
+      return res.status(403).send('You have hit a security barrier!');
+    }
     const user = await User.findByPk(req.params.userId);
     await user.destroy();
     res.sendStatus(204);
