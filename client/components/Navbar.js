@@ -30,6 +30,18 @@ const Navbar = () => {
                   <Link to='/products'>Shop</Link>
                 </li>
                 <li>
+                  <Link to={`/products/all/Green`}>Green Tea</Link>
+                </li>
+                <li>
+                  <Link to={`/products/all/Black`}>Black Tea</Link>
+                </li>
+                <li>
+                  <Link to={`/products/all/White`}>White Tea</Link>
+                </li>
+                <li>
+                  <Link to={`/products/all/Oolong`}>Oolong Tea</Link>
+                </li>
+                <li>
                   <Link to={`/account/${id}`}>Account</Link>
                 </li>
                 <li>
@@ -52,6 +64,18 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link to='/products'>Shop</Link>
+                </li>
+                <li>
+                  <Link to={`/products/all/Green`}>Green Tea</Link>
+                </li>
+                <li>
+                  <Link to={`/products/all/Black`}>Black Tea</Link>
+                </li>
+                <li>
+                  <Link to={`/products/all/White`}>White Tea</Link>
+                </li>
+                <li>
+                  <Link to={`/products/all/Oolong`}>Oolong Tea</Link>
                 </li>
                 <li>
                   <Link to='/signup'>Sign up</Link>

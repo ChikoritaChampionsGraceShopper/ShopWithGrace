@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import { me } from './store';
@@ -11,6 +11,7 @@ import AccountPage from './components/AccountPage';
 import EditProduct from './components/EditProduct';
 import CartPage from './components/Cart/CartPage';
 import NotFound from './components/NotFound';
+import FilteredProducts from './components/FilteredProducts';
 
 const Routes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
@@ -29,6 +30,7 @@ const Routes = () => {
           <Route path='/edit-product/:id' component={EditProduct} />
           <Route exact path='/products' component={AllProducts} />
           <Route exact path='/products/:id' component={SingleProduct} />
+          <Route path='/products/all/:category' component={FilteredProducts} />
           <Route exact path='/cart/:id' component={CartPage} />
         </Switch>
       ) : (
@@ -36,6 +38,7 @@ const Routes = () => {
           <Route exact path='/' component={HomePage} />
           <Route path='/login'>{Login}</Route>
           <Route path='/signup'>{Signup}</Route>
+          <Route path='/products/all/:category' component={FilteredProducts} />
           <Route exact path='/products' component={AllProducts} />
           <Route exact path='/products/:id' component={SingleProduct} />
           <Route exact path='/cart' component={CartPage} />

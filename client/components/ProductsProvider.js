@@ -6,12 +6,14 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import history from '../history';
 
 const SHOW_ALL_PRODUCTS = 'SHOW_ALL_PRODUCTS';
 const SINGLE_PRODUCT = 'SINGLE_PRODUCT';
 const EDIT_PRODUCT = 'EDIT_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const ADD_PRODUCT = 'ADD_PRODUCT';
+const SHOW_FILTERED_PRODUCTS = 'SHOW_FILTERED_PRODUCTS'
 
 export const ProductsContext = createContext();
 
@@ -24,11 +26,22 @@ export function useProducts() {
   };
   async function setSingleProduct(productId) {
     const { data: product } = await axios.get(`/api/products/${productId}`);
+    console.log(product)
     dispatch({
       type: SINGLE_PRODUCT,
       product,
     });
     setisLoading(false);
+  }
+  async function setFilteredProducts(category) {
+    const { data: filteredProducts } = await axios.get(`/api/products/all/${category}`);
+    console.log(product)
+    dispatch({
+      type: SHOW_FILTERED_PRODUCTS,
+      filteredProducts,
+    });
+    setisLoading(false);
+    // history.push(`/products/all/${category}`)
   }
   async function EditSingleProduct(productId, newProduct) {
     const { data: product } = await axios.put(
@@ -40,6 +53,7 @@ export function useProducts() {
       product,
     });
   }
+
   async function deleteSingleProduct(productId) {
     const { data: product } = await axios.delete(`/api/products/${productId}`);
     dispatch({
@@ -67,6 +81,12 @@ export function useProducts() {
     product,
     isLoading,
     mapArr,
+    async fetchProducts() {
+      const { data: products } = await axios.get('/api/products');
+      dispatch({ type: SHOW_ALL_PRODUCTS, products });
+      setisLoading(false);
+    },
+    setFilteredProducts,
     EditSingleProduct,
     setSingleProduct,
     deleteSingleProduct,
@@ -80,6 +100,9 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SHOW_ALL_PRODUCTS: {
       return { ...state, products: action.products };
+    }
+    case SHOW_FILTERED_PRODUCTS: {
+      return { ...state, filteredProducts: action.filteredProducts }
     }
     case SINGLE_PRODUCT: {
       return { ...state, product: action.product };
@@ -103,15 +126,6 @@ const initialState = { products: [], product: {} };
 export default function ProductProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isLoading, setisLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchProducts() {
-      const { data: products } = await axios.get('/api/products');
-      dispatch({ type: SHOW_ALL_PRODUCTS, products });
-      setisLoading(false);
-    }
-    fetchProducts();
-  }, []);
 
   const contextValue = {
     ...state,

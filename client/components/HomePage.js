@@ -4,18 +4,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useCart } from "./Cart/CartProvider";
 import { Link } from "react-router-dom";
 import Recommendation from './Recommendation';
+import { useProducts } from "./ProductsProvider";
 
 const HomePage = () => {
   const { fetchCart } = useCart();
+  const {fetchProducts} = useProducts()
   let id = 0
   const isLoggedIn = useSelector((state) => {
     id = state.auth.id;
     return !!state.auth.id;
   });
   useEffect(() => {
-    if (id) {
-    fetchCart(id)
-    }
+    if (id) fetchCart(id)
+    fetchProducts()
   },[])
 
 

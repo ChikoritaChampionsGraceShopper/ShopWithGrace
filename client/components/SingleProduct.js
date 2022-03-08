@@ -1,20 +1,26 @@
 import React, { useContext, useEffect } from 'react'
-import { useProducts } from './ProductsProvider'
+import { ProductsContext, useProducts } from './ProductsProvider'
 import Product from './Product'
-import { CartContext, useCart } from './Cart/CartProvider'
+import { useSelector } from 'react-redux'
+import { useCart } from './Cart/CartProvider'
 
 const SingleProduct = ({match}) => {
-  const { product, isLoading, setSingleProduct } = useProducts()
+  const { isLoading, setSingleProduct } = useProducts()
+  let userId = 0
   const { updateCart } = useCart()
   const { id } = match.params
-  const state = useContext(CartContext)
-
+  const isLoggedIn = useSelector((state) => {
+    userId = state.auth.id;
+    return !!state.auth.id;
+  });
+  const state = useContext(ProductsContext)
+  let product = state.product
   useEffect(() => {
     setSingleProduct(id);
   }, []);
-
+  console.log(state)
   function handleUpdate() {
-    updateCart(state.order.id, product.id, 1)
+    updateCart(userId, product.id, 1)
   }
 
   return (
