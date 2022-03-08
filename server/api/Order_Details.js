@@ -31,18 +31,18 @@ Order_DetailsRouter.put('/:id', async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.id)
     if (order) await order.removeProducts(await order.getProducts())
-    if (!order) order = await Order.create({status: "Fullfilled"})
+    if (!order) order = await Order.create({status: "Fulfilled"})
       for (let productId in req.body) {
         let product = await Product.findByPk(productId)
         order.addProduct(product, {price: product.price, quantity: req.body[productId]})
         let stock = product.inventory - req.body[productId]
         console.log(stock)
         if (stock < 1) window.alert('sorry, no more beans!')
-        else {
-        product.update({inventory: stock})
-        }
+        // else {
+        // product.update({inventory: stock})
+        // }
       }
-        res.json(req.body)
+        res.json(order)
   } catch (err) {
     next(err)
   }

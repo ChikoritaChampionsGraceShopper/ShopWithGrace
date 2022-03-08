@@ -14,7 +14,7 @@ const CartPage = ({match}) => {
     updateCart(id)
   }, [cartItems])
 
-  // console.log('cartItems: ', cartItems)
+  console.log('cartItems: ', cartItems)
   // console.log('cart products: ', cart.products)
   // console.log('itemCount: ', itemCount)
   // console.log('total: ', total)
@@ -24,14 +24,14 @@ const CartPage = ({match}) => {
       <>
       <h1> Cart </h1>
       {
-        !order
+        cartItems.length === 0
         ?
         <div className='empty-cart'> Your cart is empty </div>
         :
         <div className='cart-page'>
           <div className='cart-item-container'>
             {
-              order.products.map(item => <CartItem product={item} cart={order} key={item.id} />)
+              cartItems.map(item => <CartItem product={item} cart={order} key={item.id} />)
             }
           </div>
           <Total itemCount={itemCount} total={total} clearCart={clearCart} />

@@ -51,7 +51,7 @@ export const sumItems = (cartItems) => {
   addToLocalStorage(cartItems)
   return {
     itemCount: cartItems.reduce((total, product) => total + product.quantity, 0),
-    total: cartItems.reduce((total, product) => total + product.price * product.quntity, 0)
+    total: cartItems.reduce((total, product) => total + product.price * product.quantity, 0)
   }
 }
 
@@ -63,7 +63,7 @@ const reducer = (state, action) => {
       return { ...state, order: action.order, cartItems: [...action.order.products ] }
     }
     case EDIT_CART: {
-      return { ...state, order: action.payload}
+      return { ...state, cartItems: action.payload}
     }
     case CLEAR_CART: {
       localStorage.removeItem('order');

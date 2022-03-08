@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useContext } from "react";
-import FeaturedProducts from "./FeatureProducts";
 import { useProducts } from "./ProductsProvider";
 import Product from "./Product";
 import { Link } from "react-router-dom";
