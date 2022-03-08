@@ -4,19 +4,18 @@ import Product from "./Product";
 import { CartContext } from "./Cart/CartProvider";
 import { Link } from "react-router-dom";
 
-
-const SingleProduct = ({match}) => {
-  const { product, isLoading, setSingleProduct } = useProducts()
-  const { updateCart } = useCart()
-  const { id } = match.params
-  const state = useContext(CartContext)
+const SingleProduct = ({ match }) => {
+  const { product, isLoading, setSingleProduct } = useProducts();
+  const { updateCart } = useCart();
+  const { id } = match.params;
+  const state = useContext(CartContext);
 
   useEffect(() => {
     setSingleProduct(id);
   }, []);
 
   function handleUpdate() {
-    updateCart(state.order.id, product.id, 1)
+    updateCart(state.order.id, product.id, 1);
   }
 
   return (
@@ -29,15 +28,17 @@ const SingleProduct = ({match}) => {
             <Product product={product} />
           </div>
           <div className="single-product-addToCart">
-            <button onClick={() => handleUpdate()}>Add to Cart</button>
+            <button className="button is-light" onClick={() => handleUpdate()}>
+              Add to Cart
+            </button>
           </div>
           <div>
             <Link to={`/edit-product/${id}`}>
-              <button>Edit Product</button>
+              <button className="button is-light">Edit Product</button>
             </Link>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-// import { useForm } from 'react-hook-form';
 import { ProductsContext, useProducts } from "./ProductsProvider";
 import history from "../history";
 
@@ -8,7 +7,7 @@ const EditProduct = ({ match }) => {
   const { id } = match.params;
   const state = useContext(ProductsContext);
   console.log(state);
-  const { product, EditSingleProduct, setSingleProduct } = useProducts();
+  const { products, EditSingleProduct, setSingleProduct } = useProducts();
   const [name, setName] = useState(state.product.name);
   const [price, setPrice] = useState(state.product.price);
   const [category, setCategory] = useState(state.product.category);

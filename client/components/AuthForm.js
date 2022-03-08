@@ -28,8 +28,8 @@ const AuthForm = ({ name, displayName }) => {
   return (
     <div className="account-form">
       <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="username">
+        <div className="field">
+          <label className="label" htmlFor="username">
             <small>Username</small>
           </label>
           <input
@@ -38,8 +38,8 @@ const AuthForm = ({ name, displayName }) => {
             onChange={(event) => setEmail(event)}
           />
         </div>
-        <div>
-          <label htmlFor="password">
+        <div className="field">
+          <label className="label" htmlFor="password">
             <small>Password</small>
           </label>
           <input
@@ -48,8 +48,10 @@ const AuthForm = ({ name, displayName }) => {
             onChange={(event) => setPassword(event)}
           />
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div style={{ textAlign: "center" }}>
+          <button className="button is-light" type="submit">
+            {displayName}
+          </button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

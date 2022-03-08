@@ -7,11 +7,11 @@ import { CartContext, useCart } from "./Cart/CartProvider";
 
 const Recommendation = () => {
   const { mapArr, setSingleProduct } = useProducts();
-  const {updateCart} = useCart()
-  const state = useContext(CartContext)
+  const { updateCart } = useCart();
+  const state = useContext(CartContext);
 
   function handleUpdate(product) {
-    updateCart(state.order.id, product.id, 1)
+    updateCart(state.order.id, product.id, 1);
   }
 
   return (
@@ -35,7 +35,12 @@ const Recommendation = () => {
                       <Product product={item} />
                     </Link>
                     <div>
-                    <button onClick={() => handleUpdate(item)}>Add to Cart</button>
+                      <button
+                        className="button is-light"
+                        onClick={() => handleUpdate(item)}
+                      >
+                        Add to Cart
+                      </button>
                     </div>
                     <br />
                   </div>
