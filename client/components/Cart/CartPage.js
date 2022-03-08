@@ -4,14 +4,25 @@ import CartItem from './CartItem';
 import Total from './Total';
 
 const CartPage = ({match}) => {
-  const { order, cartItems, itemCount, total, clearCart } = useContext(CartContext)
-  const { fetchCart } = useCart()
+  const { order, clearCart } = useContext(CartContext)
+  const { fetchCart, sumItems } = useCart()
   const id = match.params.id
   useEffect(() => {
     fetchCart(id)
   }, [])
+  let tempTotal = 0
+  let total = tempTotal
+  let tempCount = 0
+  let itemCount = tempCount
 
-  console.log(order)
+  if (order) {
+    const { totalItems, newValue } = sumItems(order.products)
+    console.log(typeof totalItems)
+    total = newValue
+    itemCount = totalItems
+  }
+
+  // console.log(order)
   return (
     // <Layout>
       <>

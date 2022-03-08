@@ -11,6 +11,19 @@ export const CartContext = createContext()
 export function useCart() {
   const { isLoading, setisLoading, dispatch } = useContext(CartContext)
 
+  const sumItems = (cartItems) => {
+    console.log(cartItems)
+    let totalItems = 0
+    let newValue = 0
+
+    cartItems.forEach(item => {
+      totalItems += item.order_details.quantity * 1
+      newValue += item.price * item.order_details.quantity
+    })
+    console.log(typeof totalItems)
+    return {totalItems, newValue}
+  }
+
   async function fetchCart(userId) {
     const { data: order } = await axios.get(`/api/orderdetails/${userId}`)
     dispatch({ type: SHOW_CART, order })
@@ -24,6 +37,7 @@ export function useCart() {
   }
 
   return {
+    sumItems,
     isLoading,
     setisLoading,
     updateCart,

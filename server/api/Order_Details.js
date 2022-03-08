@@ -40,7 +40,10 @@ Order_DetailsRouter.put('/:id', async (req, res, next) => {
     if (quantity === 0) await productOrderToBeUpdated.destroy()
     if (wasCreated) return res.sendStatus(201)
     else {
-    productOrderToBeUpdated.quantity = parseInt(productOrderToBeUpdated.quantity) + quantity
+    let newAmount = parseInt(productOrderToBeUpdated.quantity) + quantity
+    productOrderToBeUpdated.quantity = newAmount
+    productOrderToBeUpdated.price = 10 * newAmount
+
     await productOrderToBeUpdated.save()
     res.sendStatus(201)
   }
