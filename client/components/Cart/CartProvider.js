@@ -1,100 +1,79 @@
 import axios from 'axios'
-import React, {useReducer, useContext, createContext, useEffect, useState} from 'react'
+import React, {useReducer, useContext, createContext, useState} from 'react'
 
 const SHOW_CART = 'SHOW_CART'
-const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-const ADD_ITEM = 'ADD_TO_CART'
-const INCREASE_ITEM = 'INCREASE_ITEM'
-const DECREASE_ITEM = 'DECREASE_ITEM'
+const EDIT_CART = 'EDIT_CART'
 const CLEAR_CART = 'CLEAR_CART'
+const GRAB_CART = 'GRAB_CART'
 
 export const CartContext = createContext()
 
 export function useCart() {
-  const { cart, isLoading, setisLoading, dispatch } = useContext(CartContext)
+  const { isLoading, setisLoading, dispatch } = useContext(CartContext)
+
+  const sumItems = (cartItems) => {
+    let totalItems = 0
+    let newValue = 0
+
+    cartItems.forEach(item => {
+      totalItems += item.order_details.quantity * 1
+      newValue += item.price * item.order_details.quantity
+    })
+    return {totalItems, newValue}
+  }
+
+  async function fetchCart(userId) {
+    const { data: order } = await axios.get(`/api/orderdetails/${userId}`)
+    dispatch({ type: SHOW_CART, order })
+    setisLoading(false)
+  }
+
+  async function updateCart(userId, productId, quantity) {
+    await axios.put(`/api/orderdetails/${userId}`, {productId, quantity})
+    dispatch({ type: EDIT_CART, productId, quantity })
+    fetchCart(userId)
+  }
 
   return {
-    cart,
+    sumItems,
     isLoading,
     setisLoading,
-    async updateCart(orderId, updatedInfo, userId) {
-      const { data: updatedCart } = await axios.post(`/api/cart/${orderId}`,
-      updatedInfo, userId)
-      dispatch({ type: ADD_ITEM, updatedCart })
-    },
-    async fetchCart(id) {
-      const { data: order } = await axios.get(`/api/cart/${id}`)
-      dispatch({ type: SHOW_CART, order })
-      setisLoading(false)
+    updateCart,
+    fetchCart,
+    async grabLocaLStorageMerge(pastCart, cartFromLocalStorage) {
+        dispatch({type: GRAB_CART, pastCart, cartFromLocalStorage})
     }
-  }
-}
-
-const addToLocalStorage = (cartItems) => {
-  const cart = cartItems.length > 0 ? cartItems : [];
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-export const sumItems = (cartItems) => {
-  addToLocalStorage(cartItems)
-  return {
-    itemCount: cartItems.reduce((total, product) => total + product.quantity, 0),
-    total: cartItems.reduce((total, product) => total + product.price * product.quntity, 0)
   }
 }
 
 const reducer = (state, action) => {
-  console.log('state: ', state)
-  console.log('action: ', action)
   switch(action.type) {
     case SHOW_CART: {
-      return { ...state, order: action.order, cartItems: [...action.order.carts ] }
+      return { ...state, order: action.order }
     }
-    case ADD_ITEM: {
-      if(!state.cartItems.find(item => item.id === action.payload.id)) {
-        state.cartItems.push({
-          ...action.payload,
-          quantity: 1,
-        });
+    case EDIT_CART: {
+      if (action.quantity === 0) {
+        let newCart = {...state}
+        delete newCart[action.productId]
+        localStorage.setItem('order', JSON.stringify(newCart))
+        return newCart
       }
-      return {
-        ...state,
-        cartItems: [...state.cartItems],
-        itemCount: state.cartItems.reduce((total, product) => total + product.quantity, 0),
-        total: state.cartItems.reduce((total, product) => total + product.price * product.quantity, 0)
-      }
+      let newCart = {...state}
+      newCart[action.productId] = action.quantity
+      localStorage.setItem('order', JSON.stringify(newCart))
+      return newCart
     }
-    case INCREASE_ITEM: {
-      const increaseIdx = state.cartItems.findIndex(item => item.id === action.payload.id)
-      state.cartItems[increaseIdx].quantity++
-      return {
+    case GRAB_CART: {
+      let newCart = {
         ...state,
-        cartItems: [...state.cartItems],
-        ...sumItems(state.cartItems)
+        ...action.cartFromLocalStorage,
+        ...action.pastCart
       }
-    }
-    case DECREASE_ITEM: {
-      const decreaseIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
-      const product = state.cartItems[decreaseIndex];
-      if (product.quantity !== 0 && product.quantity !== 1) {
-        product.quantity--;
-      }
-      return {
-        ...state,
-        cartItems: [...state.cartItems],
-        ...sumItems(state.cartItems),
-      }
-    }
-    case REMOVE_FROM_CART : {
-      const adjustedCart = state.cartItems.filter(item => item.id !== action.payload.id)
-      return {
-        ...state,
-        carttItems: [...adjustedCart],
-        ...sumItems(adjustedCart)
-      }
+      localStorage.setItem('order', JSON.stringify(newCart))
+      return newCart
     }
     case CLEAR_CART: {
-      localStorage.removeItem('cart');
+      localStorage.removeItem('order');
       return {
         cartItems: [],
         itemCount: 0,
@@ -106,37 +85,18 @@ const reducer = (state, action) => {
     }
   }
 
-  const localCartStorage = localStorage.getItem('cart') ?
-  JSON.parse(localStorage.getItem('cart')) : [];
-
-  const initialState = { cartItems: localCartStorage, itemCount: 0, total: 0 }
+  const initialState = { cartItems: [], itemCount: 0, total: 0 }
 
 export default function CartProvider({children}) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [isLoading, setisLoading] = useState(true)
-  const addToCart = (payload) => { dispatch({type: ADD_ITEM, payload})}
-  const removeFromCart = (payload) => { dispatch({type: REMOVE_FROM_CART, payload})}
-  const increaseItemQuantity = (payload) => { dispatch({type: INCREASE_ITEM, payload})}
-  const decreaseItemQuantity = (payload) => { dispatch({type: DECREASE_ITEM, payload})}
+  const editCart = (payload) => { dispatch({type: EDIT_CART, payload})}
   const clearCart = () => { dispatch({type: CLEAR_CART })}
-
-  // useEffect(() => {
-  //   async function fetchCart(id) {
-  //     const { data: cart } = await axios.get(`/api/carts/${id}`)
-  //     dispatch({ type: SHOW_CART, cart })
-  //     setisLoading(false)
-  //   }
-  //   fetchCart()
-  // }, [])
 
   const contextValue = {
     ...state,
-    total: state.total,
-    cart: state.cart,
-    addToCart,
-    removeFromCart,
-    increaseItemQuantity,
-    decreaseItemQuantity,
+    order: state.order,
+    editCart,
     clearCart,
     dispatch,
     setisLoading,

@@ -25,7 +25,20 @@ productRouter.get('/', async (req, res, next) => {
   }
 });
 
-productRouter.get(`/:id`, async (req, res, next) => {
+productRouter.get('/:category', async (req, res, next) => {
+  try {
+    const categories = await Product.findAll({
+      where: {
+        category: req.params.category,
+      },
+    });
+    res.send(categories);
+  } catch (error) {
+    next(error);
+  }
+});
+
+productRouter.get(`/:id`, async(req, res, next) => {
   try {
     const product = await Product.findOne({
       where: {
