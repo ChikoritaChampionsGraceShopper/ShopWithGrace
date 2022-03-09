@@ -359,15 +359,15 @@ const teas = [{
     origin: 'China',
     description: 'This Jasmine Mao Feng Green Tea is a perfect affordable daily tea for jasmine tea lovers!'
 }, {
-    name: 'Gou Gu Nao Green Tea',
-    image: 'https://www.teasandthes.com/upload/public/images/product/6e1747ebef2bacae0b3b6e1a745607ee.gif',
+    name: 'Gou Gu Nao Green Tea - The Chikorita',
+    image: 'https://www.serebii.net/swordshield/pokemon/152.png',
     category: 'Green',
     price: 10,
     favorite: "0",
     status: 'in stock',
     inventory: 25,
-    origin: 'China',
-    description: 'Refreshing and mellow with unique sweet fragrance, suitable for "grandpa style'
+    origin: 'Japan',
+    description: 'It evolves into Bayleef starting at level 16, which evolves into Meganium starting at level 32.'
 }, {
     name: 'Superfine Keemun Mao Feng Black Tea',
     image: 'https://www.teasandthes.com/images/product//k/e/keemun_maofeng.jpg',

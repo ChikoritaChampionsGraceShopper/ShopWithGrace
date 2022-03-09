@@ -28,7 +28,6 @@ const CartItem = (props) => {
             onClick={() => handleChange(1)}
             className='btn-increase'
           > Increase
-            {/* <PlusCircleIcon width='20px' /> */}
           </button>
           {
             quantity < 2 ?
@@ -36,14 +35,12 @@ const CartItem = (props) => {
               onClick={() => handleChange(0)}
               className='btn-trash'
             > Remove
-              {/* <TrashIcon width='20px' /> */}
             </button>
             :
             <button
             onClick={() => handleChange(-1)}
             className='btn-decrease'
             >Decrease
-              {/* <MinusCircleIcon width='20px' /> */}
             </button>
           }
         </div>
