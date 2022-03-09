@@ -4,7 +4,7 @@ import CartItem from './CartItem';
 import Total from './Total';
 
 const CartPage = ({match}) => {
-  const { order, clearCart } = useContext(CartContext)
+  const { order, emptyCart } = useContext(CartContext)
   const { fetchCart, sumItems } = useCart()
   const id = match.params.id
   useEffect(() => {
@@ -35,7 +35,7 @@ const CartPage = ({match}) => {
               order.products.map(item => <CartItem product={item} order={order} key={item.id} />)
             }
           </div>
-          <Total itemCount={itemCount} total={total} clearCart={clearCart} />
+          <Total itemCount={itemCount} total={total} emptyCart={emptyCart} />
         </div>
       }
       </>

@@ -31,7 +31,6 @@ productRouter.get(`/:id`, async(req, res, next) => {
         id: req.params.id,
       }
     });
-    console.log(product)
     res.json(product);
   } catch (error) {
     next(error);
@@ -71,6 +70,7 @@ productRouter.put(
   // isAdmin,
   async (req, res, next) => {
     try {
+      console.log(req.body)
       // if (!req.user.isAdmin) {
       //   return res.status(403).send('You have hit a security barrier!');
       // }

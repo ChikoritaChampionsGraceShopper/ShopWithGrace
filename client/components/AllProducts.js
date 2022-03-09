@@ -30,12 +30,6 @@ const AllProducts = () => {
           <div className="productCardOutline" key={product.id}>
             <div>
               <Product product={product} key={product.id} />
-              <Link
-                to={`/products/${product.id}`}
-                onClick={() => setSingleProduct(product.id)}
-              >
-                View Product
-              </Link>
             </div>
             <div className="all-products-buttons">
               <div className="view-product-button">
