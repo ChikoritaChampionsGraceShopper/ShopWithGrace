@@ -24,17 +24,22 @@ Order_DetailsRouter.get('/:userId', async (req, res, next) => {
   }
 })
 
-Order_DetailsRouter.put('/:id', async (req, res, next) => {
+Order_DetailsRouter.put('/:userId', async (req, res, next) => {
   try {
+    const userOrder = await Order.findOne({where : {
+      userId: req.params.userId,
+      status: 'Unfulfilled'
+    }, include: Product})
     const {productId, quantity} = req.body
     // update the ProductOrder instance
+    console.log(userOrder)
     const [
       productOrderToBeUpdated,
       wasCreated
     ] = await Order_Details.findOrCreate({
       where: {
         productId,
-        orderId: req.params.id
+        orderId: userOrder.id
       }
     })
     if (quantity === 0) await productOrderToBeUpdated.destroy()
@@ -69,16 +74,11 @@ Order_DetailsRouter.post('/:id', async (req, res, next) => {
 
 Order_DetailsRouter.delete('/:userId', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId, {
-      include: {model: Order, include: {model: Product}}
-    })
-    const cartContents = user.orders.filter(order => !order.status)[0].products
-    await Promise.all(
-      cartContents.map(async item => {
-        const orderRemoved = item.OrderItems
-        await orderRemoved.destroy()
-      })
-    )
+    console.log(req.params)
+    const toDestroy = await Order.findOne({where: { userId: req.params.userId, status: 'Unfulfilled'}})
+    await toDestroy.destroy()
+    console.log(toDestroy)
+    await Order.create({userId: req.params.userId})
     res.sendStatus(204)
   } catch (error) {
     next(error)
@@ -86,3 +86,14 @@ Order_DetailsRouter.delete('/:userId', async (req, res, next) => {
 })
 
 module.exports = Order_DetailsRouter
+
+// const user = await User.findByPk(req.params.userId, {
+//   include: {model: Order, include: {model: Product}}
+// })
+// const cartContents = user.orders.filter(order => !order.status)[0].products
+// await Promise.all(
+//   cartContents.map(async item => {
+//     const orderRemoved = item.OrderItems
+//     await orderRemoved.destroy()
+//   })
+// )

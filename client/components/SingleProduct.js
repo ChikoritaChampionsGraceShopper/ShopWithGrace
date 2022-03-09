@@ -1,21 +1,23 @@
-import React, { useContext, useEffect } from "react";
-import { useProducts } from "./ProductsProvider";
-import Product from "./Product";
-import { CartContext } from "./Cart/CartProvider";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from 'react'
+import { ProductsContext, useProducts } from './ProductsProvider'
+import { Link } from 'react-router-dom';
+import Product from './Product'
+import { useSelector } from 'react-redux'
+import { useCart } from './Cart/CartProvider'
 
-const SingleProduct = ({ match }) => {
-  const { product, isLoading, setSingleProduct } = useProducts();
-  const { updateCart } = useCart();
-  const { id } = match.params;
-  const state = useContext(CartContext);
-
+const SingleProduct = ({match}) => {
+  const { isLoading, setSingleProduct } = useProducts()
+  const { updateCart } = useCart()
+  const { id } = match.params
+  const userId = useSelector((state) => state.auth.id);
+  const state = useContext(ProductsContext)
+  let product = state.product
   useEffect(() => {
     setSingleProduct(id);
   }, []);
-
+  console.log(state)
   function handleUpdate() {
-    updateCart(state.order.id, product.id, 1);
+    updateCart(userId, product.id, 1)
   }
 
   return (

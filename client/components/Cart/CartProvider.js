@@ -34,7 +34,7 @@ export function useCart() {
     fetchCart(userId)
   }
 
-  async function clearCart(userId) {
+  async function emptyCart(userId) {
     await axios.delete(`/api/orderdetails/${userId}`)
     dispatch({ type: CLEAR_CART })
     fetchCart(userId)
@@ -46,9 +46,9 @@ export function useCart() {
     setisLoading,
     updateCart,
     fetchCart,
-    clearCart,
+    emptyCart,
     async grabLocaLStorageMerge(pastCart, cartFromLocalStorage) {
-        dispatch({type: GRAB_CART, pastCart, cartFromLocalStorage})
+      dispatch({type: GRAB_CART, pastCart, cartFromLocalStorage})
     }
   }
 }

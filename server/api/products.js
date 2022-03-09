@@ -24,7 +24,20 @@ productRouter.get('/', async (req, res, next) => {
   }
 });
 
-productRouter.get('/:category', async (req, res, next) => {
+productRouter.get(`/:id`, async(req, res, next) => {
+  try {
+    const product = await Product.findOne({
+      where: {
+        id: req.params.id,
+      }
+    });
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
+});
+
+productRouter.get('/all/:category', async (req, res, next) => {
   try {
     const categories = await Product.findAll({
       where: {
@@ -37,21 +50,6 @@ productRouter.get('/:category', async (req, res, next) => {
   }
 });
 
-productRouter.get(`/:id`, async(req, res, next) => {
-  try {
-    const product = await Product.findOne({
-      where: {
-        id: req.params.id,
-      },
-      attributes: {
-        exclude: ['favorite', 'status'],
-      },
-    });
-    res.json(product);
-  } catch (error) {
-    next(error);
-  }
-});
 
 productRouter.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
@@ -72,6 +70,7 @@ productRouter.put(
   // isAdmin,
   async (req, res, next) => {
     try {
+      console.log(req.body)
       // if (!req.user.isAdmin) {
       //   return res.status(403).send('You have hit a security barrier!');
       // }

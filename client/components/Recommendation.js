@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useContext } from "react";
+import { useSelector } from 'react-redux'
 import { useProducts } from "./ProductsProvider";
 import Product from "./Product";
 import { Link } from "react-router-dom";
@@ -7,11 +8,16 @@ import { CartContext, useCart } from "./Cart/CartProvider";
 
 const Recommendation = () => {
   const { mapArr, setSingleProduct } = useProducts();
+  let userId = 0
+  const isLoggedIn = useSelector((state) => {
+    userId = state.auth.id;
+    return !!state.auth.id;
+  });
   const { updateCart } = useCart();
   const state = useContext(CartContext);
 
   function handleUpdate(product) {
-    updateCart(state.order.id, product.id, 1);
+      updateCart(userId, product.id, 1)
   }
 
   return (
